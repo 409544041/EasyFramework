@@ -3,7 +3,7 @@ welcome, who like the burr puzzle and make it!
 
 2016-09-08 01:22 -create ssh key
 
-2016-09-08 01:51 -summary£º
+2016-09-08 01:51 -summary:
 	
 1.set user name and email
 	$ git config --global user.name "humingx"

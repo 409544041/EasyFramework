@@ -1,5 +1,6 @@
-# burr-puzzle
-welcome, who like the burr puzzle and make it!
+# simple-frame
+welcome, this framework is based on my years of project experience summed up.
+i hope everyone like it and easy to use,cheers!
 
 2016-09-08 01:22 -create ssh key
 

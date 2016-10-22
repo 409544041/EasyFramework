@@ -32,3 +32,7 @@ i hope everyone like it and easy to use,cheers!
 	url = https://github.com/...
 	change to
 	url = git@github.com/...
+
+2016-10-22 14:18 -create unity project ver5.4.1f1
+
+2016-10-22 14:27 -add uniRx plugin ver5.5.0

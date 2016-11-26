@@ -1,29 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization;
+using System.Text;
 using System.IO;
+using System;
 
 // create by chaolun 2016/11/26
 public class EasyWriter
 {
-
-	static public void Serialize (string path, Hashtable hashtable)
+	static public void Serialize<T> (string path, T t)
 	{
-		Hashtable hs = Deserialize (path);
-		if (hashtable != null && hs != null) {
-			IEnumerator enumerator = hs.Keys.GetEnumerator ();
-			while (enumerator.MoveNext ()) {
-				if (!hashtable.ContainsKey (enumerator.Current)) {
-					hashtable.Add (enumerator.Current, hs [enumerator.Current]);
-				}
-			}
-		}
 		FileStream fs = new FileStream (path, FileMode.OpenOrCreate);
-		BinaryFormatter formatter = new BinaryFormatter ();
 		try {
-			formatter.Serialize (fs, hashtable);
-		} catch (SerializationException e) {
+			#if UNITY_EDITOR
+			string serialize = JsonUtility.ToJson (t, true);
+			#else
+			string serialize = JsonUtility.ToJson (t);
+			#endif
+			byte[] bytes = Encoding.UTF8.GetBytes (serialize);
+			fs.Write (bytes, 0, bytes.Length);
+		} catch (Exception e) {
 			Debug.LogError ("Failed to serialize. Reason: " + e.Message);
 			throw;
 		} finally {
@@ -31,21 +25,23 @@ public class EasyWriter
 		}
 	}
 
-	static public Hashtable Deserialize (string path)
+	static public T Deserialize<T> (string path)
 	{
-		Hashtable hashtable = null;
+		T t = default (T);
 		if (File.Exists (path)) {
 			FileStream fs = new FileStream (path, FileMode.Open);
 			try {
-				BinaryFormatter formatter = new BinaryFormatter ();
-				hashtable = (Hashtable)formatter.Deserialize (fs);
-			} catch (SerializationException e) {
+				byte[] bytes = new byte[(int)fs.Length];
+				fs.Read (bytes, 0, bytes.Length);
+				string value = Encoding.UTF8.GetString (bytes);
+				t = JsonUtility.FromJson<T> (value);
+			} catch (Exception e) {
 				Debug.LogError ("Failed to deserialize. Reason: " + e.Message);
 				throw;
 			} finally {
 				fs.Close ();
 			}
 		}
-		return hashtable;
+		return t;
 	}
 }

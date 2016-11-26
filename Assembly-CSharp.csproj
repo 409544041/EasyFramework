@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Utilities\EasySeries\Example\Scripts\EasyWriterExample.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\Scripts\EasyJson.cs" />
      <Compile Include="Assets\Utilities\EasySeries\Scripts\EasyWriter.cs" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">

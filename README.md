@@ -36,3 +36,9 @@ i hope everyone like it and easy to use,cheers!
 2016-10-22 14:18 -create unity project ver5.4.1f1
 
 2016-10-22 14:27 -add uniRx plugin ver5.5.0
+
+2016-11-26 16:02 create submodule : 
+	-1.remove uniRx plugin ver5.5.0
+	-2.create easy plugins repository
+	-3.git submodule add  git@github.com:chaolunner/EasyPlugins.git Assets/Plugins
+	-4.add uniRx plugin to Plugins folder

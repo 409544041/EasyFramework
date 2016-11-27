@@ -2,13 +2,14 @@
 using System.Text;
 using System.IO;
 using System;
+using System.Runtime.Serialization.Formatters.Binary;
 
 // create by chaolun 2016/11/26
 public class EasyWriter
 {
 	static public void Serialize<T> (string path, T t)
 	{
-		FileStream fs = new FileStream (path, FileMode.OpenOrCreate);
+		FileStream fs = new FileStream (path, FileMode.Create);
 		try {
 			#if UNITY_EDITOR
 			string serialize = JsonUtility.ToJson (t, true);
@@ -43,5 +44,34 @@ public class EasyWriter
 			}
 		}
 		return t;
+	}
+
+	public static byte[] SerializeObject (object obj)
+	{
+		if (obj == null) {
+			return null;
+		}
+		MemoryStream ms = new MemoryStream ();
+		BinaryFormatter formatter = new BinaryFormatter ();
+		formatter.Serialize (ms, obj);
+		ms.Position = 0;
+		byte[] bytes = ms.GetBuffer ();
+		ms.Read (bytes, 0, bytes.Length);
+		ms.Close ();
+		return bytes;
+	}
+
+	public static object DeserializeObject (byte[] bytes)
+	{
+		object obj = null;
+		if (bytes == null) {
+			return obj;
+		}
+		MemoryStream ms = new MemoryStream (bytes);
+		ms.Position = 0;
+		BinaryFormatter formatter = new BinaryFormatter ();
+		obj = formatter.Deserialize (ms);
+		ms.Close ();
+		return obj;
 	}
 }

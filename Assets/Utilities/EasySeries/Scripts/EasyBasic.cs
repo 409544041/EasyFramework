@@ -4,24 +4,35 @@ using System;
 
 // create by chaolun 2016/11/26
 [Serializable]
-public class EasyJson<T>
+public partial class EasyBasic<T>
 {
 	[SerializeField]
-	private List<T> target;
+	protected List<T> value;
 
 	public List<T> ToList ()
 	{
-		return target;
+		return this.value;
 	}
 
-	public EasyJson (List<T> target)
+	public EasyBasic ()
 	{
-		this.target = target;
+		
+	}
+
+	public EasyBasic (List<T> value)
+	{
+		this.value = value;
+	}
+
+	public EasyBasic (T[] value)
+	{
+		this.value = new List<T> ();
+		this.value.AddRange (value);
 	}
 }
 
 [Serializable]
-public class EasyJson<TKey, TValue> : ISerializationCallbackReceiver
+public partial class EasyBasic<TKey, TValue> : ISerializationCallbackReceiver
 {
 	[SerializeField]
 	private List<TKey> keys;
@@ -29,7 +40,7 @@ public class EasyJson<TKey, TValue> : ISerializationCallbackReceiver
 	private List<TValue> values;
 	private Dictionary<TKey, TValue> target;
 
-	public EasyJson (Dictionary<TKey, TValue> target)
+	public EasyBasic (Dictionary<TKey, TValue> target)
 	{
 		this.target = target;
 	}

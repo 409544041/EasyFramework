@@ -45,10 +45,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Utilities\EasySeries\Example\Scripts\EasyWriterExample.cs" />
-     <Compile Include="Assets\Utilities\EasySeries\Scripts\EasyBasic.cs" />
-     <Compile Include="Assets\Utilities\EasySeries\Scripts\EasyBasicType.cs" />
-     <Compile Include="Assets\Utilities\EasySeries\Scripts\EasyWriter.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyBasic.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyBasicType.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyPaint.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyWriter.cs" />
+     <Compile Include="Assets\Utilities\Example\Scripts\EasyWriterExample.cs" />
+     <Compile Include="Assets\Utilities\Factory\EasyAsset.cs" />
+     <Compile Include="Assets\Utilities\Factory\ScriptableObjectFactory.cs" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

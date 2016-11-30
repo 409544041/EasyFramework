@@ -6,6 +6,8 @@ using System.Text;
 // create by chaolun 2016/11/26
 public class EasyWriterExample : MonoBehaviour
 {
+	[SerializeField]
+	private GameObject gameObject;
 
 	void Start ()
 	{

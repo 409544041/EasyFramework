@@ -5,6 +5,8 @@ Project("{C208A6DB-63F4-F426-A2DE-92A00E33E225}") = "simple-frame", "Assembly-CS
 EndProject
 Project("{C208A6DB-63F4-F426-A2DE-92A00E33E225}") = "simple-frame", "Assembly-CSharp.csproj", "{9F50DBF1-492F-A5E3-CB40-E996F72912B8}"
 EndProject
+Project("{C208A6DB-63F4-F426-A2DE-92A00E33E225}") = "simple-frame", "Assembly-CSharp-Editor.csproj", "{DC45F0BA-C567-C981-745E-00E7BC333181}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{9F50DBF1-492F-A5E3-CB40-E996F72912B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F50DBF1-492F-A5E3-CB40-E996F72912B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F50DBF1-492F-A5E3-CB40-E996F72912B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC45F0BA-C567-C981-745E-00E7BC333181}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC45F0BA-C567-C981-745E-00E7BC333181}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC45F0BA-C567-C981-745E-00E7BC333181}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC45F0BA-C567-C981-745E-00E7BC333181}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

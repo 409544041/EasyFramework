@@ -6,15 +6,29 @@ using UnityEditor;
 #endif
 
 [System.Serializable]
-public class EasyAsset : ScriptableObject,IScriptableObjectLoadCallback
+public class EasyAsset : EasyAsset<Object>
+{
+	protected override string GetKey (Object item)
+	{
+		return (item as Object).name;
+	}
+}
+
+[System.Serializable]
+public class EasyAsset<T> : ScriptableObject,IScriptableObjectLoadCallback
 {
 	[SerializeField]
-	private List<Object> values;
-	private Dictionary<string, Object> target;
+	private List<T> values;
+	private Dictionary<string, T> target;
 
-	public Dictionary<string, Object> ToDictionary ()
+	public Dictionary<string, T> ToDictionary ()
 	{
 		return target;
+	}
+
+	protected virtual string GetKey (T item)
+	{
+		return null;
 	}
 
 	public void OnAfterAssetLoaded ()
@@ -25,8 +39,8 @@ public class EasyAsset : ScriptableObject,IScriptableObjectLoadCallback
 	public void Awake ()
 	{
 		if (values == null)
-			values = new List<Object> ();
-		target = new Dictionary<string, Object> ();
+			values = new List<T> ();
+		target = new Dictionary<string, T> ();
 		if (values != null && values.Count > 0)
 			AddRange (values.ToArray ());
 	}
@@ -38,36 +52,36 @@ public class EasyAsset : ScriptableObject,IScriptableObjectLoadCallback
 		#endif
 	}
 
-	public void Add (Object item)
+	public void Add (T item)
 	{
 		if (item == null)
 			return;
 		if (!values.Contains (item)) {
 			values.Add (item);
 		}
-		if (!target.ContainsKey (item.name)) {
-			target.Add (item.name, item);
+		if (!target.ContainsKey (GetKey (item))) {
+			target.Add (GetKey (item), item);
 		}
 		#if UNITY_EDITOR
 		AssetDatabase.SaveAssets ();
 		#endif
 	}
 
-	public void AddRange (Object[] items)
+	public void AddRange (T[] items)
 	{
 		for (int i = 0; i < items.Length; i++) {
 			Add (items [i]);
 		}
 	}
 
-	public void Remove (Object item)
+	public void Remove (T item)
 	{
 		if (item == null)
 			return;
 		if (values.Contains (item))
 			values.Remove (item);
-		if (target.ContainsKey (item.name))
-			target.Remove (item.name);
+		if (target.ContainsKey (GetKey (item)))
+			target.Remove (GetKey (item));
 		#if UNITY_EDITOR
 		AssetDatabase.SaveAssets ();
 		#endif
@@ -78,7 +92,7 @@ public class EasyAsset : ScriptableObject,IScriptableObjectLoadCallback
 		if (string.IsNullOrEmpty (name))
 			return;
 		if (target.ContainsKey (name)) {
-			Object o = target [name];
+			T o = target [name];
 			if (values.Contains (o)) {
 				values.Remove (o);
 			}
@@ -89,7 +103,7 @@ public class EasyAsset : ScriptableObject,IScriptableObjectLoadCallback
 		#endif
 	}
 
-	public void RemoveRange (Object[] items)
+	public void RemoveRange (T[] items)
 	{
 		for (int i = 0; i < items.Length; i++) {
 			Remove (items [i]);
@@ -105,8 +119,8 @@ public class EasyAsset : ScriptableObject,IScriptableObjectLoadCallback
 
 	public void Clear ()
 	{
-		target = new Dictionary<string, Object> ();
-		values = new List<Object> ();
+		target = new Dictionary<string, T> ();
+		values = new List<T> ();
 		#if UNITY_EDITOR
 		AssetDatabase.SaveAssets ();
 		#endif

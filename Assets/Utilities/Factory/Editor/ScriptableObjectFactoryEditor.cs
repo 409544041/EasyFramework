@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// A helper class for instantiating ScriptableObjects in the editor.
 /// </summary>
-public class ScriptableObjectFactory
+public class ScriptableObjectFactoryEditor
 {
 	[MenuItem ("Assets/Create/ScriptableObjectFactory")]
 	public static void CreateScriptableObject ()

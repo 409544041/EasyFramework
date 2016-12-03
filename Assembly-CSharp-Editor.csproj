@@ -46,9 +46,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Utilities\EasySeries\Editor\DecoratorEditor.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\Editor\EasyAssembly.cs" />
      <Compile Include="Assets\Utilities\EasySeries\Editor\EasyRectTransform.cs" />
      <Compile Include="Assets\Utilities\EasySeries\Editor\EasyTransform.cs" />
-     <Compile Include="Assets\Utilities\Factory\Editor\ScriptableObjectFactory.cs" />
+     <Compile Include="Assets\Utilities\Factory\Editor\BlockFactoryEditor.cs" />
+     <Compile Include="Assets\Utilities\Factory\Editor\ScriptableObjectFactoryEditor.cs" />
      <Compile Include="Assets\Utilities\Factory\Editor\ScriptableObjectWindow.cs" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
  <Reference Include="UnityEditor.Advertisements">

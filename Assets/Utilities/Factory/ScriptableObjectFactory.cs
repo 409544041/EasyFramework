@@ -12,6 +12,19 @@ public interface IScriptableObjectLoadCallback
 
 public class ScriptableObjectFactory
 {
+	static public void SaveAssetPanel<T> (T asset, string defaultName = "New ScriptableObject")
+	{
+		#if UNITY_EDITOR
+		string path = EditorUtility.SaveFilePanel ("Save .asset file to folder", Application.dataPath, defaultName, "asset");
+		if (!string.IsNullOrEmpty (path)) {
+			if (path.Contains (Application.dataPath))
+				CreateAsset (asset, path.Replace (Application.dataPath, "Assets"));
+			else
+				Debug.LogError ("Sorry, we can't save .asset file out of assets folder!");
+		}
+		#endif
+	}
+
 	static public T CreateAsset<T> (T asset, string assetPath)
 	{
 		#if UNITY_EDITOR

@@ -21,7 +21,7 @@ public class BlockFactoryEditor : Editor
 				asset.Add (block);
 			}
 		}
-		ScriptableObjectFactory.CreateAsset<EasyBlock> (asset, "Assets/" + parent.name + ".asset");
+		ScriptableObjectFactory.SaveAssetPanel<EasyBlock> (asset, asset.name);
 	}
 
 	[InitializeOnLoadMethod]

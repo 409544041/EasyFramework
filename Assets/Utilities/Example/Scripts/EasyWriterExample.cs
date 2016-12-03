@@ -8,6 +8,8 @@ public class EasyWriterExample : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject gameObject;
+	[SerializeField]
+	private EasyBlock block;
 
 	void Start ()
 	{
@@ -28,5 +30,9 @@ public class EasyWriterExample : MonoBehaviour
 			object o = EasyWriter.DeserializeObject (dic [e.Current].ToList ().ToArray ());
 			Debug.Log (e.Current + " : " + o);
 		}
+
+		BlockFactory.Instance.AddBlock (block);
+		BlockFactory.Instance.CreateSnapShot ("cube", new List<string> { block.name });
+		BlockFactory.Instance.CreateBlockBySnapShots ("cube");
 	}
 }

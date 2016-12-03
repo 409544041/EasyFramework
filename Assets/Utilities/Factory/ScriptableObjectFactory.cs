@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 
 #if UNITY_EDITOR
 using System.Reflection;
@@ -17,9 +18,11 @@ public class ScriptableObjectFactory
 		#if UNITY_EDITOR
 		string path = EditorUtility.SaveFilePanel ("Save .asset file to folder", Application.dataPath, defaultName, "asset");
 		if (!string.IsNullOrEmpty (path)) {
-			if (path.Contains (Application.dataPath))
-				CreateAsset (asset, path.Replace (Application.dataPath, "Assets"));
-			else
+			if (path.Contains (Application.dataPath)) {
+				string assetPath = path.Replace (Application.dataPath, "Assets");
+				CreateAsset (asset, assetPath);
+				ProjectWindowUtil.ShowCreatedAsset (AssetDatabase.LoadAssetAtPath<Object> (assetPath));
+			} else
 				Debug.LogError ("Sorry, we can't save .asset file out of assets folder!");
 		}
 		#endif
@@ -29,8 +32,10 @@ public class ScriptableObjectFactory
 	{
 		#if UNITY_EDITOR
 		if (asset.GetType ().IsSubclassOf (typeof(ScriptableObject))) {
-			AssetDatabase.DeleteAsset (assetPath);
-			AssetDatabase.CreateAsset (asset as Object, AssetDatabase.GenerateUniqueAssetPath (assetPath));
+			if (File.Exists (assetPath)) {
+				AssetDatabase.CreateAsset (asset as Object, assetPath);
+			} else
+				AssetDatabase.CreateAsset (asset as Object, AssetDatabase.GenerateUniqueAssetPath (assetPath));
 			AssetDatabase.Refresh ();
 			return LoadAssetAtPath<T> (assetPath);
 		} else {

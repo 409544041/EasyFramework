@@ -10,7 +10,7 @@ public class BlockFactoryEditor : Editor
 		EasyBlock asset = ScriptableObject.CreateInstance<EasyBlock> ();
 		asset.name = parent.name;
 		foreach (Transform child in parent.transform) {
-			BlockObject block = new BlockObject (child.name);
+			BlockObject block = new BlockObject (child.name + child.GetSiblingIndex ());
 			if (PrefabUtility.GetPrefabType (child.gameObject) != PrefabType.None) {
 				block.gameObject = PrefabUtility.GetPrefabParent (child.gameObject) as GameObject;
 				block.localPosition = child.localPosition;

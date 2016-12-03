@@ -33,10 +33,10 @@ public class EasyAsset<T> : ScriptableObject,IScriptableObjectLoadCallback
 
 	public void OnAfterAssetLoaded ()
 	{
-		this.Awake ();
+		this.OnEnable ();
 	}
 
-	public void Awake ()
+	public void OnEnable ()
 	{
 		if (values == null)
 			values = new List<T> ();

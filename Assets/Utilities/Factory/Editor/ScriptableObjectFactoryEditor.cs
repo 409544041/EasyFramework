@@ -17,6 +17,7 @@ public class ScriptableObjectFactoryEditor
 		// Get all classes derived from ScriptableObject
 		var allScriptableObjects = (from t in assembly.GetTypes ()
 		                            where t.IsSubclassOf (typeof(ScriptableObject))
+									where !t.IsGenericType
 		                            select t).ToArray ();
 
 		// Show the selection window.

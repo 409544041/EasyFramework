@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class EasyBlock : EasyAsset<BlockObject>
 {
 	protected override string GetKey (BlockObject item)

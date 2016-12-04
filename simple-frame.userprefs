@@ -1,12 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Factory\Editor\BlockFactoryEditor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\EasySeries\EasyDataType.cs">
     <Files>
-      <File FileName="Assets\Utilities\Example\Scripts\EasyWriterExample.cs" Line="22" Column="24" />
-      <File FileName="Assets\Utilities\EasySeries\EasyCsv.cs" Line="115" Column="3" />
-      <File FileName="Assets\Utilities\Factory\BlockFactory.cs" Line="4" Column="42" />
-      <File FileName="Assets\Utilities\EasySeries\EasyAsset.cs" Line="19" Column="2" />
-      <File FileName="Assets\Utilities\Factory\Editor\BlockFactoryEditor.cs" Line="3" Column="25" />
+      <File FileName="Assets\Utilities\Example\Scripts\EasyExample.cs" Line="39" Column="3" />
+      <File FileName="Assets\Utilities\EasySeries\EasyWriterPrefs.cs" Line="15" Column="3" />
+      <File FileName="Assets\Utilities\Factory\ScriptableObjectFactory.cs" Line="36" Column="52" />
+      <File FileName="Assets\Utilities\EasySeries\EasyDataType.cs" Line="5" Column="2" />
+      <File FileName="Assets\Utilities\EasySeries\EasyData.cs" Line="43" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

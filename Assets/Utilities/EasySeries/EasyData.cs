@@ -9,15 +9,11 @@ public class EasyData
 	private TypeCode typeCode;
 	[SerializeField]
 	private string value;
-	[SerializeField]
-	private byte[] bytes;
 
 	public object GetObject ()
 	{
 		if (!string.IsNullOrEmpty (value)) {
 			return Convert.ChangeType (value, typeCode);
-		} else if (bytes != null && bytes.Length > 0) {
-			return EasyWriter.DeserializeObject (bytes);
 		}
 		return default (object);
 	}
@@ -31,8 +27,6 @@ public class EasyData
 		Type type = value.GetType ();
 		if (type.IsSerializable) {
 			this.value = Convert.ChangeType (value, typeof(string)).ToString ();
-		} else {
-			bytes = EasyWriter.SerializeObject (value);
 		}
 		typeCode = Type.GetTypeCode (type);
 	}

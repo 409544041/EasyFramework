@@ -4,7 +4,7 @@ using System.IO;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class EasyWriter
+public partial class EasyWriter
 {
 	static public void Serialize<T> (string path, T t)
 	{

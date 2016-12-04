@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UniRx;
 
-public class EasyPrefs : IDisposable
+public partial class EasyWriter : IDisposable
 {
 	private string filePath;
 	private static Dictionary<string, EasyData<string, EasyData>> files;
@@ -14,7 +14,7 @@ public class EasyPrefs : IDisposable
 		}
 	}
 
-	public EasyPrefs (string path)
+	public EasyWriter (string path)
 	{
 		filePath = path;
 		if (files == null) {
@@ -24,12 +24,12 @@ public class EasyPrefs : IDisposable
 			});
 		}
 		if (!files.ContainsKey (filePath))
-			files.Add (filePath, EasyWriter.Deserialize<EasyData<string, EasyData>> (filePath));
+			files.Add (filePath, Deserialize<EasyData<string, EasyData>> (filePath));
 	}
 
 	public void Dispose ()
 	{
-		EasyWriter.Serialize<EasyData<string, EasyData>> (filePath, target);
+		Serialize<EasyData<string, EasyData>> (filePath, target);
 	}
 
 	public object GetObject (string key)

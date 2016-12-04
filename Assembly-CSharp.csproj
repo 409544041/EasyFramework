@@ -46,10 +46,10 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Utilities\EasySeries\EasyAsset.cs" />
-     <Compile Include="Assets\Utilities\EasySeries\EasyBasic.cs" />
-     <Compile Include="Assets\Utilities\EasySeries\EasyBasicType.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyBlock.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyCsv.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyData.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyDataType.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyPaint.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyWriter.cs" />
      <Compile Include="Assets\Utilities\Example\Scripts\EasyWriterExample.cs" />

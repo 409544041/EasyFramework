@@ -4,7 +4,6 @@ using System.IO;
 using System;
 using System.Runtime.Serialization.Formatters.Binary;
 
-// create by chaolun 2016/11/26
 public class EasyWriter
 {
 	static public void Serialize<T> (string path, T t)
@@ -64,7 +63,7 @@ public class EasyWriter
 	public static object DeserializeObject (byte[] bytes)
 	{
 		object obj = null;
-		if (bytes == null) {
+		if (bytes == null || bytes.Length <= 0) {
 			return obj;
 		}
 		MemoryStream ms = new MemoryStream (bytes);

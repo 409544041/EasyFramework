@@ -51,6 +51,7 @@
      <Compile Include="Assets\Utilities\EasySeries\EasyData.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyDataType.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyPaint.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyPrefs.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyWriter.cs" />
      <Compile Include="Assets\Utilities\Example\Scripts\EasyWriterExample.cs" />
      <Compile Include="Assets\Utilities\Factory\BlockFactory.cs" />

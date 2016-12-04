@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using System;
 
 // create by chaolun 2016/11/26
 public class EasyWriterExample : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject gameObject;
+	private GameObject go;
 	[SerializeField]
 	private EasyBlock[] blocks;
 
@@ -26,15 +25,24 @@ public class EasyWriterExample : MonoBehaviour
 //		string path = Path.GetFullPath (Application.persistentDataPath);
 //		System.Diagnostics.Process.Start ("explorer.exe", path);
 
-		EasyData<string, EasyData> easyJson = EasyWriter.Deserialize<EasyData<string, EasyData>> (Application.persistentDataPath + "/example.json");
-		dic = easyJson.ToDictionary ();
-//		Dictionary<string, EasyData>.KeyCollection.Enumerator e = dic.Keys.GetEnumerator ();
-//		while (e.MoveNext ()) {
-//			int o = dic [e.Current].GetObject<int> ();
-//			Debug.Log (e.Current + " : " + o);
-//		}
-		bool o = (bool)dic ["bool"].GetObject ();
-		Debug.Log ("bool" + " : " + o);
+		EasyPrefs prefs = new EasyPrefs (Application.persistentDataPath + "/example.json");
+		Debug.Log (prefs.GetObject ("empty"));
+		Debug.Log (prefs.GetObject ("bool"));
+		Debug.Log (prefs.GetObject ("int"));
+		Debug.Log (prefs.GetObject ("float"));
+		Debug.Log (prefs.GetObject ("string"));
+
+		prefs.SetObject ("empty", "");
+		prefs.SetObject ("bool", true);
+		prefs.SetObject ("int", -123456789);
+		prefs.SetObject ("float", -0.123456789f);
+		prefs.SetObject ("string", "酷，现在我们可以在一个文件中储存各种类型的数据了！");
+
+		Debug.Log (prefs.GetObject ("empty"));
+		Debug.Log (prefs.GetObject ("bool"));
+		Debug.Log (prefs.GetObject ("int"));
+		Debug.Log (prefs.GetObject ("float"));
+		Debug.Log (prefs.GetObject ("string"));
 
 		List<string> list = new List<string> ();
 		for (int i = 0; i < blocks.Length; i++) {

@@ -33,7 +33,9 @@ public class ScriptableObjectFactory
 		#if UNITY_EDITOR
 		if (asset.GetType ().IsSubclassOf (typeof(ScriptableObject))) {
 			if (File.Exists (assetPath)) {
-				AssetDatabase.CreateAsset (asset as Object, assetPath);
+				Object o = LoadAssetAtPath<Object> (assetPath);
+				string json = JsonUtility.ToJson (asset);
+				JsonUtility.FromJsonOverwrite (json, o);
 			} else
 				AssetDatabase.CreateAsset (asset as Object, AssetDatabase.GenerateUniqueAssetPath (assetPath));
 			AssetDatabase.Refresh ();

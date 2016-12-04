@@ -21,6 +21,12 @@ public class EasyAsset<T> : ScriptableObject,IScriptableObjectLoadCallback
 	private List<T> values;
 	private Dictionary<string, T> target;
 
+	public int Count {
+		get {
+			return values.Count;
+		}
+	}
+
 	public Dictionary<string, T> ToDictionary ()
 	{
 		return target;

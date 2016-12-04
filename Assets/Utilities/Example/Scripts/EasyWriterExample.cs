@@ -9,7 +9,7 @@ public class EasyWriterExample : MonoBehaviour
 	[SerializeField]
 	private GameObject gameObject;
 	[SerializeField]
-	private EasyBlock block;
+	private EasyBlock[] blocks;
 
 	void Start ()
 	{
@@ -31,8 +31,12 @@ public class EasyWriterExample : MonoBehaviour
 			Debug.Log (e.Current + " : " + o);
 		}
 
-		BlockFactory.Instance.AddBlock (block);
-		BlockFactory.Instance.CreateSnapShot ("cube", new List<string> { block.name });
-		BlockFactory.Instance.CreateBlockBySnapShots ("cube");
+		List<string> list = new List<string> ();
+		for (int i = 0; i < blocks.Length; i++) {
+			BlockFactory.Instance.AddBlock (blocks [i]);
+			list.Add (blocks [i].name);
+		}
+		BlockFactory.Instance.CreateSnapShot ("cubes", list);
+		BlockFactory.Instance.CreateBlockBySnapShots ("cubes");
 	}
 }

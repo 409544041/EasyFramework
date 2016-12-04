@@ -4,9 +4,8 @@ using System.Reflection;
 
 public class BlockFactoryEditor : Editor
 {
-	static void CreateBlock (object obj)
+	static public EasyBlock CreateBlock (GameObject parent)
 	{
-		var parent = obj as GameObject;
 		EasyBlock asset = ScriptableObject.CreateInstance<EasyBlock> ();
 		asset.name = parent.name;
 		foreach (Transform child in parent.transform) {
@@ -21,7 +20,37 @@ public class BlockFactoryEditor : Editor
 				asset.Add (block);
 			}
 		}
-		ScriptableObjectFactory.SaveAssetPanel<EasyBlock> (asset, asset.name);
+		return asset;
+	}
+
+	static void ExportBlock (object obj)
+	{
+		EasyBlock asset = CreateBlock (obj as GameObject);
+		if (asset.Count > 0)
+			ScriptableObjectFactory.SaveAssetPanel<EasyBlock> (asset, asset.name);
+	}
+
+	static void ExportBlockGroup (object obj)
+	{
+		var root = obj as GameObject;
+		if (root.transform.childCount > 0) {
+			string path = EditorUtility.SaveFolderPanel ("Select export .asset file's folder", Application.dataPath, "Rescources");
+			if (!string.IsNullOrEmpty (path)) {
+				if (path.Contains (Application.dataPath)) {
+					string assetPath = "";
+					foreach (Transform parent in root.transform) {
+						EasyBlock asset = CreateBlock (parent.gameObject);
+						if (asset.Count > 0) {
+							assetPath = path.Replace (Application.dataPath, "Assets");
+							assetPath += "/" + parent.name + parent.GetSiblingIndex () + ".asset";
+							ScriptableObjectFactory.CreateAsset (asset, assetPath);
+						}
+					}
+					ProjectWindowUtil.ShowCreatedAsset (AssetDatabase.LoadAssetAtPath<Object> (assetPath));
+				} else
+					Debug.LogError ("Sorry, we can't save .asset file out of assets folder!");
+			}
+		}
 	}
 
 	[InitializeOnLoadMethod]
@@ -53,7 +82,8 @@ public class BlockFactoryEditor : Editor
 				}
 
 				genericMenu.AddSeparator ("");
-				genericMenu.AddItem (new GUIContent ("BlockFactory/Create Block"), false, CreateBlock, selectedGameObject);
+				genericMenu.AddItem (new GUIContent ("BlockFactory/Export Block"), false, ExportBlock, selectedGameObject);
+				genericMenu.AddItem (new GUIContent ("BlockFactory/Export Block Group"), false, ExportBlockGroup, selectedGameObject);
 				genericMenu.ShowAsContext ();
 			}			
 		}

@@ -68,9 +68,6 @@ public class EasyAsset<T> : ScriptableObject,IScriptableObjectLoadCallback
 		if (!target.ContainsKey (GetKey (item))) {
 			target.Add (GetKey (item), item);
 		}
-		#if UNITY_EDITOR
-		AssetDatabase.SaveAssets ();
-		#endif
 	}
 
 	public void AddRange (T[] items)

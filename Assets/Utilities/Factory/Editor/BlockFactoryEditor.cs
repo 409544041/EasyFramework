@@ -23,14 +23,14 @@ public class BlockFactoryEditor : Editor
 		return asset;
 	}
 
-	static void ExportBlock (object obj)
+	static public void ExportBlock (object obj)
 	{
 		EasyBlock asset = CreateBlock (obj as GameObject);
 		if (asset.Count > 0)
 			ScriptableObjectFactory.SaveAssetPanel<EasyBlock> (asset, asset.name);
 	}
 
-	static void ExportBlockGroup (object obj)
+	static public void ExportBlockGroup (object obj)
 	{
 		var root = obj as GameObject;
 		if (root.transform.childCount > 0) {

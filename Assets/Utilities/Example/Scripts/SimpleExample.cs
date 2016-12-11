@@ -11,6 +11,12 @@ public class SimpleExample : MonoBehaviour
 	[SerializeField]
 	private EasyBlock[] blocks;
 
+	[System.Serializable]
+	public struct SimpleData
+	{
+		public Vector3 position;
+	}
+
 	void Start ()
 	{
 		EasyWriter writer = new EasyWriter (Application.persistentDataPath + "/example.json");
@@ -25,6 +31,11 @@ public class SimpleExample : MonoBehaviour
 		writer.SetArray<int> ("int[]", new int[] { -1, -2, -3, 4, 5, 6, 7, -8, -9 });
 		writer.SetArray<float> ("float[]", new float[] { -0.12f, -34.56f, 7.89f, 1.114f });
 		writer.SetArray<string> ("string[]", new string[] { "a0", "b1", "c2", "d3", "e4", "f5" });
+		writer.Set<SimpleData> ("simple data", new SimpleData () { position = new Vector3 (100, 120, -200) });
+		writer.SetArray<SimpleData> ("simple data array", new SimpleData [] {
+			new SimpleData { position = new Vector3 (-520, 950, -730) },
+			new SimpleData { position = new Vector3 (725, -942, 146) }
+		});
 
 		Debug.Log (writer.Get<byte> ("byte"));
 		Debug.Log (writer.Get<bool> ("bool"));
@@ -36,6 +47,8 @@ public class SimpleExample : MonoBehaviour
 		Debug.Log (writer.GetArray<int> ("int[]") [4]);
 		Debug.Log (writer.GetArray<float> ("float[]") [3]);
 		Debug.Log (writer.GetArray<string> ("string[]") [5]);
+		Debug.Log (writer.Get<SimpleData> ("simple data").position);
+		Debug.Log (writer.GetArray<SimpleData> ("simple data array") [0].position);
 
 //		string path = Path.GetFullPath (Application.persistentDataPath);
 //		System.Diagnostics.Process.Start ("explorer.exe", path);

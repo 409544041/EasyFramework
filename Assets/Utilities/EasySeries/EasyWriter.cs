@@ -144,11 +144,11 @@ public partial class EasyWriter : IDisposable
 		if (type == (typeof(string))) {
 			return JsonUtility.ToJson (new EasyStrings (array as string[]));
 		} else if (type.IsSerializable && (type.IsClass || (type.IsValueType && !type.IsPrimitive))) {
-			string[] arg = new string[array.Length];
-			for (int i = 0; i < arg.Length; i++) {
-				arg [i] = JsonUtility.ToJson (array [i]);
+			string[] content = new string[array.Length];
+			for (int i = 0; i < content.Length; i++) {
+				content [i] = JsonUtility.ToJson (array [i]);
 			}
-			return JsonUtility.ToJson (new EasyStrings (array as string[]));
+			return JsonUtility.ToJson (new EasyStrings (content));
 		} else if (type.IsSerializable && type.IsValueType) {
 			if (type.IsPrimitive) {
 				EasyData[] datas = new EasyData[array.Length];

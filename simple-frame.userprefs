@@ -1,12 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\EasySeries\EasyDataType.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Example\Scripts\EasyExample.cs">
     <Files>
-      <File FileName="Assets\Utilities\Example\Scripts\EasyExample.cs" Line="39" Column="3" />
+      <File FileName="Assets\Utilities\Example\Scripts\EasyExample.cs" Line="52" Column="26" />
       <File FileName="Assets\Utilities\EasySeries\EasyWriterPrefs.cs" Line="15" Column="3" />
-      <File FileName="Assets\Utilities\Factory\ScriptableObjectFactory.cs" Line="36" Column="52" />
-      <File FileName="Assets\Utilities\EasySeries\EasyDataType.cs" Line="5" Column="2" />
-      <File FileName="Assets\Utilities\EasySeries\EasyData.cs" Line="43" Column="18" />
+      <File FileName="Assets\Utilities\Factory\ScriptableObjectFactory.cs" Line="9" Column="35" />
+      <File FileName="Assets\Utilities\EasySeries\EasyDataList.cs" Line="4" Column="38" />
+      <File FileName="Assets\Utilities\EasySeries\EasyData.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

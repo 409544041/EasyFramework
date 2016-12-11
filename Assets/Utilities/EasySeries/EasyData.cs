@@ -1,95 +1,86 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 
-[Serializable]
-public class EasyData
+[Serializable] public class EasyBytes : EasyData<byte>
 {
-	[SerializeField]
-	private TypeCode typeCode;
-	[SerializeField]
-	private string value;
-
-	public object GetObject ()
-	{
-		if (!string.IsNullOrEmpty (value)) {
-			return Convert.ChangeType (value, typeCode);
-		}
-		return default (object);
-	}
-
-	public EasyData ()
-	{
-	}
-
-	public EasyData (object value)
-	{
-		Type type = value.GetType ();
-		if (type.IsSerializable) {
-			this.value = Convert.ChangeType (value, typeof(string)).ToString ();
-		}
-		typeCode = Type.GetTypeCode (type);
-	}
-}
-
-[Serializable]
-public class EasyData<T>
-{
-	[SerializeField]
-	protected List<T> value;
-
-	public List<T> ToList ()
-	{
-		return this.value;
-	}
-
-	public EasyData ()
-	{
-	}
-
-	public EasyData (List<T> value)
+	public EasyBytes (List<byte> value)
 	{
 		this.value = value;
 	}
 
-	public EasyData (T[] value)
+	public EasyBytes (byte[] value)
 	{
-		this.value = new List<T> ();
+		this.value = new List<byte> ();
 		this.value.AddRange (value);
 	}
 }
 
-[Serializable]
-public partial class EasyData<TKey, TValue> : ISerializationCallbackReceiver
+[Serializable] public class EasyBools : EasyData<bool>
 {
-	[SerializeField]
-	private List<TKey> keys;
-	[SerializeField]
-	private List<TValue> values;
-	private Dictionary<TKey, TValue> target;
-
-	public EasyData (Dictionary<TKey, TValue> target)
+	public EasyBools (List<bool> value)
 	{
-		this.target = target;
+		this.value = value;
 	}
 
-	public void OnBeforeSerialize ()
+	public EasyBools (bool[] value)
 	{
-		keys = new List<TKey> (target.Keys);
-		values = new List<TValue> (target.Values);
+		this.value = new List<bool> ();
+		this.value.AddRange (value);
+	}
+}
+
+[Serializable] public class EasyInts : EasyData<int>
+{
+	public EasyInts (List<int> value)
+	{
+		this.value = value;
 	}
 
-	public void OnAfterDeserialize ()
+	public EasyInts (int[] value)
 	{
-		var count = Math.Min (keys.Count, values.Count);
-		target = new Dictionary<TKey, TValue> (count);
-		for (var i = 0; i < count; ++i) {
-			target.Add (keys [i], values [i]);
-		}
+		this.value = new List<int> ();
+		this.value.AddRange (value);
+	}
+}
+
+[Serializable] public class EasyFloats : EasyData<float>
+{
+	public EasyFloats (List<float> value)
+	{
+		this.value = value;
 	}
 
-	public Dictionary<TKey, TValue> ToDictionary ()
+	public EasyFloats (float[] value)
 	{
-		return target;
+		this.value = new List<float> ();
+		this.value.AddRange (value);
+	}
+}
+
+[Serializable] public class EasyStrings : EasyData<string>
+{
+	public EasyStrings (List<string> value)
+	{
+		this.value = value;
+	}
+
+	public EasyStrings (string[] value)
+	{
+		this.value = new List<string> ();
+		this.value.AddRange (value);
+	}
+}
+
+[Serializable] public class EasyObjects : EasyData<object>
+{
+	public EasyObjects (List<object> value)
+	{
+		this.value = value;
+	}
+
+	public EasyObjects (object[] value)
+	{
+		this.value = new List<object> ();
+		this.value.AddRange (value);
 	}
 }

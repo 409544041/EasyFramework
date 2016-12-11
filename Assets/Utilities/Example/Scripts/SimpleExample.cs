@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-public class EasyExample : MonoBehaviour
+public class SimpleExample : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject go;
@@ -39,19 +39,6 @@ public class EasyExample : MonoBehaviour
 		writer.SetObject ("string", "酷，现在我们可以在一个文件中储存各种类型的数据了！");
 
 //		File.WriteAllText (Application.persistentDataPath + "/asset.bytes", JsonUtility.ToJson (blocks [0]));
-		using (FileStream fsRead = new FileStream (UnityEditor.AssetDatabase.GetAssetPath (blocks [0]), FileMode.Open)) {
-			int fsLen = (int)fsRead.Length;
-			byte[] heByte = new byte[fsLen];
-			int r = fsRead.Read (heByte, 0, heByte.Length);
-			EasyBytes bytes = new EasyBytes (heByte);
-			writer.SetObject ("block", JsonUtility.ToJson (bytes));
-		} 
-		using (FileStream fsWrite = new FileStream (Application.persistentDataPath + "/export.asset", FileMode.Create)) {
-			EasyBytes myByte = JsonUtility.FromJson<EasyBytes> (writer.GetObject ("block").ToString ());
-			fsWrite.Write (myByte.ToList ().ToArray (), 0, myByte.ToList ().Count);
-
-			StartCoroutine (a (Application.persistentDataPath + "/export.asset"));
-		}
 
 		Debug.Log (writer.GetObject ("empty"));
 		Debug.Log (writer.GetObject ("bool"));

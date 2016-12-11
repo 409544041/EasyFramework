@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+[AddComponentMenu ("Factory/Block Factory")]
 public class BlockFactory : MonoBehaviour
 {
 	static private BlockFactory instance;

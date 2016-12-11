@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+[AddComponentMenu ("Factory/GameObject Factory")]
 public class GameObjectFactory : MonoBehaviour
 {
 	static private GameObjectFactory instance;

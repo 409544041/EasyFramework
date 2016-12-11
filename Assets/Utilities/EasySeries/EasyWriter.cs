@@ -87,28 +87,24 @@ public partial class EasyWriter : IDisposable
 		}
 	}
 
+	public T[] GetArray<T> (string key)
+	{
+		string content = Get<string> (key);
+		if (!string.IsNullOrEmpty (content)) {
+			return ConvertStringToArray<T> (content);
+		}
+		return default (T[]);
+	}
+
 	public void Set<T> (string key, T value)
 	{
 		Type type = typeof(T);
 		if (type == (typeof(string))) {
 			SetObject (key, value);
 		} else if (type.IsSerializable && type.IsArray) {
-			string content = null;
-			if (type == typeof(byte[]) || type == typeof(List<byte>))
-				content = ConvertArrayToString<byte> (value);
-			else if (type == typeof(bool[]) || type == typeof(List<bool>))
-				content = ConvertArrayToString<bool> (value);
-			else if (type == typeof(int[]) || type == typeof(List<int>))
-				content = ConvertArrayToString<int> (value);
-			else if (type == typeof(float[]) || type == typeof(List<float>))
-				content = ConvertArrayToString<float> (value);
-			else if (type == typeof(string[]) || type == typeof(List<string>))
-				content = ConvertArrayToString<string> (value);
-			else
-				Debug.LogError ("Sorry, we can not auto convert array to string type, " +
-				"you can used EasyWriter.ConvertArrayToString () function convert to string first, " +
-				"then call this function to save data.");
-			SetObject (key, content);
+			Debug.LogError ("Sorry, we can not auto convert array to string type, " +
+			"you can used EasyWriter.ConvertArrayToString () function convert to string first, " +
+			"then call this function to save data.");
 		} else if (type.IsSerializable && (type.IsClass || (type.IsValueType && !type.IsPrimitive))) {
 			#if UNITY_EDITOR
 			SetObject (key, JsonUtility.ToJson (value, true));
@@ -120,6 +116,17 @@ public partial class EasyWriter : IDisposable
 				SetObject (key, value);
 			}
 		}
+	}
+
+	public void SetArray<T> (string key, object value)
+	{
+		string content = default (string);
+		if (!value.GetType ().IsArray) {
+			T[] o = new object[] { value } as T[];
+			content = ConvertArrayToString<T> (o);
+		} else
+			content = ConvertArrayToString<T> (value);
+		Set<string> (key, content);
 	}
 
 	static public string ConvertArrayToString<T> (object value)

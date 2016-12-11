@@ -71,16 +71,16 @@ using System;
 	}
 }
 
-[Serializable] public class EasyObjects : EasyData<object>
+[Serializable] public class EasyObjects : EasyData<EasyData>
 {
-	public EasyObjects (List<object> value)
+	public EasyObjects (List<EasyData> value)
 	{
 		this.value = value;
 	}
 
-	public EasyObjects (object[] value)
+	public EasyObjects (EasyData[] value)
 	{
-		this.value = new List<object> ();
+		this.value = new List<EasyData> ();
 		this.value.AddRange (value);
 	}
 }

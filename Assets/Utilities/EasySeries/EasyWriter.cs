@@ -168,10 +168,10 @@ public partial class EasyWriter : IDisposable
 		if (type == (typeof(string))) {
 			array = JsonUtility.FromJson<EasyStrings> (value).ToList ().ToArray () as T[];
 		} else if (type.IsSerializable && (type.IsClass || (type.IsValueType && !type.IsPrimitive))) {
-			string[] arg = JsonUtility.FromJson<EasyStrings> (value).ToList ().ToArray ();
-			array = new T[arg.Length];
-			for (int i = 0; i < arg.Length; i++) {
-				array [i] = JsonUtility.FromJson<T> (arg [i]);
+			string[] datas = JsonUtility.FromJson<EasyStrings> (value).ToList ().ToArray ();
+			array = new T[datas.Length];
+			for (int i = 0; i < datas.Length; i++) {
+				array [i] = JsonUtility.FromJson<T> (datas [i]);
 			}
 		} else if (type.IsSerializable && type.IsValueType) {
 			if (type.IsPrimitive) {

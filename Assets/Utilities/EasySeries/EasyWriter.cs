@@ -23,8 +23,13 @@ public partial class EasyWriter : IDisposable
 				Dispose ();
 			});
 		}
-		if (!files.ContainsKey (filePath))
-			files.Add (filePath, Deserialize<EasyData<string, EasyData>> (filePath));
+		if (!files.ContainsKey (filePath)) {
+			var value = Deserialize<EasyData<string, EasyData>> (filePath);
+			if (value != null)
+				files.Add (filePath, value);
+			else
+				files.Add (filePath, new EasyData<string, EasyData> (new Dictionary<string, EasyData> ()));
+		}
 	}
 
 	public void Dispose ()
@@ -57,33 +62,44 @@ public partial class EasyWriter : IDisposable
 	public T Get<T> (string key)
 	{
 		Type type = typeof(T);
-		if (type == (typeof(string))) {
+		if (type == typeof(string)) {
 			return (T)GetObject (key);
-		} else if (type.IsSerializable && type.IsArray) {
+		} else if (type.IsArray) {
 			Debug.LogError ("Sorry, we can not auto convert string to array type, " +
 			"you can used Get<string> () function replaced, " +
 			"then call EasyWriter.ConvertStringToArray<T> function convert string to target type.");
-		} else if (type.IsSerializable && (type.IsClass || (type.IsValueType && !type.IsPrimitive))) {
+		} else if (type.IsSerializable && type.IsPrimitive) {
+			return (T)GetObject (key);
+		} else if (type.IsSerializable && type.IsEnum) {
+		} else if (type.IsSerializable && type == typeof(Nullable)) {
+		} else if (type.IsSerializable && (type.IsClass || type.IsValueType)) {
 			if (type.IsSubclassOf (typeof(UnityEngine.Object))) {
 				Debug.LogError ("Only plain classes and structures are supported; " +
 				"classes derived from UnityEngine.Object (such as MonoBehaviour or ScriptableObject) are not." +
-				"so please use Get<T> (string key, ref T target) replaced.");
+				"so please use Get<T> (string key, T target) replaced.");
 			} else {
 				return JsonUtility.FromJson<T> (GetObject (key).ToString ());
 			}
-		} else if (type.IsSerializable && type.IsValueType) {
-			if (type.IsPrimitive) {
-				return (T)GetObject (key);
-			}
 		}
-		return (T)GetObject (key);
+		return default (T);
 	}
 
-	public void Get<T> (string key, ref T target)
+	public void Get<T> (string key, T target)
 	{
 		Type type = target.GetType ();
 		if (type.IsSubclassOf (typeof(UnityEngine.Object))) {
 			JsonUtility.FromJsonOverwrite (GetObject (key).ToString (), target);
+		}
+	}
+
+	public void GetArray<T> (string key, T[] target)
+	{
+		string[] array = GetArray<string> (key);
+		for (int i = 0; i < array.Length && i < target.Length; i++) {
+			Type type = target [i].GetType ();
+			if (type.IsSubclassOf (typeof(UnityEngine.Object))) {
+				JsonUtility.FromJsonOverwrite (array [i], target [i]);
+			}
 		}
 	}
 
@@ -99,22 +115,24 @@ public partial class EasyWriter : IDisposable
 	public void Set<T> (string key, T value)
 	{
 		Type type = typeof(T);
-		if (type == (typeof(string))) {
+		if (value == null) {
+			Debug.LogError ("NullReferenceException: Object reference not set to an instance of an object");
+		} else if (type == typeof(string)) {
 			SetObject (key, value);
-		} else if (type.IsSerializable && type.IsArray) {
+		} else if (type.IsArray) {
 			Debug.LogError ("Sorry, we can not auto convert array to string type, " +
 			"you can used EasyWriter.ConvertArrayToString () function convert to string first, " +
 			"then call this function to save data.");
-		} else if (type.IsSerializable && (type.IsClass || (type.IsValueType && !type.IsPrimitive))) {
+		} else if (type.IsSerializable && type.IsPrimitive) {
+			SetObject (key, value);
+		} else if (type.IsSerializable && type.IsEnum) {
+		} else if (type.IsSerializable && type == typeof(Nullable)) {
+		} else if (type.IsSerializable && (type.IsClass || type.IsValueType)) {
 			#if UNITY_EDITOR
 			SetObject (key, JsonUtility.ToJson (value, true));
 			#else
 			SetObject (key, JsonUtility.ToJson (value));
 			#endif
-		} else if (type.IsSerializable && type.IsValueType) {
-			if (type.IsPrimitive) {
-				SetObject (key, value);
-			}
 		}
 	}
 
@@ -141,22 +159,23 @@ public partial class EasyWriter : IDisposable
 			Debug.LogError ("Sorry, this function only support T[] or List<T>!");
 			return default (string);
 		}
-		if (type == (typeof(string))) {
+		if (type == typeof(string)) {
 			return JsonUtility.ToJson (new EasyStrings (array as string[]));
-		} else if (type.IsSerializable && (type.IsClass || (type.IsValueType && !type.IsPrimitive))) {
+		} else if (type.IsArray) {
+		} else if (type.IsSerializable && type.IsPrimitive) {
+			EasyData[] datas = new EasyData[array.Length];
+			for (int i = 0; i < datas.Length; i++) {
+				datas [i] = new EasyData (array [i]);
+			}
+			return JsonUtility.ToJson (new EasyObjects (datas));
+		} else if (type.IsSerializable && type.IsEnum) {
+		} else if (type.IsSerializable && type == typeof(Nullable)) {
+		} else if (type.IsSerializable && (type.IsClass || type.IsValueType)) {
 			string[] content = new string[array.Length];
 			for (int i = 0; i < content.Length; i++) {
 				content [i] = JsonUtility.ToJson (array [i]);
 			}
 			return JsonUtility.ToJson (new EasyStrings (content));
-		} else if (type.IsSerializable && type.IsValueType) {
-			if (type.IsPrimitive) {
-				EasyData[] datas = new EasyData[array.Length];
-				for (int i = 0; i < datas.Length; i++) {
-					datas [i] = new EasyData (array [i]);
-				}
-				return JsonUtility.ToJson (new EasyObjects (datas));
-			}
 		}
 		return default (string);
 	}
@@ -165,21 +184,22 @@ public partial class EasyWriter : IDisposable
 	{
 		Type type = typeof(T);
 		T[] array = default (T[]);
-		if (type == (typeof(string))) {
+		if (type == typeof(string)) {
 			array = JsonUtility.FromJson<EasyStrings> (value).ToList ().ToArray () as T[];
-		} else if (type.IsSerializable && (type.IsClass || (type.IsValueType && !type.IsPrimitive))) {
+		} else if (type.IsArray) {
+		} else if (type.IsSerializable && type.IsPrimitive) {
+			EasyData[] datas = JsonUtility.FromJson<EasyObjects> (value).ToList ().ToArray ();
+			array = new T[datas.Length];
+			for (int i = 0; i < datas.Length; i++) {
+				array [i] = (T)datas [i].GetObject ();
+			}
+		} else if (type.IsSerializable && type.IsEnum) {
+		} else if (type.IsSerializable && type == typeof(Nullable)) {
+		} else if (type.IsSerializable && (type.IsClass || type.IsValueType)) {
 			string[] datas = JsonUtility.FromJson<EasyStrings> (value).ToList ().ToArray ();
 			array = new T[datas.Length];
 			for (int i = 0; i < datas.Length; i++) {
 				array [i] = JsonUtility.FromJson<T> (datas [i]);
-			}
-		} else if (type.IsSerializable && type.IsValueType) {
-			if (type.IsPrimitive) {
-				EasyData[] datas = JsonUtility.FromJson<EasyObjects> (value).ToList ().ToArray ();
-				array = new T[datas.Length];
-				for (int i = 0; i < datas.Length; i++) {
-					array [i] = (T)datas [i].GetObject ();
-				}
 			}
 		}
 		return array;

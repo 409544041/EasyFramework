@@ -42,3 +42,10 @@ i hope everyone like it and easy to use,cheers!
 	-2.create easy plugins repository
 	-3.git submodule add  git@github.com:chaolunner/EasyPlugins.git Assets/Plugins
 	-4.add uniRx plugin to Plugins folder
+
+2016-12-12 23:27 completed EasyWriter
+	-Now you can save Primitive,Struct,Class,MonoBehavior,ScriptableObject or their Array.
+	-First used EasyWriter writer = new EasyWriter (filePath) Create and Save the json file in filePath.
+	-Then Call Set<T> (string key, T value) and SetArray<T> (string key, object value) to save the data.
+	-Call Get<T> (string key) and GetArray<T> (string key) to load the data.
+	-Call Get<T> (string key, T target) and GetArray<T> (string key, T[] target) to overwrite the MonoBehavior or ScriptableObject.

@@ -77,6 +77,11 @@ public class SimpleExample : MonoBehaviour
 		writer.Get<EasyBlock> ("block", blocks [0]);
 		writer.GetArray<EasyBlock> ("block array", blocks);
 
+		writer.Remove ("string");
+		Debug.Log ("already remove 'string' key : " + writer.Get<string> ("string"));
+		writer.Clear ();
+		Debug.Log ("already clear : " + writer.Get<string> ("string[]"));
+
 		if (isOpenFile) {
 			string path = Path.GetFullPath (Application.persistentDataPath);
 			System.Diagnostics.Process.Start ("explorer.exe", path);

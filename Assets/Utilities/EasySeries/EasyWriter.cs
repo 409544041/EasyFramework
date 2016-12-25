@@ -107,7 +107,7 @@ public partial class EasyWriter : IDisposable
 	{
 		string content = Get<string> (key);
 		if (!string.IsNullOrEmpty (content)) {
-			return ConvertStringToArray<T> (content);
+			return EasyConvert.StringToArray<T> (content);
 		}
 		return default (T[]);
 	}
@@ -141,67 +141,23 @@ public partial class EasyWriter : IDisposable
 		string content = default (string);
 		if (!value.GetType ().IsArray) {
 			T[] o = new object[] { value } as T[];
-			content = ConvertArrayToString<T> (o);
+			content = EasyConvert.ArrayToString<T> (o);
 		} else
-			content = ConvertArrayToString<T> (value);
+			content = EasyConvert.ArrayToString<T> (value);
 		Set<string> (key, content);
 	}
 
-	static public string ConvertArrayToString<T> (object value)
+	public void Remove (string key)
 	{
-		Type type = typeof(T);
-		T[] array = default (T[]);
-		if (value.GetType () == typeof(List<T>)) {
-			array = (value as List<T>).ToArray ();
-		} else if (value.GetType () == typeof(T[])) {
-			array = value as T[];
-		} else {
-			Debug.LogError ("Sorry, this function only support T[] or List<T>!");
-			return default (string);
+		var dictionary = target.ToDictionary ();
+		if (dictionary != null && dictionary.ContainsKey (key)) {
+			dictionary.Remove (key);
+			files [filePath] = new EasyData<string, EasyData> (dictionary);
 		}
-		if (type == typeof(string)) {
-			return JsonUtility.ToJson (new EasyStrings (array as string[]));
-		} else if (type.IsArray) {
-		} else if (type.IsSerializable && type.IsPrimitive) {
-			EasyData[] datas = new EasyData[array.Length];
-			for (int i = 0; i < datas.Length; i++) {
-				datas [i] = new EasyData (array [i]);
-			}
-			return JsonUtility.ToJson (new EasyObjects (datas));
-		} else if (type.IsSerializable && type.IsEnum) {
-		} else if (type.IsSerializable && type == typeof(Nullable)) {
-		} else if (type.IsSerializable && (type.IsClass || type.IsValueType)) {
-			string[] content = new string[array.Length];
-			for (int i = 0; i < content.Length; i++) {
-				content [i] = JsonUtility.ToJson (array [i]);
-			}
-			return JsonUtility.ToJson (new EasyStrings (content));
-		}
-		return default (string);
 	}
 
-	static public T[] ConvertStringToArray<T> (string value)
+	public void Clear ()
 	{
-		Type type = typeof(T);
-		T[] array = default (T[]);
-		if (type == typeof(string)) {
-			array = JsonUtility.FromJson<EasyStrings> (value).ToList ().ToArray () as T[];
-		} else if (type.IsArray) {
-		} else if (type.IsSerializable && type.IsPrimitive) {
-			EasyData[] datas = JsonUtility.FromJson<EasyObjects> (value).ToList ().ToArray ();
-			array = new T[datas.Length];
-			for (int i = 0; i < datas.Length; i++) {
-				array [i] = (T)datas [i].GetObject ();
-			}
-		} else if (type.IsSerializable && type.IsEnum) {
-		} else if (type.IsSerializable && type == typeof(Nullable)) {
-		} else if (type.IsSerializable && (type.IsClass || type.IsValueType)) {
-			string[] datas = JsonUtility.FromJson<EasyStrings> (value).ToList ().ToArray ();
-			array = new T[datas.Length];
-			for (int i = 0; i < datas.Length; i++) {
-				array [i] = JsonUtility.FromJson<T> (datas [i]);
-			}
-		}
-		return array;
+		files [filePath] = new EasyData<string, EasyData> (new Dictionary<string, EasyData> ());
 	}
 }

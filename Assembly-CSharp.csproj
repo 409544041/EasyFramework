@@ -49,6 +49,8 @@
      <Compile Include="Assets\Utilities\EasySeries\EasyBlock.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyConvert.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyCsv.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyDI\EasyContainer.cs" />
+     <Compile Include="Assets\Utilities\EasySeries\EasyDI\EasySingleAttribute.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyData.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyPainter.cs" />
      <Compile Include="Assets\Utilities\EasySeries\EasyWriter.cs" />
@@ -56,6 +58,7 @@
      <Compile Include="Assets\Utilities\EasySeries\Kernel\EasyPaint.cs" />
      <Compile Include="Assets\Utilities\EasySeries\Kernel\EasyWriter.cs" />
      <Compile Include="Assets\Utilities\EasySeries\Kernel\TextureScale.cs" />
+     <Compile Include="Assets\Utilities\Example\Scripts\DIExample.cs" />
      <Compile Include="Assets\Utilities\Example\Scripts\SimpleExample.cs" />
      <Compile Include="Assets\Utilities\Factory\BlockFactory.cs" />
      <Compile Include="Assets\Utilities\Factory\BlockObject.cs" />

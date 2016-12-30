@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Linq;
+using UniEasy;
 
 public class DIExample : MonoBehaviour
 {
@@ -18,6 +20,12 @@ public class DIExample : MonoBehaviour
 		if (isOn) {
 			GameObject go = new GameObject ("DI Test");
 			go.AddComponent<DIExample> ();
+		}
+
+		var fieldInfos = typeof(GameObjectFactory).GetAllInstanceFields ()
+			.Where (x => x.HasAttribute (typeof(EasySingleAttribute))).ToList ();
+		for (int n = 0; n < fieldInfos.Count; n++) {
+			Debug.Log ("xxxxx" + fieldInfos [n]);
 		}
 	}
 }

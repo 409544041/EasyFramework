@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 using System;
 
-[Serializable] 
-public class BlockObject
+namespace UniEasy
 {
-	public string name;
-	public GameObject gameObject;
-	public Vector3 localPosition;
-	public Quaternion localRotation;
-	public Vector3 localScale;
-
-	public BlockObject (string name)
+	[Serializable] 
+	public class BlockObject
 	{
-		this.name = name;
+		public string name;
+		public GameObject gameObject;
+		public Vector3 localPosition;
+		public Quaternion localRotation;
+		public Vector3 localScale;
+
+		public BlockObject (string name)
+		{
+			this.name = name;
+		}
 	}
 }

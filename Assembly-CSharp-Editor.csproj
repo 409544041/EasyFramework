@@ -45,13 +45,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Utilities\EasySeries\Editor\DecoratorEditor.cs" />
-     <Compile Include="Assets\Utilities\EasySeries\Editor\EasyAssembly.cs" />
-     <Compile Include="Assets\Utilities\EasySeries\Editor\EasyRectTransform.cs" />
-     <Compile Include="Assets\Utilities\EasySeries\Editor\EasyTransform.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\EditorWindow\GuiRenderableManager.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\EditorWindow\IGuiRenderable.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\EditorWindow\ZenjectEditorWindow.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\Editors\ContextEditor.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\Editors\GameObjectContextEditor.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\Editors\ProjectContextEditor.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\Editors\SceneContextEditor.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\Editors\SceneDecoratorContextEditor.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\ObjectGraphVisualizer.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\Testing\ZenjectIntegrationTestFixture.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\Testing\ZenjectUnitTestFixture.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\UnityInspectorListEditor.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\ZenMenuItems.cs" />
+     <Compile Include="Assets\Temp\Zenject\Source\Editor\ZenUnityEditorUtil.cs" />
      <Compile Include="Assets\Utilities\Factory\Editor\BlockFactoryEditor.cs" />
      <Compile Include="Assets\Utilities\Factory\Editor\ScriptableObjectFactoryEditor.cs" />
      <Compile Include="Assets\Utilities\Factory\Editor\ScriptableObjectWindow.cs" />
+     <Compile Include="Assets\Utilities\UniEasy\Editor\DecoratorEditor.cs" />
+     <Compile Include="Assets\Utilities\UniEasy\Editor\EasyAssembly.cs" />
+     <Compile Include="Assets\Utilities\UniEasy\Editor\EasyRectTransform.cs" />
+     <Compile Include="Assets\Utilities\UniEasy\Editor\EasyTransform.cs" />
+     <None Include="Assets\Temp\Zenject\LICENSE.txt" />
+     <None Include="Assets\Temp\Zenject\Version.txt" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>

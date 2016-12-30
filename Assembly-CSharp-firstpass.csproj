@@ -288,6 +288,8 @@
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityEngineBridge\YieldInstructionCache.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\Thread.cs" />
      <Compile Include="Assets\Plugins\UniRx\Scripts\UnityWinRTBridge\ThreadPoolScheduler_UnityWinRT.cs" />
+     <None Include="Assets\Temp\Zenject\LICENSE.txt" />
+     <None Include="Assets\Temp\Zenject\Version.txt" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

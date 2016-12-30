@@ -4,59 +4,62 @@ using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
-internal class EndNameEdit : EndNameEditAction
+namespace UniEasy
 {
-	#region implemented abstract members of EndNameEditAction
-
-	public override void Action (int instanceId, string pathName, string resourceFile)
+	internal class EndNameEdit : EndNameEditAction
 	{
-		AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceId), AssetDatabase.GenerateUniqueAssetPath (pathName));
-	}
+		#region implemented abstract members of EndNameEditAction
 
-	#endregion
-}
-
-/// <summary>
-/// Scriptable object window.
-/// </summary>
-public class ScriptableObjectWindow : EditorWindow
-{
-	private int selectedIndex;
-	private static string[] names;
-
-	private static Type[] types;
-
-	private static Type[] Types { 
-		get { return types; }
-		set {
-			types = value;
-			names = types.Select (t => t.FullName).ToArray ();
+		public override void Action (int instanceId, string pathName, string resourceFile)
+		{
+			AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceId), AssetDatabase.GenerateUniqueAssetPath (pathName));
 		}
+
+		#endregion
 	}
 
-	public static void Init (Type[] scriptableObjects)
+	/// <summary>
+	/// Scriptable object window.
+	/// </summary>
+	public class ScriptableObjectWindow : EditorWindow
 	{
-		Types = scriptableObjects;
+		private int selectedIndex;
+		private static string[] names;
 
-		var window = EditorWindow.GetWindow<ScriptableObjectWindow> (true, "Create a new ScriptableObject", true);
-		window.ShowPopup ();
-	}
+		private static Type[] types;
 
-	public void OnGUI ()
-	{
-		GUILayout.Label ("ScriptableObject Class");
-		selectedIndex = EditorGUILayout.Popup (selectedIndex, names);
+		private static Type[] Types { 
+			get { return types; }
+			set {
+				types = value;
+				names = types.Select (t => t.FullName).ToArray ();
+			}
+		}
 
-		if (GUILayout.Button ("Create")) {
-			var asset = ScriptableObject.CreateInstance (types [selectedIndex]);
-			ProjectWindowUtil.StartNameEditingIfProjectWindowExists (
-				asset.GetInstanceID (),
-				ScriptableObject.CreateInstance<EndNameEdit> (),
-				string.Format ("{0}.asset", names [selectedIndex]),
-				AssetPreview.GetMiniThumbnail (asset), 
-				null);
+		public static void Init (Type[] scriptableObjects)
+		{
+			Types = scriptableObjects;
 
-			Close ();
+			var window = EditorWindow.GetWindow<ScriptableObjectWindow> (true, "Create a new ScriptableObject", true);
+			window.ShowPopup ();
+		}
+
+		public void OnGUI ()
+		{
+			GUILayout.Label ("ScriptableObject Class");
+			selectedIndex = EditorGUILayout.Popup (selectedIndex, names);
+
+			if (GUILayout.Button ("Create")) {
+				var asset = ScriptableObject.CreateInstance (types [selectedIndex]);
+				ProjectWindowUtil.StartNameEditingIfProjectWindowExists (
+					asset.GetInstanceID (),
+					ScriptableObject.CreateInstance<EndNameEdit> (),
+					string.Format ("{0}.asset", names [selectedIndex]),
+					AssetPreview.GetMiniThumbnail (asset), 
+					null);
+
+				Close ();
+			}
 		}
 	}
 }

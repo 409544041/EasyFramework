@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using UniEasy;
 
 [System.Serializable]
 public class SimpleExample : MonoBehaviour

@@ -6,7 +6,7 @@ using UniEasy;
 
 public class DIExample : MonoBehaviour
 {
-	[EasySingle]
+	[EasySingle, Inject]
 	public GameObjectFactory factory;
 	[EasySingle]
 	public DITest test;
@@ -14,12 +14,14 @@ public class DIExample : MonoBehaviour
 
 	void Start ()
 	{
+//		DiContainer.Inject<DIExample> (this);
 		Debug.Log (factory);
 		Debug.Log (test);
 
 		if (isOn) {
 			GameObject go = new GameObject ("DI Test");
-			go.AddComponent<DIExample> ();
+			var die = go.AddComponent<DIExample> ();
+//			DiContainer.Inject<DIExample> (die);
 		}
 
 		var fieldInfos = typeof(GameObjectFactory).GetAllInstanceFields ()

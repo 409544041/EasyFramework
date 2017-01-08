@@ -8,15 +8,15 @@ namespace UniEasy
 {
 	public class TypeAnalyzer
 	{
-		static Dictionary<Type, EasyInjectInfo> typeInfo = new Dictionary<Type, EasyInjectInfo> ();
+		static Dictionary<Type, EasyInjectInfo> injectInfo = new Dictionary<Type, EasyInjectInfo> ();
 
 		static public EasyInjectInfo GetInfo<T> ()
 		{
 			var type = typeof(T);
-			if (typeInfo.ContainsKey (type)) {
-				return typeInfo [type];
+			if (injectInfo.ContainsKey (type)) {
+				return injectInfo [type];
 			}
-			return new EasyInjectInfo ();
+			return null;
 		}
 
 		static public void GetInfo (object entity)
@@ -24,7 +24,8 @@ namespace UniEasy
 			var type = entity.GetType ();
 			var fieldInjectables = GetFieldInjectables (type).ToList ();
 			var inject = new EasyInjectInfo (entity, fieldInjectables);
-			typeInfo.Add (type, inject);
+			injectInfo.Add (type, inject);
+
 			MessageBroker.Default.Publish (inject);
 		}
 

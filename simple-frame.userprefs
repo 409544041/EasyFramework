@@ -1,11 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Example\Scripts\SimpleExample.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Injection\BindingId.cs">
     <Files>
       <File FileName="Assets\Utilities\Example\Scripts\SimpleExample.cs" Line="91" Column="34" />
-      <File FileName="Assets\Utilities\EasySeries\EasyWriter.cs" Line="78" Column="32" />
-      <File FileName="Assets\Utilities\EasySeries\Kernel\EasyData.cs" Line="25" Column="17" />
-      <File FileName="Assets\Utilities\EasySeries\Kernel\EasyWriter.cs" Line="34" Column="45" />
+      <File FileName="Assets\Utilities\Example\Scripts\DIExample.cs" Line="20" Column="3" />
+      <File FileName="Assets\Utilities\Injection\DiContainer.cs" Line="40" Column="33" />
+      <File FileName="Assets\Utilities\Injection\TypeAnalyzer.cs" Line="51" Column="24" />
+      <File FileName="Assets\Temp\Zenject\Source\Main\DiContainer.cs" Line="67" Column="37" />
+      <File FileName="Assets\Utilities\Injection\BindingId.cs" Line="14" Column="4" />
+      <File FileName="Assets\Utilities\Injection\BindFinalizer.cs" Line="25" Column="30" />
+      <File FileName="Assets\Utilities\Injection\BinderGeneric.cs" Line="22" Column="55" />
+      <File FileName="Assets\Utilities\Injection\InjectableInfo.cs" Line="6" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -4,22 +4,18 @@ namespace UniEasy
 {
 	public class EasyInjectInfo
 	{
-		readonly object _entity;
-		readonly List<InjectableInfo> _fieldInjectables;
-
-		public EasyInjectInfo ()
-		{
-		}
+		readonly object entity;
+		readonly List<InjectableInfo> fieldInjectables;
 
 		public EasyInjectInfo (object entity, List<InjectableInfo> fieldInjectables)
 		{
-			_entity = entity;
-			_fieldInjectables = fieldInjectables;
+			this.entity = entity;
+			this.fieldInjectables = fieldInjectables;
 		}
 
 		public IEnumerable<InjectableInfo> AllInjectables {
 			get {
-				return _fieldInjectables;
+				return this.fieldInjectables;
 			}
 		}
 	}

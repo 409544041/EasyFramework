@@ -1,28 +1,16 @@
-﻿using System.Collections.Generic;
-
-namespace UniEasy
+﻿namespace UniEasy
 {
-	public class BinderGeneric
+	public class BinderGeneric<TContract>
 	{
-//		readonly Dictionary<string, object> entities = Dictionary<string, object> ();
-
 		public BinderGeneric ()
 		{
+			
 		}
 
-		public BinderGeneric (Dictionary<string, object> entities)
+		public FromBinderGeneric<TConcrete> To<TConcrete> ()
+			where TConcrete : TContract
 		{
-//			this.entities = entities;
-		}
-
-		public BindFinalizer To<TContract> ()
-		{
-//			if (entities.Count > 0) {
-//				EasyInjectInfo injectInfo = TypeAnalyzer.GetInfo<TContract> ();
-//				new BindFinalizer (typeof(TContract), injectInfo);
-//			} else
-//				new BindFinalizer (typeof(TContract));
-			return null;
+			return new FromBinderGeneric<TConcrete> ();
 		}
 	}
 }

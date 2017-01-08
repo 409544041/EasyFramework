@@ -1,15 +1,17 @@
 ﻿namespace UniEasy
 {
-	public class ScopeBinder
+	public class ScopeBinder : ConditionBinder
 	{
-		public ScopeBinder ()
+		[Inject]
+		protected DiContainer container;
+
+		public ScopeBinder (BindInfo bindInfo) : base (bindInfo)
 		{
-			
 		}
 
 		public ConditionBinder AsSingle ()
 		{
-			return new ConditionBinder ();
+			return new ConditionBinder (BindInfo);
 		}
 	}
 }

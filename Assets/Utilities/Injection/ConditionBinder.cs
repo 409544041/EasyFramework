@@ -1,15 +1,14 @@
 ﻿namespace UniEasy
 {
-	public class ConditionBinder
+	public class ConditionBinder : NonLazyBinder
 	{
-		public ConditionBinder ()
+		public ConditionBinder (BindInfo bindInfo) : base (bindInfo)
 		{
-			
 		}
 
-		public BindingFinalizer When ()
+		public NonLazyBinder When ()
 		{
-			return new BindingFinalizer ();
+			return new NonLazyBinder (BindInfo);
 		}
 	}
 }

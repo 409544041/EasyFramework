@@ -249,7 +249,6 @@
      <Compile Include="Assets\Utilities\Factory\ScriptableObjectFactory.cs" />
      <Compile Include="Assets\Utilities\Injection\BindInfo.cs" />
      <Compile Include="Assets\Utilities\Injection\BinderGeneric.cs" />
-     <Compile Include="Assets\Utilities\Injection\BindingFinalizer.cs" />
      <Compile Include="Assets\Utilities\Injection\BindingId.cs" />
      <Compile Include="Assets\Utilities\Injection\ConditionBinder.cs" />
      <Compile Include="Assets\Utilities\Injection\DiContainer.cs" />
@@ -257,6 +256,7 @@
      <Compile Include="Assets\Utilities\Injection\FromBinderGeneric.cs" />
      <Compile Include="Assets\Utilities\Injection\InjectAttribute.cs" />
      <Compile Include="Assets\Utilities\Injection\InjectableInfo.cs" />
+     <Compile Include="Assets\Utilities\Injection\NonLazyBinder.cs" />
      <Compile Include="Assets\Utilities\Injection\ScopeBinder.cs" />
      <Compile Include="Assets\Utilities\Injection\Temp\EasyContainer.cs" />
      <Compile Include="Assets\Utilities\Injection\Temp\EasySingleAttribute.cs" />

@@ -16,6 +16,8 @@ namespace UniEasy
 
 		public DiContainer ()
 		{
+
+
 //			Inject (this);
 		}
 
@@ -51,9 +53,16 @@ namespace UniEasy
 		//				providers.Add (type, new Dictionary<BindingId, object> () { { bindingId, entity } });
 		//		}
 
+		public IEnumerable<BindingId> AllContracts {
+			get {
+				return providers.Keys;
+			}
+		}
+
 		public BinderGeneric<TContract> Bind<TContract> ()
 		{
-			return new BinderGeneric<TContract> ();
+			var bindInfo = new BindInfo (typeof(TContract));
+			return new BinderGeneric<TContract> (bindInfo);
 		}
 	}
 }

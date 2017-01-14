@@ -1,61 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using System;
+using UniRx;
 
 namespace UniEasy
 {
 	public class ProviderInfo
 	{
-		public ProviderInfo ()
+		readonly BindInfo bindInfo;
+
+		public ProviderInfo (BindInfo bindInfo)
 		{
+			this.bindInfo = bindInfo;
 		}
 	}
 
 	public class DiContainer
 	{
-		readonly Dictionary<BindingId, List<ProviderInfo>> providers = new Dictionary<BindingId, List<ProviderInfo>> ();
+		readonly ReactiveDictionary<BindingId, List<ProviderInfo>> providers = new ReactiveDictionary<BindingId, List<ProviderInfo>> ();
 
 		public DiContainer ()
 		{
+			Inject (this);
 
-
-//			Inject (this);
+			providers.ObserveAdd ().Subscribe (info => {
+				MessageBroker.Default.Publish<ProviderInfo> (info.Value [info.Value.Count - 1]);
+			});
 		}
 
-		//		public void Inject (object entity)
-		//		{
-		//			var bindingId = new BindingId (entity.GetType (), entity);
-		//			Inject (entity, bindingId);
-		//		}
-		//
-		//		public void Inject (object entity, string bindingName)
-		//		{
-		//			if (!string.IsNullOrEmpty (bindingName)) {
-		//				var type = entity.GetType ();
-		//				Inject (entity, new BindingId (type, bindingName));
-		//			} else
-		//				Debug.LogError ("sorry, binding id can not be empty!");
-		//		}
-		//
-		//		public void Inject (object entity, BindingId bindingId)
-		//		{
-		//			var type = entity.GetType ();
-		//			TypeAnalyzer.GetInfo (entity);
-		//
-		//			if (providers.ContainsKey (type)) {
-		//				var typeInfo = providers [type];
-		//				if (typeInfo.ContainsKey (bindingId)) {
-		//					typeInfo [bindingId] = entity;
-		//					Debug.LogError ("already have same binding id object exist, the original object will be replaced");
-		//				} else
-		//					typeInfo.Add (bindingId, entity);
-		//				providers [type] = typeInfo;
-		//			} else
-		//				providers.Add (type, new Dictionary<BindingId, object> () { { bindingId, entity } });
-		//		}
-
-		public IEnumerable<BindingId> AllContracts {
-			get {
-				return providers.Keys;
+		public void Inject (object entity)
+		{
+			var type = entity.GetType ();
+			var typeInfo = TypeAnalyzer.GetInfo (type);
+			var injectInfos = typeInfo.FieldInjectables.Concat (typeInfo.PropertyInjectables).ToArray ();
+			for (int i = 0; i < injectInfos.Length; i++) {
+//				injectInfos [i].Setter (entity, value); 
 			}
 		}
 
@@ -63,6 +43,17 @@ namespace UniEasy
 		{
 			var bindInfo = new BindInfo (typeof(TContract));
 			return new BinderGeneric<TContract> (bindInfo);
+		}
+
+		public void RegisterProvider (BindingId bindingId, BindInfo bindInfo)
+		{
+			var info = new ProviderInfo (bindInfo);
+
+			if (providers.ContainsKey (bindingId)) {
+				providers [bindingId].Add (info);
+			} else {
+				providers.Add (bindingId, new List<ProviderInfo> { info });
+			}
 		}
 	}
 }

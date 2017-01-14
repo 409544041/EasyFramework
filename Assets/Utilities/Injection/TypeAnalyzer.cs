@@ -2,54 +2,74 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using UniRx;
 
 namespace UniEasy
 {
 	public class TypeAnalyzer
 	{
-		static Dictionary<Type, EasyInjectInfo> injectInfo = new Dictionary<Type, EasyInjectInfo> ();
+		static Dictionary<Type, EasyInjectInfo> typeInfo = new Dictionary<Type, EasyInjectInfo> ();
 
 		static public EasyInjectInfo GetInfo<T> ()
 		{
 			var type = typeof(T);
-			if (injectInfo.ContainsKey (type)) {
-				return injectInfo [type];
+			if (typeInfo.ContainsKey (type)) {
+				return typeInfo [type];
 			}
 			return null;
 		}
 
-		static public void GetInfo (object entity)
+		static public EasyInjectInfo GetInfo (Type type)
 		{
-			var type = entity.GetType ();
-			var fieldInjectables = GetFieldInjectables (type).ToList ();
-			var inject = new EasyInjectInfo (entity, fieldInjectables);
-			injectInfo.Add (type, inject);
+			EasyInjectInfo info;
+			if (!typeInfo.TryGetValue (type, out info)) {
+				info = CreateTypeInfo (type);
+				typeInfo.Add (type, info);
+			}
+			return info;
+		}
 
-			MessageBroker.Default.Publish (inject);
+		static EasyInjectInfo CreateTypeInfo (Type type)
+		{
+			return new EasyInjectInfo (
+				GetFieldInjectables (type).ToList (),
+				GetPropertyInjectables (type).ToList ()
+			);
 		}
 
 		static IEnumerable<InjectableInfo> GetFieldInjectables (Type type)
 		{
 			var fieldInfos = type.GetAllInstanceFields ()
-				.Where (x => x.HasAttribute (typeof(InjectAttribute)));
+				.Where (x => x.HasAttribute (typeof(InjectAttribute))).ToArray ();
 
-			foreach (var fieldInfo in fieldInfos) {
-				yield return CreateForMember (fieldInfo, type);
+			for (int i = 0; i < fieldInfos.Length; i++) {
+				yield return CreateForMember (fieldInfos [i], type);
+			}
+		}
+
+		static IEnumerable<InjectableInfo> GetPropertyInjectables (Type type)
+		{
+			var propInfos = type.GetAllInstanceProperties ()
+				.Where (x => x.HasAttribute (typeof(InjectAttribute))).ToArray ();
+
+			for (int i = 0; i < propInfos.Length; i++) {
+				yield return CreateForMember (propInfos [i], type);
 			}
 		}
 
 		static InjectableInfo CreateForMember (MemberInfo memberInfo, Type parentType)
 		{
 			Type memberType;
+			Action<object, object> setter;
 			if (memberInfo is FieldInfo) {
 				var fieldInfo = memberInfo as FieldInfo;
+				setter = ((object injectable, object value) => fieldInfo.SetValue (injectable, value));
 				memberType = fieldInfo.FieldType;
 			} else {
 				var propInfo = memberInfo as PropertyInfo;
+				setter = ((object injectable, object value) => propInfo.SetValue (injectable, value, null));
 				memberType = propInfo.PropertyType;
 			}
-			return new InjectableInfo (memberType);
+			return new InjectableInfo (memberType, setter);
 		}
 	}
 }

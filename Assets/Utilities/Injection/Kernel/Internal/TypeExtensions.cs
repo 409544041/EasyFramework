@@ -67,6 +67,11 @@ namespace UniEasy
 			return provider.AllAttributes (typeof(T)).Any ();
 		}
 
+		public static IEnumerable<T> AllAttributes<T> (this MemberInfo provider) where T : Attribute
+		{
+			return provider.AllAttributes (typeof(T)).Cast<T> ();
+		}
+
 		public static IEnumerable<Attribute> AllAttributes (this MemberInfo provider, params Type[] attributeTypes)
 		{
 			var allAttributes = provider.GetCustomAttributes (true).Cast<Attribute> ();

@@ -54,6 +54,13 @@ namespace UniEasy
 
 		static InjectableInfo CreateForMember (MemberInfo memberInfo, Type parentType)
 		{
+			var injectAttributes = memberInfo.AllAttributes<InjectAttribute> ().ToList ();
+			var injectAttr = injectAttributes.SingleOrDefault ();
+			object identifier = null;
+			if (injectAttr != null) {
+				identifier = injectAttr.Id;
+			}
+
 			Type memberType;
 			Action<object, object> setter;
 			if (memberInfo is FieldInfo) {
@@ -65,7 +72,7 @@ namespace UniEasy
 				setter = ((object injectable, object value) => propInfo.SetValue (injectable, value, null));
 				memberType = propInfo.PropertyType;
 			}
-			return new InjectableInfo (memberType, setter);
+			return new InjectableInfo (memberType, identifier, setter);
 		}
 	}
 }

@@ -11,11 +11,7 @@ namespace UniEasy
 
 		static public EasyInjectInfo GetInfo<T> ()
 		{
-			var type = typeof(T);
-			if (typeInfo.ContainsKey (type)) {
-				return typeInfo [type];
-			}
-			return null;
+			return GetInfo (typeof(T));
 		}
 
 		static public EasyInjectInfo GetInfo (Type type)

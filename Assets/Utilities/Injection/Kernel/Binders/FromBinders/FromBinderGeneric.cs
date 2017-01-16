@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Linq;
 
 namespace UniEasy
 {
-	public class FromBinderGeneric<TContract> : ScopeBinder
+	public class FromBinderGeneric<TContract> : FromBinder
 	{
-		public FromBinderGeneric (BindInfo bindInfo) : base (bindInfo)
+		public FromBinderGeneric (BindInfo bindInfo, DiContainer container) : base (bindInfo, container)
 		{
 		}
 
@@ -24,18 +23,6 @@ namespace UniEasy
 		bool ValidateBindTypes (Type concreteType, Type contractType)
 		{
 			return true;
-		}
-	}
-
-	public class FromBinderNonGeneric : ScopeBinder
-	{
-		public FromBinderNonGeneric (BindInfo bindInfo) : base (bindInfo)
-		{
-		}
-
-		public ScopeBinder From ()
-		{
-			return new ScopeBinder (BindInfo);
 		}
 	}
 }

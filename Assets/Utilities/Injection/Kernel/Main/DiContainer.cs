@@ -39,10 +39,10 @@ namespace UniEasy
 			}
 		}
 
-		public BinderGeneric<TContract> Bind<TContract> ()
+		public ConcreteBinderGeneric<TContract> Bind<TContract> ()
 		{
 			var bindInfo = new BindInfo (typeof(TContract));
-			return new BinderGeneric<TContract> (bindInfo);
+			return new ConcreteBinderGeneric<TContract> (bindInfo, this);
 		}
 
 		public void RegisterProvider (BindingId bindingId, BindInfo bindInfo)

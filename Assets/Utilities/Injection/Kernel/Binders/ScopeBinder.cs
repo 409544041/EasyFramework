@@ -2,9 +2,6 @@
 {
 	public class ScopeBinder : ConditionBinder
 	{
-		[Inject]
-		protected DiContainer container;
-
 		public ScopeBinder (BindInfo bindInfo) : base (bindInfo)
 		{
 		}

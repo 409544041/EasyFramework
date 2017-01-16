@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace UniEasy
 {
-	public class BinderGeneric<TContract> : FromBinderGeneric<TContract>
+	public class ConcreteBinderGeneric<TContract> : FromBinderGeneric<TContract>
 	{
-		public BinderGeneric (BindInfo bindInfo) : base (bindInfo)
+		public ConcreteBinderGeneric (BindInfo bindInfo, DiContainer container) : base (bindInfo, container)
 		{
 		}
 
@@ -14,7 +14,7 @@ namespace UniEasy
 			where TConcrete : TContract
 		{
 			BindInfo.ToTypes = new List<Type> () { typeof(TConcrete) };
-			return new FromBinderGeneric<TConcrete> (BindInfo);
+			return new FromBinderGeneric<TConcrete> (BindInfo, Container);
 		}
 
 		public FromBinderNonGeneric To (params Type[] concreteTypes)
@@ -25,7 +25,7 @@ namespace UniEasy
 		public FromBinderNonGeneric To (IEnumerable<Type> concreteTypes)
 		{
 			BindInfo.ToTypes = concreteTypes.ToList ();
-			return new FromBinderNonGeneric (BindInfo);
+			return new FromBinderNonGeneric (BindInfo, Container);
 		}
 	}
 }

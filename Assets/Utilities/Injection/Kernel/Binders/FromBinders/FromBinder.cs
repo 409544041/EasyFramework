@@ -11,5 +11,13 @@
 			get;
 			private set;
 		}
+
+		protected ScopeBinder FromInstanceBase (object instance)
+		{
+//			BindInfo.ContractTypes
+//			var provider = new InstanceProvider (type, instance);
+//			Container.RegisterProvider ();
+			return new ScopeBinder (BindInfo);
+		}
 	}
 }

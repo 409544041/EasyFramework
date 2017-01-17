@@ -6,13 +6,24 @@ using UniRx;
 
 namespace UniEasy
 {
+	public delegate bool BindingCondition ();
+
 	public class ProviderInfo
 	{
-		readonly BindInfo bindInfo;
-
-		public ProviderInfo (BindInfo bindInfo)
+		public ProviderInfo (IProvider provider, BindingCondition condition)
 		{
-			this.bindInfo = bindInfo;
+			Provider = provider;
+			Condition = condition;
+		}
+
+		public IProvider Provider {
+			get;
+			private set;
+		}
+
+		public BindingCondition Condition {
+			get;
+			private set;
 		}
 	}
 
@@ -45,9 +56,9 @@ namespace UniEasy
 			return new ConcreteBinderGeneric<TContract> (bindInfo, this);
 		}
 
-		public void RegisterProvider (BindingId bindingId, BindInfo bindInfo)
+		public void RegisterProvider (BindingId bindingId, BindingCondition condition, IProvider provider)
 		{
-			var info = new ProviderInfo (bindInfo);
+			var info = new ProviderInfo (provider, condition);
 
 			if (providers.ContainsKey (bindingId)) {
 				providers [bindingId].Add (info);

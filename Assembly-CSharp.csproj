@@ -262,6 +262,8 @@
      <Compile Include="Assets\Utilities\Injection\Kernel\Internal\TypeExtensions.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Main\BindingId.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" />
+     <Compile Include="Assets\Utilities\Injection\Kernel\Providers\IProvider.cs" />
+     <Compile Include="Assets\Utilities\Injection\Kernel\Providers\InstanceProvider.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Usage\InjectAttribute.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Util\EasyInjectInfo.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Util\TypeAnalyzer.cs" />

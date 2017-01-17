@@ -6,9 +6,9 @@
 		{
 		}
 
-		public ScopeBinder From ()
+		public ScopeBinder FromInstance (object instance)
 		{
-			return new ScopeBinder (BindInfo);
+			return FromInstanceBase (instance);
 		}
 	}
 }

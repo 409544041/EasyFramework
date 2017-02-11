@@ -1,19 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Temp\Zenject\Source\Binding\Finalizers\ProviderBindingFinalizer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs">
     <Files>
       <File FileName="Assets\Utilities\Example\Scripts\DIExample.cs" Line="1" Column="1" />
-      <File FileName="Assets\Utilities\Injection\DiContainer.cs" Line="44" Column="28" />
-      <File FileName="Assets\Utilities\Injection\TypeAnalyzer.cs" Line="10" Column="35" />
-      <File FileName="Assets\Utilities\Injection\InjectableInfo.cs" Line="13" Column="28" />
-      <File FileName="Assets\Utilities\Injection\TypeExtensions.cs" Line="1" Column="1" />
-      <File FileName="Assets\Utilities\Injection\EasyInjectInfo.cs" Line="6" Column="2" />
-      <File FileName="Assets\Utilities\Injection\BindInfo.cs" Line="22" Column="3" />
-      <File FileName="Assets\Temp\Zenject\Source\Main\DiContainer.cs" Line="710" Column="45" />
-      <File FileName="Assets\Temp\Zenject\Source\Util\TypeAnalyzer.cs" Line="15" Column="39" />
-      <File FileName="Assets\Utilities\Injection\BinderGeneric.cs" Line="9" Column="3" />
-      <File FileName="Assets\Utilities\Injection\FromBinderGeneric.cs" Line="16" Column="27" />
-      <File FileName="Assets\Temp\Zenject\Source\Binding\Finalizers\ProviderBindingFinalizer.cs" Line="70" Column="44" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" Line="59" Column="50" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Providers\IProvider.cs" Line="5" Column="3" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Binders\FromBinders\FromBinder.cs" Line="12" Column="16" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Providers\InstanceProvider.cs" Line="4" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

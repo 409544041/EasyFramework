@@ -33,11 +33,11 @@ namespace UniEasy
 
 		public DiContainer ()
 		{
-			Inject (this);
-
 			providers.ObserveAdd ().Subscribe (info => {
-				MessageBroker.Default.Publish<ProviderInfo> (info.Value [info.Value.Count - 1]);
+				MessageBroker.Default.Publish<InjectContext> (new InjectContext (this, info.Key.Type));
 			});
+
+			Inject (this);
 		}
 
 		public void Inject (object entity)
@@ -48,7 +48,8 @@ namespace UniEasy
 			for (int i = 0; i < injectInfos.Length; i++) {
 				var bindingId = new BindingId (injectInfos [i].MemberType, injectInfos [i].Identifier);
 				var value = Resolve (bindingId);
-				injectInfos [i].Setter (entity, value); 
+				injectInfos [i].Entity = entity;
+				injectInfos [i].Setter (entity, value);
 			}
 		}
 

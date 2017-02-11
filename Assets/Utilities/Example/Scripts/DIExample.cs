@@ -9,8 +9,8 @@ public class DIExample : MonoBehaviour
 	void Start ()
 	{
 		DiContainer container = new DiContainer ();
-		container.Bind<IInjectTest> ().To<InjectTest> ().FromInstance (new InjectTest ());
 		container.Inject (this);
+		container.Bind<IInjectTest> ().To<InjectTest> ().FromInstance (new InjectTest ());
 
 		Debug.Log ("injectTest isEmpty ? " + injectTest);
 	}

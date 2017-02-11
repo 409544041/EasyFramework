@@ -87,5 +87,10 @@ namespace UniEasy
 		{
 			return b == a || b.IsAssignableFrom (a);
 		}
+
+		public static bool IsValueType (this Type type)
+		{
+			return type.IsValueType;
+		}
 	}
 }

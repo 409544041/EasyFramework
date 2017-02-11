@@ -1,4 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace UniEasy
 {
@@ -16,6 +18,11 @@ namespace UniEasy
 		public Type GetInstanceType ()
 		{
 			return instanceType;
+		}
+
+		public IEnumerator<List<object>> GetAllInstancesWithInjectSplit ()
+		{
+			yield return new List<object>() { instance };
 		}
 	}
 }

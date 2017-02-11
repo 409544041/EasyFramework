@@ -46,7 +46,9 @@ namespace UniEasy
 			var typeInfo = TypeAnalyzer.GetInfo (type);
 			var injectInfos = typeInfo.FieldInjectables.Concat (typeInfo.PropertyInjectables).ToArray ();
 			for (int i = 0; i < injectInfos.Length; i++) {
-//				injectInfos [i].Setter (entity, value); 
+				var bindingId = new BindingId (injectInfos [i].MemberType, injectInfos [i].Identifier);
+				var value = Resolve (bindingId);
+				injectInfos [i].Setter (entity, value); 
 			}
 		}
 
@@ -65,6 +67,62 @@ namespace UniEasy
 			} else {
 				providers.Add (bindingId, new List<ProviderInfo> { info });
 			}
+		}
+
+		public object Resolve (BindingId bindingId)
+		{
+			IProvider provider;
+			var result = TryGetUniqueProvider (bindingId, out provider);
+			if (result) {
+				var runner = provider.GetAllInstancesWithInjectSplit ();
+
+				// First get instance
+				bool hasMore = runner.MoveNext ();
+
+				var instances = runner.Current;
+
+				// Now do injection
+				while (hasMore) {
+					hasMore = runner.MoveNext ();
+				}
+
+				return instances.SingleOrDefault ();
+			}
+			return null;
+		}
+
+		internal bool TryGetUniqueProvider (BindingId bindingId, out IProvider provider)
+		{
+			var providers = GetProviderMatchesInternal (bindingId).ToList ();
+			if (!providers.Any ()) {
+				provider = null;
+				return false;
+			}
+			if (providers.Count > 1) {
+				provider = providers.ToArray () [0].Provider;
+			} else {
+				provider = providers.Single ().Provider;
+			}
+			return true;
+		}
+
+		IEnumerable<ProviderInfo> GetProviderMatchesInternal (BindingId bindingId)
+		{
+			return GetProvidersForContract (bindingId).Where (x => x.Condition == null || x.Condition ());
+		}
+
+		IEnumerable<ProviderInfo> GetProvidersForContract (BindingId bindingId)
+		{
+			return GetLocalProviders (bindingId).Select (x => x);
+		}
+
+		List<ProviderInfo> GetLocalProviders (BindingId bindingId)
+		{
+			List<ProviderInfo> localProviders;
+			if (providers.TryGetValue (bindingId, out localProviders)) {
+				return localProviders;
+			}
+			return new List<ProviderInfo> ();
 		}
 	}
 }

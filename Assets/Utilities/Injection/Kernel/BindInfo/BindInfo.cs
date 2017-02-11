@@ -9,6 +9,11 @@ namespace UniEasy
 	{
 		public BindInfo (List<Type> contractTypes)
 		{
+			this.identifier = new ReactiveProperty<object> ();
+			this.nonLazy = new ReactiveProperty<bool> ();
+			this.contractTypes = new ReactiveCollection<Type> ();
+			this.toTypes = new ReactiveCollection<Type> ();
+
 			Identifier = null;
 			ContractTypes = contractTypes;
 			ToTypes = new List<Type> ();
@@ -62,6 +67,11 @@ namespace UniEasy
 			set {
 				toTypes = new ReactiveCollection<Type> (value);
 			}
+		}
+
+		public BindingCondition Condition {
+			get;
+			set;
 		}
 	}
 }

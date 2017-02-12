@@ -5,7 +5,7 @@ namespace UniEasy
 {
 	public class SingletonProviderCreator
 	{
-		readonly Dictionary<BindingId, ProviderInfo> providerMap = new Dictionary<BindingId, ProviderInfo> ();
+		readonly Dictionary<SingletonId, ProviderInfo> providerMap = new Dictionary<SingletonId, ProviderInfo> ();
 		readonly DiContainer container;
 
 		public SingletonProviderCreator (DiContainer container)
@@ -13,17 +13,17 @@ namespace UniEasy
 			this.container = container;
 		}
 
-		public IProvider GetOrCreateProvider (BindingId bindingId, Func<DiContainer, Type, IProvider> providerCreator)
+		public IProvider GetOrCreateProvider (SingletonId singletonId, Func<DiContainer, Type, IProvider> providerCreator)
 		{
 			ProviderInfo providerInfo;
 
-			if (providerMap.TryGetValue (bindingId, out providerInfo)) {
+			if (providerMap.TryGetValue (singletonId, out providerInfo)) {
 
 			} else {
 				providerInfo = new ProviderInfo (
 					new CachedProvider (
-						providerCreator (container, bindingId.Type)));
-				providerMap.Add (bindingId, providerInfo);
+						providerCreator (container, singletonId.ConcreteType)));
+				providerMap.Add (singletonId, providerInfo);
 			}
 
 			return providerInfo.Provider;

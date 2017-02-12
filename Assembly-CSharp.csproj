@@ -269,6 +269,7 @@
      <Compile Include="Assets\Utilities\Injection\Kernel\Providers\CachedProvider.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Providers\IProvider.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Providers\InstanceProvider.cs" />
+     <Compile Include="Assets\Utilities\Injection\Kernel\Providers\SingletonId.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Providers\SingletonProviderCreator.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Usage\InjectAttribute.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Util\EasyInjectInfo.cs" />

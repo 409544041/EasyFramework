@@ -15,8 +15,8 @@ public class DIExample : MonoBehaviour
 	{
 		DiContainer container = new DiContainer ();
 		container.Inject (this);
-		container.Bind<string> ().FromInstance ("first output!");
-		container.Bind<string> ().FromInstance ("second output!");
+		container.Bind<string> ().FromInstance ("first output!").AsSingle ();
+		container.Bind<string> ().FromInstance ("second output!").AsSingle ();
 		container.Bind<IInjectTest> ().To<InjectTest> ().FromInstance (new InjectTest ());
 
 		Debug.Log ("primitiveTestFirst isEmpty ? " + primitiveTestFirst);

@@ -21,7 +21,7 @@ namespace UniEasy
 				return new InstanceProvider (concreteType, instance);
 			});
 			MessageBroker.Default.Publish<IBindingFinalizer> (BindingFinalizer);
-			return new ScopeBinder (BindInfo);
+			return this;
 		}
 	}
 }

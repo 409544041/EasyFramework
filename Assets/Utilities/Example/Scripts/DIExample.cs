@@ -1,18 +1,29 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UniEasy;
 
 public class DIExample : MonoBehaviour
 {
 	[Inject]
+	public string primitiveTestFirst;
+	[Inject]
+	public string primitiveTestSecond;
+	[Inject]
 	public IInjectTest injectTest;
 
-	void Start ()
+	IEnumerator Start ()
 	{
 		DiContainer container = new DiContainer ();
 		container.Inject (this);
+		container.Bind<string> ().FromInstance ("first output!");
+		container.Bind<string> ().FromInstance ("second output!");
 		container.Bind<IInjectTest> ().To<InjectTest> ().FromInstance (new InjectTest ());
 
+		Debug.Log ("primitiveTestFirst isEmpty ? " + primitiveTestFirst);
+		Debug.Log ("primitiveTestSecond isEmpty ? " + primitiveTestSecond);
 		Debug.Log ("injectTest isEmpty ? " + injectTest);
+
+		yield return null;
 	}
 }
 

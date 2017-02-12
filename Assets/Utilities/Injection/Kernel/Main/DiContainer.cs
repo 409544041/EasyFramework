@@ -29,15 +29,26 @@ namespace UniEasy
 
 	public class DiContainer
 	{
-		readonly ReactiveDictionary<BindingId, List<ProviderInfo>> providers = new ReactiveDictionary<BindingId, List<ProviderInfo>> ();
+		readonly Dictionary<BindingId, List<ProviderInfo>> providers = new Dictionary<BindingId, List<ProviderInfo>> ();
+		readonly SingletonProviderCreator singletonProviderCreator;
 
 		public DiContainer ()
 		{
-			providers.ObserveAdd ().Subscribe (info => {
-				MessageBroker.Default.Publish<InjectContext> (new InjectContext (this, info.Key.Type));
+			singletonProviderCreator = new SingletonProviderCreator (this);
+
+			MessageBroker.Default.Receive<IBindingFinalizer> ()
+				.Where (finalizer => finalizer != null)
+				.Subscribe (finalizer => {
+				finalizer.FinalizeBinding (this);
 			});
 
 			Inject (this);
+		}
+
+		public SingletonProviderCreator SingletonProviderCreator {
+			get {
+				return singletonProviderCreator;
+			}
 		}
 
 		public void Inject (object entity)
@@ -48,8 +59,15 @@ namespace UniEasy
 			for (int i = 0; i < injectInfos.Length; i++) {
 				var bindingId = new BindingId (injectInfos [i].MemberType, injectInfos [i].Identifier);
 				var value = Resolve (bindingId);
-				injectInfos [i].Entity = entity;
-				injectInfos [i].Setter (entity, value);
+				var injectInfo = injectInfos [i];
+				injectInfo.Setter (entity, value);
+
+				MessageBroker.Default.Receive<InjectContext> ()
+					.Where (context => context.GetBindingId () == new BindingId (injectInfo.MemberType, injectInfo.Identifier))
+					.Subscribe (context => {
+					var val = context.Container.Resolve (context.GetBindingId ());
+					injectInfo.Setter (entity, val);
+				});
 			}
 		}
 
@@ -66,8 +84,10 @@ namespace UniEasy
 			if (providers.ContainsKey (bindingId)) {
 				providers [bindingId].Add (info);
 			} else {
-				providers.Add (bindingId, new List<ProviderInfo> { info });
+				providers.Add (bindingId, new List<ProviderInfo> () { info });
 			}
+
+			MessageBroker.Default.Publish<InjectContext> (new InjectContext (this, bindingId.Type));
 		}
 
 		public object Resolve (BindingId bindingId)
@@ -100,7 +120,7 @@ namespace UniEasy
 				return false;
 			}
 			if (providers.Count > 1) {
-				provider = providers.ToArray () [0].Provider;
+				provider = providers.LastOrDefault ().Provider;
 			} else {
 				provider = providers.Single ().Provider;
 			}

@@ -71,10 +71,22 @@ namespace UniEasy
 			}
 		}
 
-		public ConcreteBinderGeneric<TContract> Bind<TContract> ()
+		public ConcreteIdBinderGeneric<TContract> Bind<TContract> ()
 		{
 			var bindInfo = new BindInfo (typeof(TContract));
-			return new ConcreteBinderGeneric<TContract> (bindInfo, this);
+			return new ConcreteIdBinderGeneric<TContract> (bindInfo, this);
+		}
+
+		public ConcreteIdBinderNonGeneric Bind (params Type[] contractTypes)
+		{
+			return Bind ((IEnumerable<Type>)contractTypes);
+		}
+
+		public ConcreteIdBinderNonGeneric Bind (IEnumerable<Type> contractTypes)
+		{
+			var contractTypesList = contractTypes.ToList ();
+			var bindInfo = new BindInfo (contractTypesList);
+			return new ConcreteIdBinderNonGeneric (bindInfo, this);
 		}
 
 		public void RegisterProvider (BindingId bindingId, BindingCondition condition, IProvider provider)
@@ -87,7 +99,7 @@ namespace UniEasy
 				providers.Add (bindingId, new List<ProviderInfo> () { info });
 			}
 
-			MessageBroker.Default.Publish<InjectContext> (new InjectContext (this, bindingId.Type));
+			MessageBroker.Default.Publish<InjectContext> (new InjectContext (this, bindingId.Type, bindingId.Identifier));
 		}
 
 		public object Resolve (BindingId bindingId)

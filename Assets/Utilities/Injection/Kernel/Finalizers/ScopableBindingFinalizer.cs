@@ -34,7 +34,7 @@ namespace UniEasy
 					concreteTypes,
 					(_, concreteType) => {
 						return container.SingletonProviderCreator.GetOrCreateProvider (
-							new SingletonId (concreteType, BindInfo.ConcreteIdentifier), 
+							new SingletonId (concreteType, BindInfo.Identifier, BindInfo.ConcreteIdentifier), 
 							providerFactory);
 					});
 				break;

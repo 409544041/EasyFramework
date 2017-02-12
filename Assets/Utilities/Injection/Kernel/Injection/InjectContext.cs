@@ -4,7 +4,7 @@ namespace UniEasy
 {
 	public class InjectContext
 	{
-		public InjectContext()
+		public InjectContext ()
 		{
 		}
 
@@ -12,6 +12,12 @@ namespace UniEasy
 		{
 			Container = container;
 			MemberType = memberType;
+		}
+
+		public InjectContext (DiContainer container, Type memberType, object identifier)
+			: this (container, memberType)
+		{
+			Identifier = identifier;
 		}
 
 		// Identifier - most of the time this is null

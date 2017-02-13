@@ -25,7 +25,7 @@ public class DIExample : MonoBehaviour
 		container.Bind<IFoo> ().WithId ("foo").To<Foo1> ().FromInstance (new Foo1 ()).AsSingle ();
 		container.Bind<IFoo> ().To<Foo2> ().FromInstance (new Foo2 ()).AsSingle ();
 		var foos = new List<Foo3> () { new Foo3 (), new Foo3 (), new Foo3 () };
-		container.Bind<List<IFoo>> ().To<List<Foo3>> ().FromInstance (foos);
+		container.Bind<List<IFoo>> ().To (typeof(List<Foo3>)).FromInstance (foos);
 
 		Debug.Log ("primitiveTestFirst : " + primitiveTestFirst);
 		Debug.Log ("primitiveTestSecond : " + primitiveTestSecond);

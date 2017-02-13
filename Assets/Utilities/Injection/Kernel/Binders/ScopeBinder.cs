@@ -1,14 +1,7 @@
-﻿using UniRx;
-
-namespace UniEasy
+﻿namespace UniEasy
 {
 	public class ScopeBinder : ConditionBinder
 	{
-		protected IBindingFinalizer BindingFinalizer {
-			get;
-			set;
-		}
-
 		public ScopeBinder (BindInfo bindInfo) : base (bindInfo)
 		{
 
@@ -23,7 +16,6 @@ namespace UniEasy
 		{
 			BindInfo.Scope = ScopeTypes.Singleton;
 			BindInfo.ConcreteIdentifier = concreteIdentifier;
-			MessageBroker.Default.Publish<IBindingFinalizer> (BindingFinalizer);
 			return this;
 		}
 	}

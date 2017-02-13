@@ -36,12 +36,6 @@ namespace UniEasy
 		{
 			singletonProviderCreator = new SingletonProviderCreator (this);
 
-			MessageBroker.Default.Receive<IBindingFinalizer> ()
-				.Where (finalizer => finalizer != null)
-				.Subscribe (finalizer => {
-				finalizer.FinalizeBinding (this);
-			});
-
 			Inject (this);
 		}
 

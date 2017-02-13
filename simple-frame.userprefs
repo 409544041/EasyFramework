@@ -1,19 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Injection\Kernel\Injection\InjectableInfo.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Injection\Kernel\Providers\CachedProvider.cs">
     <Files>
-      <File FileName="Assets\Utilities\Example\Scripts\DIExample.cs" Line="11" Column="46" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" Line="51" Column="24" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Util\EasyInjectInfo.cs" Line="11" Column="10" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Util\TypeAnalyzer.cs" Line="8" Column="27" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Injection\InjectContext.cs" Line="10" Column="3" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Injection\InjectableInfo.cs" Line="7" Column="3" />
+      <File FileName="Assets\Utilities\Example\Scripts\DIExample.cs" Line="24" Column="51" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" Line="55" Column="4" />
+      <File FileName="Assets\Temp\Zenject\Source\Main\DiContainer.cs" Line="1795" Column="38" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Providers\CachedProvider.cs" Line="30" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="E:\simple-frame\Assets\Utilities\Injection\Kernel\Binders\FromBinders\FromBinder.cs" line="60" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

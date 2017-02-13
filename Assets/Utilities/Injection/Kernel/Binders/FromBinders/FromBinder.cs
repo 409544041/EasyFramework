@@ -1,10 +1,9 @@
-﻿using System.Linq;
-using UniRx;
-
-namespace UniEasy
+﻿namespace UniEasy
 {
 	public class FromBinder : ScopeBinder
 	{
+		protected IBindingFinalizer BindingFinalizer;
+
 		public FromBinder (BindInfo bindInfo, DiContainer container) : base (bindInfo)
 		{
 			Container = container;
@@ -20,8 +19,17 @@ namespace UniEasy
 			BindingFinalizer = new ScopableBindingFinalizer (BindInfo, (container, concreteType) => {
 				return new InstanceProvider (concreteType, instance);
 			});
-			MessageBroker.Default.Publish<IBindingFinalizer> (BindingFinalizer);
+			FlushBindings ();
 			return this;
+		}
+
+		protected override void FlushBindings ()
+		{
+			base.FlushBindings ();
+			if (BindingFinalizer == null) {
+				return;
+			}
+			BindingFinalizer.FinalizeBinding (Container);
 		}
 	}
 }

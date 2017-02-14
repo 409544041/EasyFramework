@@ -6,7 +6,7 @@ using UniRx;
 
 namespace UniEasy
 {
-	public delegate bool BindingCondition ();
+	public delegate bool BindingCondition (InjectContext context);
 
 	public class ProviderInfo
 	{
@@ -51,15 +51,14 @@ namespace UniEasy
 			var typeInfo = TypeAnalyzer.GetInfo (type);
 			var injectInfos = typeInfo.FieldInjectables.Concat (typeInfo.PropertyInjectables).ToArray ();
 			for (int i = 0; i < injectInfos.Length; i++) {
-				var bindingId = new BindingId (injectInfos [i].MemberType, injectInfos [i].Identifier);
-				var value = Resolve (bindingId);
+				var value = Resolve (injectInfos [i].CreateInjectContext (this, entity));
 				var injectInfo = injectInfos [i];
 				injectInfo.Setter (entity, value);
 
 				MessageBroker.Default.Receive<InjectContext> ()
-					.Where (context => context.GetBindingId () == new BindingId (injectInfo.MemberType, injectInfo.Identifier))
+					.Where (context => context.Container == this && context.GetBindingId () == new BindingId (injectInfo.MemberType, injectInfo.Identifier))
 					.Subscribe (context => {
-					var val = context.Container.Resolve (context.GetBindingId ());
+					var val = context.Container.Resolve (context);
 					injectInfo.Setter (entity, val);
 				});
 			}
@@ -96,10 +95,10 @@ namespace UniEasy
 			MessageBroker.Default.Publish<InjectContext> (new InjectContext (this, bindingId.Type, bindingId.Identifier));
 		}
 
-		public object Resolve (BindingId bindingId)
+		public object Resolve (InjectContext context)
 		{
 			IProvider provider;
-			var result = TryGetUniqueProvider (bindingId, out provider);
+			var result = TryGetUniqueProvider (context, out provider);
 			if (result) {
 				var runner = provider.GetAllInstancesWithInjectSplit ();
 
@@ -118,9 +117,9 @@ namespace UniEasy
 			return null;
 		}
 
-		internal bool TryGetUniqueProvider (BindingId bindingId, out IProvider provider)
+		internal bool TryGetUniqueProvider (InjectContext context, out IProvider provider)
 		{
-			var providers = GetProviderMatchesInternal (bindingId).ToList ();
+			var providers = GetProviderMatchesInternal (context).ToList ();
 			if (!providers.Any ()) {
 				provider = null;
 				return false;
@@ -133,9 +132,16 @@ namespace UniEasy
 			return true;
 		}
 
-		IEnumerable<ProviderInfo> GetProviderMatchesInternal (BindingId bindingId)
+		IEnumerable<ProviderInfo> GetProviderMatchesInternal (InjectContext context)
 		{
-			return GetProvidersForContract (bindingId).Where (x => x.Condition == null || x.Condition ());
+			var providerInfo = GetProvidersForContract (context.GetBindingId ());
+			var output = providerInfo.Where (x => x.Condition == null || x.Condition (context));
+			if (output != null) {
+				foreach (ProviderInfo info in output.ToList ()) {
+					Debug.Log (">>" + info.Condition);
+				}
+			}
+			return providerInfo.Where (x => x.Condition == null || x.Condition (context));
 		}
 
 		IEnumerable<ProviderInfo> GetProvidersForContract (BindingId bindingId)

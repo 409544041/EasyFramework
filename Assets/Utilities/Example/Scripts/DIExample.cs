@@ -20,7 +20,8 @@ public class DIExample : MonoBehaviour
 	{
 		DiContainer container = new DiContainer ();
 		container.Inject (this);
-		container.Bind<string> ().WithId ("first").FromInstance ("first output!").AsSingle ();
+		container.Bind<string> ().WithId ("first").FromInstance ("first output!")
+			.AsSingle ().WhenInjectedInto<TestWhenInject> ();
 		container.Bind<string> ().WithId ("second").FromInstance ("second output!").AsSingle ();
 		container.Bind<IFoo> ().WithId ("foo").To<Foo1> ().FromInstance (new Foo1 ()).AsSingle ();
 		container.Bind<IFoo> ().To<Foo2> ().FromInstance (new Foo2 ()).AsSingle ();
@@ -58,4 +59,9 @@ public class Foo2 : IFoo
 public class Foo3 : IFoo
 {
 
+}
+
+public class TestWhenInject
+{
+	
 }

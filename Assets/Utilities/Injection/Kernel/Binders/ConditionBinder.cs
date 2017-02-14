@@ -1,4 +1,7 @@
-﻿namespace UniEasy
+﻿using System;
+using System.Linq;
+
+namespace UniEasy
 {
 	public class ConditionBinder : NonLazyBinder
 	{
@@ -6,9 +9,34 @@
 		{
 		}
 
-		public NonLazyBinder When ()
+		public NonLazyBinder When (BindingCondition condition)
 		{
-			return new NonLazyBinder (BindInfo);
+			BindInfo.Condition = condition;
+			return this;
+		}
+
+		public NonLazyBinder WhenInjectedIntoInstance (object instance)
+		{
+			BindInfo.Condition = r => ReferenceEquals (r.ObjectInstance, instance);
+			return this;
+		}
+
+		public NonLazyBinder WhenInjectedInto (params Type[] targets)
+		{
+			BindInfo.Condition = r => targets.Where (x => r.ObjectType != null && r.ObjectType.DerivesFromOrEqual (x)).Any ();
+			return this;
+		}
+
+		public NonLazyBinder WhenInjectedInto<T> ()
+		{
+			BindInfo.Condition = r => r.ObjectType != null && r.ObjectType.DerivesFromOrEqual (typeof(T));
+			return this;
+		}
+
+		public NonLazyBinder WhenNotInjectedInto<T> ()
+		{
+			BindInfo.Condition = r => r.ObjectType == null || !r.ObjectType.DerivesFromOrEqual (typeof(T));
+			return this;
 		}
 	}
 }

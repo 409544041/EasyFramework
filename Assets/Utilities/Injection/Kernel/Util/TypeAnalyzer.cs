@@ -72,7 +72,7 @@ namespace UniEasy
 				setter = ((object injectable, object value) => propInfo.SetValue (injectable, value, null));
 				memberType = propInfo.PropertyType;
 			}
-			return new InjectableInfo (memberType, identifier, setter);
+			return new InjectableInfo (memberType, identifier, setter, parentType);
 		}
 	}
 }

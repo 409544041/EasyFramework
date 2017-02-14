@@ -38,6 +38,16 @@ namespace UniEasy
 			set;
 		}
 
+		public Type ObjectType {
+			get;
+			set;
+		}
+
+		public object ObjectInstance {
+			get;
+			set;
+		}
+
 		public BindingId GetBindingId ()
 		{
 			return new BindingId (MemberType, Identifier);

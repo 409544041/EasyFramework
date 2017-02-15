@@ -4,7 +4,6 @@
 	{
 		public ScopeBinder (BindInfo bindInfo) : base (bindInfo)
 		{
-
 		}
 
 		public ConditionBinder AsSingle ()

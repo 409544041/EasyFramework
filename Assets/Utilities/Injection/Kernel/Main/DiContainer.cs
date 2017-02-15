@@ -82,12 +82,18 @@ namespace UniEasy
 			return new ConcreteIdBinderNonGeneric (bindInfo, this);
 		}
 
-		public void RegisterProvider (BindingId bindingId, BindingCondition condition, IProvider provider)
+		public void RegisterProvider (BindingId bindingId, BindingCondition condition, IProvider provider, bool overwrite = false)
 		{
 			var info = new ProviderInfo (provider, condition);
 
 			if (providers.ContainsKey (bindingId)) {
-				providers [bindingId].Add (info);
+				if (overwrite) {
+					var infos = providers [bindingId];
+					infos [infos.Count - 1] = info;
+					providers [bindingId] = infos;
+				} else {
+					providers [bindingId].Add (info);
+				}
 			} else {
 				providers.Add (bindingId, new List<ProviderInfo> () { info });
 			}
@@ -134,14 +140,7 @@ namespace UniEasy
 
 		IEnumerable<ProviderInfo> GetProviderMatchesInternal (InjectContext context)
 		{
-			var providerInfo = GetProvidersForContract (context.GetBindingId ());
-			var output = providerInfo.Where (x => x.Condition == null || x.Condition (context));
-			if (output != null) {
-				foreach (ProviderInfo info in output.ToList ()) {
-					Debug.Log (">>" + info.Condition);
-				}
-			}
-			return providerInfo.Where (x => x.Condition == null || x.Condition (context));
+			return GetProvidersForContract (context.GetBindingId ()).Where (x => x.Condition == null || x.Condition (context));
 		}
 
 		IEnumerable<ProviderInfo> GetProvidersForContract (BindingId bindingId)

@@ -19,13 +19,13 @@
 			BindingFinalizer = new ScopableBindingFinalizer (BindInfo, (container, concreteType) => {
 				return new InstanceProvider (concreteType, instance);
 			});
+			BindInfo.DistinctUntilChanged += FlushBindings;
 			FlushBindings ();
 			return this;
 		}
 
-		protected override void FlushBindings ()
+		protected virtual void FlushBindings ()
 		{
-			base.FlushBindings ();
 			if (BindingFinalizer == null) {
 				return;
 			}

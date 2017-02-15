@@ -19,9 +19,9 @@ public class DIExample : MonoBehaviour
 	IEnumerator Start ()
 	{
 		DiContainer container = new DiContainer ();
-		container.Inject (this);
 		container.Bind<string> ().WithId ("first").FromInstance ("first output!")
-			.AsSingle ().WhenInjectedInto<TestWhenInject> ();
+			.AsSingle ().WhenInjectedInto<DIExample> ().NonLazy ();
+		container.Inject (this);
 		container.Bind<string> ().WithId ("second").FromInstance ("second output!").AsSingle ();
 		container.Bind<IFoo> ().WithId ("foo").To<Foo1> ().FromInstance (new Foo1 ()).AsSingle ();
 		container.Bind<IFoo> ().To<Foo2> ().FromInstance (new Foo2 ()).AsSingle ();

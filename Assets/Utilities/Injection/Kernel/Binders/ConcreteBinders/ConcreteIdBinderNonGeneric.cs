@@ -2,7 +2,7 @@
 {
 	public class ConcreteIdBinderNonGeneric : ConcreteBinderNonGeneric
 	{
-		public ConcreteIdBinderNonGeneric (BindInfo bindInfo, DiContainer container) : base (bindInfo, container)
+		public ConcreteIdBinderNonGeneric (BindInfo bindInfo, BindFinalizerWrapper finalizerWrapper) : base (bindInfo, finalizerWrapper)
 		{
 		}
 

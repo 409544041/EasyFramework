@@ -4,32 +4,28 @@
 	{
 		protected IBindingFinalizer BindingFinalizer;
 
-		public FromBinder (BindInfo bindInfo, DiContainer container) : base (bindInfo)
+		public FromBinder (BindInfo bindInfo, BindFinalizerWrapper finalizerWrapper) : base (bindInfo)
 		{
-			Container = container;
+			FinalizerWrapper = finalizerWrapper;
 		}
 
-		public DiContainer Container {
+		protected BindFinalizerWrapper FinalizerWrapper {
 			get;
 			private set;
 		}
 
-		protected ScopeBinder FromInstanceBase (object instance)
-		{
-			BindingFinalizer = new ScopableBindingFinalizer (BindInfo, (container, concreteType) => {
-				return new InstanceProvider (concreteType, instance);
-			});
-			BindInfo.DistinctUntilChanged += FlushBindings;
-			FlushBindings ();
-			return this;
+		protected IBindingFinalizer SubFinalizer {
+			set {
+				FinalizerWrapper.SubFinalizer = value;
+			}
 		}
 
-		protected virtual void FlushBindings ()
+		protected ScopeBinder FromInstanceBase (object instance)
 		{
-			if (BindingFinalizer == null) {
-				return;
-			}
-			BindingFinalizer.FinalizeBinding (Container);
+			SubFinalizer = new ScopableBindingFinalizer (BindInfo, (container, concreteType) => {
+				return new InstanceProvider (concreteType, instance);
+			});
+			return this;
 		}
 	}
 }

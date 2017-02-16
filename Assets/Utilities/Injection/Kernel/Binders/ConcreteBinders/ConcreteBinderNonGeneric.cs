@@ -6,7 +6,7 @@ namespace UniEasy
 {
 	public class ConcreteBinderNonGeneric : FromBinderNonGeneric
 	{
-		public ConcreteBinderNonGeneric (BindInfo bindInfo, DiContainer container) : base (bindInfo, container)
+		public ConcreteBinderNonGeneric (BindInfo bindInfo, BindFinalizerWrapper finalizerWrapper) : base (bindInfo, finalizerWrapper)
 		{
 		}
 

@@ -4,7 +4,7 @@ namespace UniEasy
 {
 	public class FromBinderGeneric<TContract> : FromBinder
 	{
-		public FromBinderGeneric (BindInfo bindInfo, DiContainer container) : base (bindInfo, container)
+		public FromBinderGeneric (BindInfo bindInfo, BindFinalizerWrapper finalizerWrapper) : base (bindInfo, finalizerWrapper)
 		{
 		}
 

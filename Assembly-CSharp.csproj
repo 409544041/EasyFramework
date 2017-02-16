@@ -258,6 +258,7 @@
      <Compile Include="Assets\Utilities\Injection\Kernel\Binders\FromBinders\FromBinderNonGeneric.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Binders\NonLazyBinder.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Binders\ScopeBinder.cs" />
+     <Compile Include="Assets\Utilities\Injection\Kernel\Finalizers\BindFinalizerWrapper.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Finalizers\IBindingFinalizer.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Finalizers\ProviderBindingFinalizer.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Finalizers\ScopableBindingFinalizer.cs" />

@@ -2,7 +2,7 @@
 {
 	public class ConcreteIdBinderGeneric<TContract> : ConcreteBinderGeneric<TContract>
 	{
-		public ConcreteIdBinderGeneric (BindInfo bindInfo, DiContainer container) : base (bindInfo, container)
+		public ConcreteIdBinderGeneric (BindInfo bindInfo, BindFinalizerWrapper finalizerWrapper) : base (bindInfo, finalizerWrapper)
 		{
 		}
 

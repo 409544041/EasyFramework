@@ -31,6 +31,7 @@ namespace UniEasy
 	{
 		readonly Dictionary<BindingId, List<ProviderInfo>> providers = new Dictionary<BindingId, List<ProviderInfo>> ();
 		readonly SingletonProviderCreator singletonProviderCreator;
+		readonly Queue<IBindingFinalizer> currentBindings = new Queue<IBindingFinalizer> ();
 
 		public DiContainer ()
 		{
@@ -45,29 +46,40 @@ namespace UniEasy
 			}
 		}
 
-		public void Inject (object entity)
+		public void Inject (object injectable)
 		{
-			var type = entity.GetType ();
+			FlushBindings ();
+			var type = injectable.GetType ();
 			var typeInfo = TypeAnalyzer.GetInfo (type);
 			var injectInfos = typeInfo.FieldInjectables.Concat (typeInfo.PropertyInjectables).ToArray ();
 			for (int i = 0; i < injectInfos.Length; i++) {
-				var value = Resolve (injectInfos [i].CreateInjectContext (this, entity));
 				var injectInfo = injectInfos [i];
-				injectInfo.Setter (entity, value);
-
-				MessageBroker.Default.Receive<InjectContext> ()
-					.Where (context => context.Container == this && context.GetBindingId () == new BindingId (injectInfo.MemberType, injectInfo.Identifier))
-					.Subscribe (context => {
-					var val = context.Container.Resolve (context);
-					injectInfo.Setter (entity, val);
-				});
+				var injectContext = injectInfo.CreateInjectContext (this, injectable);
+				injectInfo.Setter (injectable, Resolve (injectContext));
 			}
+		}
+
+		// Do not use this - it is for internal use only
+		public void FlushBindings ()
+		{
+			while (currentBindings.Any ()) {
+				var binding = currentBindings.Dequeue ();
+				binding.FinalizeBinding (this);
+			}
+		}
+
+		public BindFinalizerWrapper StartBinding ()
+		{
+			FlushBindings ();
+			var bindingFinalizer = new BindFinalizerWrapper ();
+			currentBindings.Enqueue (bindingFinalizer);
+			return bindingFinalizer;
 		}
 
 		public ConcreteIdBinderGeneric<TContract> Bind<TContract> ()
 		{
 			var bindInfo = new BindInfo (typeof(TContract));
-			return new ConcreteIdBinderGeneric<TContract> (bindInfo, this);
+			return new ConcreteIdBinderGeneric<TContract> (bindInfo, StartBinding ());
 		}
 
 		public ConcreteIdBinderNonGeneric Bind (params Type[] contractTypes)
@@ -79,30 +91,23 @@ namespace UniEasy
 		{
 			var contractTypesList = contractTypes.ToList ();
 			var bindInfo = new BindInfo (contractTypesList);
-			return new ConcreteIdBinderNonGeneric (bindInfo, this);
+			return new ConcreteIdBinderNonGeneric (bindInfo, StartBinding ());
 		}
 
-		public void RegisterProvider (BindingId bindingId, BindingCondition condition, IProvider provider, bool overwrite = false)
+		public void RegisterProvider (BindingId bindingId, BindingCondition condition, IProvider provider)
 		{
 			var info = new ProviderInfo (provider, condition);
 
 			if (providers.ContainsKey (bindingId)) {
-				if (overwrite) {
-					var infos = providers [bindingId];
-					infos [infos.Count - 1] = info;
-					providers [bindingId] = infos;
-				} else {
-					providers [bindingId].Add (info);
-				}
+				providers [bindingId].Add (info);
 			} else {
 				providers.Add (bindingId, new List<ProviderInfo> () { info });
 			}
-
-			MessageBroker.Default.Publish<InjectContext> (new InjectContext (this, bindingId.Type, bindingId.Identifier));
 		}
 
 		public object Resolve (InjectContext context)
 		{
+			FlushBindings ();
 			IProvider provider;
 			var result = TryGetUniqueProvider (context, out provider);
 			if (result) {

@@ -2,7 +2,7 @@
 {
 	public class FromBinderNonGeneric : FromBinder
 	{
-		public FromBinderNonGeneric (BindInfo bindInfo, DiContainer container) : base (bindInfo, container)
+		public FromBinderNonGeneric (BindInfo bindInfo, BindFinalizerWrapper finalizerWrapper) : base (bindInfo, finalizerWrapper)
 		{
 		}
 

@@ -6,8 +6,6 @@ namespace UniEasy
 {
 	public abstract class ProviderBindingFinalizer : IBindingFinalizer
 	{
-		private int BindindCount = 0;
-
 		public ProviderBindingFinalizer (BindInfo bindInfo)
 		{
 			BindInfo = bindInfo;
@@ -63,11 +61,10 @@ namespace UniEasy
 
 		protected void RegisterProvider (DiContainer container, Type contractType, IProvider provider)
 		{
-			bool overwrite = BindindCount > 0 ? true : false;
 			container.RegisterProvider (
 				new BindingId (contractType, BindInfo.Identifier),
 				BindInfo.Condition,
-				provider, overwrite);
+				provider);
 
 			if (contractType.IsValueType ()) {
 				var nullableType = typeof(Nullable<>).MakeGenericType (contractType);
@@ -77,9 +74,8 @@ namespace UniEasy
 				container.RegisterProvider (
 					new BindingId (nullableType, BindInfo.Identifier),
 					BindInfo.Condition,
-					provider, overwrite);
+					provider);
 			}
-			BindindCount++;
 		}
 	}
 }

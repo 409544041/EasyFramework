@@ -19,14 +19,16 @@ public class DIExample : MonoBehaviour
 	IEnumerator Start ()
 	{
 		DiContainer container = new DiContainer ();
+
 		container.Bind<string> ().WithId ("first").FromInstance ("first output!")
 			.AsSingle ().WhenInjectedInto<DIExample> ().NonLazy ();
-		container.Inject (this);
 		container.Bind<string> ().WithId ("second").FromInstance ("second output!").AsSingle ();
 		container.Bind<IFoo> ().WithId ("foo").To<Foo1> ().FromInstance (new Foo1 ()).AsSingle ();
 		container.Bind<IFoo> ().To<Foo2> ().FromInstance (new Foo2 ()).AsSingle ();
 		var foos = new List<Foo3> () { new Foo3 (), new Foo3 (), new Foo3 () };
 		container.Bind<List<IFoo>> ().To (typeof(List<Foo3>)).FromInstance (foos);
+
+		container.Inject (this);
 
 		Debug.Log ("primitiveTestFirst : " + primitiveTestFirst);
 		Debug.Log ("primitiveTestSecond : " + primitiveTestSecond);

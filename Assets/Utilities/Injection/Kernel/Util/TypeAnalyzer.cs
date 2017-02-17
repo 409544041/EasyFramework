@@ -32,6 +32,7 @@ namespace UniEasy
 				GetFieldInjectables (type).ToList (),
 				GetPropertyInjectables (type).ToList (),
 				GetPostInjectMethods (type),
+				constructor,
 				GetConstructorInjectables (type, constructor).ToList ()
 			);
 		}

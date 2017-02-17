@@ -46,6 +46,45 @@ namespace UniEasy
 			}
 		}
 
+		public T Instantiate<T> (bool autoInject)
+		{
+			return (T)Instantiate (typeof(T), autoInject);
+		}
+
+		public object Instantiate (Type concreteType, bool autoInject)
+		{
+			FlushBindings ();
+
+			var typeInfo = TypeAnalyzer.GetInfo (concreteType);
+
+			object newObj = null;
+
+			if (concreteType.DerivesFrom<ScriptableObject> ()) {
+				newObj = ScriptableObject.CreateInstance (concreteType);
+			} else {
+				// Make a copy since we remove from it below
+				var paramValues = new List<object> ();
+				var injectables = typeInfo.ConstructorInjectables.ToArray ();
+				for (int i = 0; i < injectables.Length; i++) {
+					object value = Resolve (injectables [i].CreateInjectContext (this, null));
+					paramValues.Add (value);
+				}
+
+				try {
+					newObj = typeInfo.InjectConstructor.Invoke (paramValues.ToArray ());
+				} catch {
+				}
+				if (newObj == null)
+					newObj = concreteType.GetDefaultValue ();
+			}
+
+			if (autoInject) {
+				Inject (newObj);
+			}
+
+			return newObj;
+		}
+
 		public void Inject (object injectable)
 		{
 			FlushBindings ();

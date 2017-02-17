@@ -31,6 +31,7 @@ namespace UniEasy
 
 	public class EasyInjectInfo
 	{
+		readonly ConstructorInfo injectConstructor;
 		readonly List<InjectableInfo> fieldInjectables;
 		readonly List<InjectableInfo> propertyInjectables;
 		readonly List<PostInjectableInfo> postInjectMethods;
@@ -39,11 +40,13 @@ namespace UniEasy
 		public EasyInjectInfo (List<InjectableInfo> fieldInjectables,
 		                       List<InjectableInfo> propertyInjectables,
 		                       List<PostInjectableInfo> postInjectMethods,
+		                       ConstructorInfo injectConstructor,
 		                       List<InjectableInfo> constructorInjectables)
 		{
 			this.fieldInjectables = fieldInjectables;
 			this.propertyInjectables = propertyInjectables;
 			this.postInjectMethods = postInjectMethods;
+			this.injectConstructor = injectConstructor;
 			this.constructorInjectables = constructorInjectables;
 		}
 
@@ -74,6 +77,13 @@ namespace UniEasy
 		public IEnumerable<InjectableInfo> AllInjectables {
 			get {
 				return constructorInjectables.Concat (fieldInjectables).Concat (propertyInjectables).Concat (postInjectMethods.SelectMany (x => x.InjectableInfo));
+			}
+		}
+
+		// May be null
+		public ConstructorInfo InjectConstructor {
+			get {
+				return injectConstructor;
 			}
 		}
 	}

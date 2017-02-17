@@ -41,8 +41,7 @@ public class DIExample : MonoBehaviour
 		Debug.Log ("has binding IFoo : " + container.HasBinding<IFoo> ());
 
 		container.Bind<IBar> ().To<Bar1> ().FromInstance (new Bar1 ()).WhenInjectedInto<Foo> ();
-		var foo = new Foo (null);
-		container.Inject (foo);
+		var foo = container.Instantiate<Foo> (true);
 		Debug.Log ("Test Constructor Inject Function : " + foo._bar);
 
 		yield return null;
@@ -82,7 +81,7 @@ public class Foo
 		_bar = bar;
 	}
 
-//	[Inject]
+	//	[Inject]
 	public void Init (IBar bar)
 	{
 		_bar = bar;

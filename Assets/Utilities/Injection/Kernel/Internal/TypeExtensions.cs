@@ -8,6 +8,27 @@ namespace UniEasy
 {
 	static public class TypeExtensions
 	{
+		public static bool DerivesFrom<T> (this Type that)
+		{
+			return DerivesFrom (that, typeof(T));
+		}
+
+		// This seems easier to think about than IsAssignableFrom
+		public static bool DerivesFrom (this Type right, Type left)
+		{
+			return left != right && right.DerivesFromOrEqual (left);
+		}
+
+		public static bool DerivesFromOrEqual<T> (this Type that)
+		{
+			return DerivesFromOrEqual (that, typeof(T));
+		}
+
+		public static bool DerivesFromOrEqual (this Type right, Type left)
+		{
+			return left == right || left.IsAssignableFrom (right);
+		}
+
 		// Returns all instance fields, including private and public and also those in base classes
 		public static IEnumerable<FieldInfo> GetAllInstanceFields (this Type type)
 		{
@@ -98,12 +119,7 @@ namespace UniEasy
 
 			return allAttributes.Where (a => attributeTypes.Any (x => a.GetType ().DerivesFromOrEqual (x)));
 		}
-
-		public static bool DerivesFromOrEqual (this Type a, Type b)
-		{
-			return b == a || b.IsAssignableFrom (a);
-		}
-
+			
 		public static bool IsValueType (this Type type)
 		{
 			return type.IsValueType;

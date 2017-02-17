@@ -18,7 +18,7 @@ namespace UniEasy
 
 		public void FinalizeBinding (DiContainer container)
 		{
-			if (!BindInfo.ContractTypes.Any ()) {
+			if (BindInfo.ContractTypes.IsEmpty ()) {
 				return;
 			}
 

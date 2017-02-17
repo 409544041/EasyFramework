@@ -18,12 +18,12 @@ namespace UniEasy
 
 		protected override void OnFinalizeBinding (DiContainer container)
 		{
-			FinalizeBindingConcrete (container, !BindInfo.ToTypes.Any () ? BindInfo.ContractTypes : BindInfo.ToTypes);
+			FinalizeBindingConcrete (container, BindInfo.ToTypes.IsEmpty () ? BindInfo.ContractTypes : BindInfo.ToTypes);
 		}
 
 		void FinalizeBindingConcrete (DiContainer container, List<Type> concreteTypes)
 		{
-			if (!concreteTypes.Any ()) {
+			if (concreteTypes.IsEmpty ()) {
 				return;
 			}
 

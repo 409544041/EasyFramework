@@ -23,7 +23,7 @@ namespace UniEasy
 
 		public NonLazyBinder WhenInjectedInto (params Type[] targets)
 		{
-			BindInfo.Condition = r => targets.Where (x => r.ObjectType != null && r.ObjectType.DerivesFromOrEqual (x)).Any ();
+			BindInfo.Condition = r => targets.Where (x => r.ObjectType != null && !r.ObjectType.DerivesFromOrEqual (x)).IsEmpty ();
 			return this;
 		}
 

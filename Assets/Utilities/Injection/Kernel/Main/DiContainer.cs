@@ -59,10 +59,55 @@ namespace UniEasy
 			}
 		}
 
+		public void UnbindAll ()
+		{
+			FlushBindings ();
+			providers.Clear ();
+		}
+
+		public bool Unbind<TContract> ()
+		{
+			return Unbind<TContract> (null);
+		}
+
+		public bool Unbind<TContract> (object identifier)
+		{
+			FlushBindings ();
+
+			var bindingId = new BindingId (typeof(TContract), identifier);
+
+			return providers.Remove (bindingId);
+		}
+
+		// Returns true if the given type is bound to something in the container
+		public bool HasBinding (InjectContext context)
+		{
+			FlushBindings ();
+
+			List<ProviderInfo> val;
+
+			if (!providers.TryGetValue (context.GetBindingId (), out val)) {
+				return false;
+			}
+
+			return val.Where (x => x.Condition == null || x.Condition (context)).HasAtLeast (1);
+		}
+
+		public bool HasBinding<TContract> ()
+		{
+			return HasBinding<TContract> (null);
+		}
+
+		public bool HasBinding<TContract> (object identifier)
+		{
+			return HasBinding (
+				new InjectContext (this, typeof(TContract), identifier));
+		}
+
 		// Do not use this - it is for internal use only
 		public void FlushBindings ()
 		{
-			while (currentBindings.Any ()) {
+			while (!currentBindings.IsEmpty ()) {
 				var binding = currentBindings.Dequeue ();
 				binding.FinalizeBinding (this);
 			}
@@ -74,6 +119,17 @@ namespace UniEasy
 			var bindingFinalizer = new BindFinalizerWrapper ();
 			currentBindings.Enqueue (bindingFinalizer);
 			return bindingFinalizer;
+		}
+
+		public ConcreteBinderGeneric<TContract> Rebind<TContract> ()
+		{
+			return Rebind<TContract> (null);
+		}
+
+		public ConcreteBinderGeneric<TContract> Rebind<TContract> (object identifier)
+		{
+			Unbind<TContract> (identifier);
+			return Bind<TContract> ().WithId (identifier);
 		}
 
 		public ConcreteIdBinderGeneric<TContract> Bind<TContract> ()
@@ -131,7 +187,7 @@ namespace UniEasy
 		internal bool TryGetUniqueProvider (InjectContext context, out IProvider provider)
 		{
 			var providers = GetProviderMatchesInternal (context).ToList ();
-			if (!providers.Any ()) {
+			if (providers.IsEmpty ()) {
 				provider = null;
 				return false;
 			}

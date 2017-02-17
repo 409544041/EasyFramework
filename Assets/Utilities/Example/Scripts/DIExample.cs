@@ -38,6 +38,7 @@ public class DIExample : MonoBehaviour
 		foreach (IFoo sub in foos) {
 			Debug.Log ("foo sub : " + sub);
 		}
+		Debug.Log ("has binding IFoo : " + container.HasBinding<IFoo> ());
 
 		yield return null;
 	}

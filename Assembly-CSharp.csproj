@@ -265,6 +265,7 @@
      <Compile Include="Assets\Utilities\Injection\Kernel\Injection\InjectContext.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Injection\InjectableInfo.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Internal\LinqExtensions.cs" />
+     <Compile Include="Assets\Utilities\Injection\Kernel\Internal\MiscExtensions.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Internal\TypeExtensions.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Main\BindingId.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" />

@@ -51,11 +51,23 @@ namespace UniEasy
 			FlushBindings ();
 			var type = injectable.GetType ();
 			var typeInfo = TypeAnalyzer.GetInfo (type);
+
 			var injectInfos = typeInfo.FieldInjectables.Concat (typeInfo.PropertyInjectables).ToArray ();
 			for (int i = 0; i < injectInfos.Length; i++) {
 				var injectInfo = injectInfos [i];
 				var injectContext = injectInfo.CreateInjectContext (this, injectable);
 				injectInfo.Setter (injectable, Resolve (injectContext));
+			}
+
+			var postInjectMethods = typeInfo.PostInjectMethods.ToArray ();
+			for (int j = 0; j < postInjectMethods.Length; j++) {
+				var paramValues = new List<object> ();
+				var injectableInfo = postInjectMethods [j].InjectableInfo.ToArray ();
+				for (int k = 0; k < injectableInfo.Length; k++) {
+					var value = Resolve (injectableInfo [k].CreateInjectContext (this, injectable));
+					paramValues.Add (value);
+				}
+				postInjectMethods [j].MethodInfo.Invoke (injectable, paramValues.ToArray ());
 			}
 		}
 

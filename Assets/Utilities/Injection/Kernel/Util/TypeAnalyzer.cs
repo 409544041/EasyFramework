@@ -26,10 +26,24 @@ namespace UniEasy
 
 		static EasyInjectInfo CreateTypeInfo (Type type)
 		{
+			var constructor = GetInjectConstructor (type);
+
 			return new EasyInjectInfo (
 				GetFieldInjectables (type).ToList (),
-				GetPropertyInjectables (type).ToList ()
+				GetPropertyInjectables (type).ToList (),
+				GetPostInjectMethods (type),
+				GetConstructorInjectables (type, constructor).ToList ()
 			);
+		}
+
+		static IEnumerable<InjectableInfo> GetConstructorInjectables (Type parentType, ConstructorInfo constructorInfo)
+		{
+			if (constructorInfo == null) {
+				return Enumerable.Empty<InjectableInfo> ();
+			}
+
+			return constructorInfo.GetParameters ().Select (
+				paramInfo => CreateInjectableInfoForParam (parentType, paramInfo));
 		}
 
 		static IEnumerable<InjectableInfo> GetFieldInjectables (Type type)
@@ -73,6 +87,87 @@ namespace UniEasy
 				memberType = propInfo.PropertyType;
 			}
 			return new InjectableInfo (memberType, identifier, setter, parentType);
+		}
+
+		static ConstructorInfo GetInjectConstructor (Type parentType)
+		{
+			var constructors = parentType.Constructors ();
+
+			if (constructors.IsEmpty ()) {
+				return null;
+			}
+
+			if (constructors.HasMoreThan (1)) {
+				var explicitConstructor = (from c in constructors
+				                           where c.HasAttribute<InjectAttribute> ()
+				                           select c).SingleOrDefault ();
+
+				if (explicitConstructor != null) {
+					return explicitConstructor;
+				}
+
+				// If there is only one public constructor then use that
+				// This makes decent sense but is also necessary on WSA sometimes since the WSA generated
+				// constructor can sometimes be private with zero parameters
+				var singlePublicConstructor = constructors.Where (x => !x.IsPrivate).OnlyOrDefault ();
+
+				if (singlePublicConstructor != null) {
+					return singlePublicConstructor;
+				}
+
+				return null;
+			}
+
+			return constructors [0];
+		}
+
+		static List<PostInjectableInfo> GetPostInjectMethods (Type type)
+		{
+			// Note that unlike with fields and properties we use GetCustomAttributes
+			// This is so that we can ignore inherited attributes, which is necessary
+			// otherwise a base class method marked with [Inject] would cause all overridden
+			// derived methods to be added as well
+			var methods = type.GetAllInstanceMethods ()
+				.Where (x => x.GetCustomAttributes (typeof(InjectAttribute), false).Any ()).ToList ();
+
+			var heirarchyList = type.Yield ().Concat (type.GetParentTypes ()).Reverse ().ToList ();
+
+			// Order by base classes first
+			// This is how constructors work so it makes more sense
+			var values = methods.OrderBy (x => heirarchyList.IndexOf (x.DeclaringType));
+
+			var postInjectInfos = new List<PostInjectableInfo> ();
+
+			foreach (var methodInfo in values) {
+				var paramsInfo = methodInfo.GetParameters ();
+
+				postInjectInfos.Add (
+					new PostInjectableInfo (
+						methodInfo,
+						paramsInfo.Select (paramInfo =>
+							CreateInjectableInfoForParam (type, paramInfo)).ToList ()));
+			}
+
+			return postInjectInfos;
+		}
+
+		static InjectableInfo CreateInjectableInfoForParam (Type parentType, ParameterInfo paramInfo)
+		{
+			var injectAttributes = paramInfo.AllAttributes<InjectAttribute> ().ToList ();
+
+			var injectAttr = injectAttributes.SingleOrDefault ();
+
+			object identifier = null;
+
+			if (injectAttr != null) {
+				identifier = injectAttr.Id;
+			}
+
+			return new InjectableInfo (
+				paramInfo.ParameterType,
+				identifier,
+				null,
+				parentType);
 		}
 	}
 }

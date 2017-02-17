@@ -40,31 +40,51 @@ public class DIExample : MonoBehaviour
 		}
 		Debug.Log ("has binding IFoo : " + container.HasBinding<IFoo> ());
 
+		container.Bind<IBar> ().To<Bar1> ().FromInstance (new Bar1 ()).WhenInjectedInto<Foo> ();
+		var foo = new Foo (null);
+		container.Inject (foo);
+		Debug.Log ("Test Constructor Inject Function : " + foo._bar);
+
 		yield return null;
 	}
 }
 
 public interface IFoo
 {
-	
 }
 
 public class Foo1 : IFoo
 {
-	
 }
 
 public class Foo2 : IFoo
 {
-
 }
 
 public class Foo3 : IFoo
 {
-
 }
 
-public class TestWhenInject
+public interface IBar
 {
-	
+}
+
+public class Bar1 : IBar
+{
+}
+
+public class Foo
+{
+	public IBar _bar;
+
+	public Foo (IBar bar)
+	{
+		_bar = bar;
+	}
+
+//	[Inject]
+	public void Init (IBar bar)
+	{
+		_bar = bar;
+	}
 }

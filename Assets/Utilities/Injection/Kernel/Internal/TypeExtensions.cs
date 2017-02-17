@@ -83,6 +83,22 @@ namespace UniEasy
 			return allAttributes.Where (a => attributeTypes.Any (x => a.GetType ().DerivesFromOrEqual (x)));
 		}
 
+		public static IEnumerable<T> AllAttributes<T> (this ParameterInfo provider) where T : Attribute
+		{
+			return provider.AllAttributes (typeof(T)).Cast<T> ();
+		}
+
+		public static IEnumerable<Attribute> AllAttributes (this ParameterInfo provider, params Type[] attributeTypes)
+		{
+			var allAttributes = provider.GetCustomAttributes (true).Cast<Attribute> ();
+
+			if (attributeTypes.Length == 0) {
+				return allAttributes;
+			}
+
+			return allAttributes.Where (a => attributeTypes.Any (x => a.GetType ().DerivesFromOrEqual (x)));
+		}
+
 		public static bool DerivesFromOrEqual (this Type a, Type b)
 		{
 			return b == a || b.IsAssignableFrom (a);
@@ -91,6 +107,52 @@ namespace UniEasy
 		public static bool IsValueType (this Type type)
 		{
 			return type.IsValueType;
+		}
+
+		public static ConstructorInfo[] Constructors (this Type type)
+		{
+			return type.GetConstructors (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+		}
+
+		// Returns all instance methods, including private and public and also those in base classes
+		public static IEnumerable<MethodInfo> GetAllInstanceMethods (this Type type)
+		{
+			foreach (var methodInfo in type.DeclaredInstanceMethods()) {
+				yield return methodInfo;
+			}
+
+			if (type.BaseType () != null && type.BaseType () != typeof(object)) {
+				foreach (var methodInfo in type.BaseType().GetAllInstanceMethods()) {
+					yield return methodInfo;
+				}
+			}
+		}
+
+		public static MethodInfo[] DeclaredInstanceMethods (this Type type)
+		{
+			return type.GetMethods (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+		}
+
+		public static IEnumerable<Type> GetParentTypes (this Type type)
+		{
+			if (type == null || type.BaseType () == null || type == typeof(object) || type.BaseType () == typeof(object)) {
+				yield break;
+			}
+
+			yield return type.BaseType ();
+
+			foreach (var ancestor in type.BaseType().GetParentTypes()) {
+				yield return ancestor;
+			}
+		}
+
+		public static object GetDefaultValue (this Type type)
+		{
+			if (type.IsValueType ()) {
+				return Activator.CreateInstance (type);
+			}
+
+			return null;
 		}
 	}
 }

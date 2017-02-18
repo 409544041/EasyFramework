@@ -285,7 +285,7 @@
      <Compile Include="Assets\Utilities\Injection\Temp\EasySingleAttribute.cs" />
      <Compile Include="Assets\Utilities\UniEasy\EasyBlock.cs" />
      <Compile Include="Assets\Utilities\UniEasy\EasyCsv.cs" />
-     <Compile Include="Assets\Utilities\UniEasy\EasyData.cs" />
+     <Compile Include="Assets\Utilities\UniEasy\EasyDataExtensions.cs" />
      <Compile Include="Assets\Utilities\UniEasy\EasyPainter.cs" />
      <Compile Include="Assets\Utilities\UniEasy\EasyWriter.cs" />
      <Compile Include="Assets\Utilities\UniEasy\Kernel\EasyAsset.cs" />

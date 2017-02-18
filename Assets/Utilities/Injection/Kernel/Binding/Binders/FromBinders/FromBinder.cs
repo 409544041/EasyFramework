@@ -27,5 +27,18 @@
 			});
 			return this;
 		}
+
+		public ScopeBinder FromResolve ()
+		{
+			return FromResolve (null);
+		}
+
+		public ScopeBinder FromResolve (object identifier)
+		{
+			SubFinalizer = new ScopableBindingFinalizer (BindInfo,
+				(container, concreteType) => new ResolveProvider (concreteType, container, identifier));
+
+			return this;
+		}
 	}
 }

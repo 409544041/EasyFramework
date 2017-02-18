@@ -21,7 +21,7 @@ public class DIExample : MonoBehaviour
 		DiContainer container = new DiContainer ();
 
 		container.Bind<string> ().WithId ("first").FromInstance ("first output!")
-			.AsSingle ().WhenInjectedInto<DIExample> ().NonLazy ();
+			.AsSingle ().WhenInjectedInto<DIExample> ();
 		container.Bind<string> ().WithId ("second").FromInstance ("second output!").AsSingle ();
 		container.Bind<IFoo> ().WithId ("foo").To<Foo1> ().FromInstance (new Foo1 ()).AsSingle ();
 		container.Bind<IFoo> ().To<Foo2> ().FromInstance (new Foo2 ()).AsSingle ();
@@ -44,7 +44,19 @@ public class DIExample : MonoBehaviour
 		var foo = container.Instantiate<Foo> (true);
 		Debug.Log ("Test Constructor Inject Function : " + foo._bar);
 
+		container.Bind<string> ().FromInstance ("Hello World!");
+		container.Bind<Greeter> ().AsSingle ().NonLazy ();
+		container.Instantiate<Greeter> (true);
+
 		yield return null;
+	}
+}
+
+public class Greeter
+{
+	public Greeter (string message)
+	{
+		Debug.Log (message);
 	}
 }
 

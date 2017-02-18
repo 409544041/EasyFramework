@@ -12,7 +12,9 @@
 
 		public void FinalizeBinding (DiContainer container)
 		{
-			subFinalizer.FinalizeBinding (container);
+			if (subFinalizer != null) {
+				subFinalizer.FinalizeBinding (container);
+			}
 		}
 	}
 }

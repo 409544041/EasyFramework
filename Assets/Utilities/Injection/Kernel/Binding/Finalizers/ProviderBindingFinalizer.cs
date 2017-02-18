@@ -25,7 +25,8 @@ namespace UniEasy
 			OnFinalizeBinding (container);
 
 			if (BindInfo.NonLazy) {
-				
+				container.BindRootResolve (BindInfo.Identifier, 
+					BindInfo.ContractTypes.ToArray ());
 			}
 		}
 

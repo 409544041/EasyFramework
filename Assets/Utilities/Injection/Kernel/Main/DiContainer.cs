@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using UniRx;
 
 namespace UniEasy
 {
@@ -201,6 +201,28 @@ namespace UniEasy
 			return new ConcreteIdBinderNonGeneric (bindInfo, StartBinding ());
 		}
 
+		// This is equivalent to calling NonLazy() at the end of your bind statement
+		// It's only in rare cases where you need to call this instead of NonLazy()
+		public void BindRootResolve<TContract> ()
+		{
+			BindRootResolve<TContract> (null);
+		}
+
+		public void BindRootResolve<TContract> (object identifier)
+		{
+			BindRootResolve (identifier, new Type[] { typeof(TContract) });
+		}
+
+		public void BindRootResolve (IEnumerable<Type> rootTypes)
+		{
+			BindRootResolve (null, rootTypes);
+		}
+
+		public void BindRootResolve (object identifier, IEnumerable<Type> rootTypes)
+		{
+			Bind<object> ().WithId ("DependencyRootIdentifier").To (rootTypes).FromResolve (identifier);
+		}
+
 		public void RegisterProvider (BindingId bindingId, BindingCondition condition, IProvider provider)
 		{
 			var info = new ProviderInfo (provider, condition);
@@ -218,21 +240,41 @@ namespace UniEasy
 			IProvider provider;
 			var result = TryGetUniqueProvider (context, out provider);
 			if (result) {
-				var runner = provider.GetAllInstancesWithInjectSplit ();
-
-				// First get instance
-				bool hasMore = runner.MoveNext ();
-
-				var instances = runner.Current;
-
-				// Now do injection
-				while (hasMore) {
-					hasMore = runner.MoveNext ();
-				}
-
-				return instances.SingleOrDefault ();
+				return SafeGetInstances (provider).SingleOrDefault ();
 			}
 			return null;
+		}
+
+		public IList ResolveAll (InjectContext context)
+		{
+			FlushBindings ();
+
+			var matches = GetProviderMatchesInternal (context).ToList ();
+
+			if (matches.Any ()) {
+				var instances = matches.SelectMany (x => SafeGetInstances (x.Provider)).ToArray ();
+
+				return ReflectionUtil.CreateGenericList (context.MemberType, instances);
+			}
+
+			return ReflectionUtil.CreateGenericList (context.MemberType, new object[] { });
+		}
+
+		IEnumerable<object> SafeGetInstances (IProvider provider)
+		{
+			var runner = provider.GetAllInstancesWithInjectSplit ();
+
+			// First get instance
+			bool hasMore = runner.MoveNext ();
+
+			var instances = runner.Current;
+
+			// Now do injection
+			while (hasMore) {
+				hasMore = runner.MoveNext ();
+			}
+
+			return instances;
 		}
 
 		internal bool TryGetUniqueProvider (InjectContext context, out IProvider provider)

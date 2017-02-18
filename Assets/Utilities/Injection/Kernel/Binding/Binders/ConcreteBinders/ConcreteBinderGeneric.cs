@@ -8,6 +8,16 @@ namespace UniEasy
 	{
 		public ConcreteBinderGeneric (BindInfo bindInfo, BindFinalizerWrapper finalizerWrapper) : base (bindInfo, finalizerWrapper)
 		{
+			ToSelf ();
+		}
+
+		public FromBinderGeneric<TContract> ToSelf ()
+		{
+			SubFinalizer = new ScopableBindingFinalizer (
+				BindInfo, (container, type) => new TransientProvider (
+				type, container));
+
+			return this;
 		}
 
 		public FromBinderGeneric<TConcrete> To<TConcrete> ()

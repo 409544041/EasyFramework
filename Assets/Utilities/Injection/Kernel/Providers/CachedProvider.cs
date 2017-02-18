@@ -14,19 +14,19 @@ namespace UniEasy
 			this.creator = creator;
 		}
 
-		public Type GetInstanceType ()
+		public Type GetInstanceType (InjectContext context)
 		{
-			return creator.GetInstanceType ();
+			return creator.GetInstanceType (context);
 		}
 
-		public IEnumerator<List<object>> GetAllInstancesWithInjectSplit ()
+		public IEnumerator<List<object>> GetAllInstancesWithInjectSplit (InjectContext context)
 		{
 			if (instances != null) {
 				yield return instances;
 				yield break;
 			}
 
-			var runner = creator.GetAllInstancesWithInjectSplit ();
+			var runner = creator.GetAllInstancesWithInjectSplit (context);
 
 			// First get instance
 			bool hasMore = runner.MoveNext ();

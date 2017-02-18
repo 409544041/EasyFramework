@@ -119,7 +119,7 @@ namespace UniEasy
 
 			return allAttributes.Where (a => attributeTypes.Any (x => a.GetType ().DerivesFromOrEqual (x)));
 		}
-			
+
 		public static bool IsValueType (this Type type)
 		{
 			return type.IsValueType;
@@ -169,6 +169,16 @@ namespace UniEasy
 			}
 
 			return null;
+		}
+
+		public static bool IsOpenGenericType (this Type type)
+		{
+			return type.IsGenericType () && type == type.GetGenericTypeDefinition ();
+		}
+
+		public static bool IsGenericType (this Type type)
+		{
+			return type.IsGenericType;
 		}
 	}
 }

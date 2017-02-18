@@ -8,6 +8,16 @@ namespace UniEasy
 	{
 		public ConcreteBinderNonGeneric (BindInfo bindInfo, BindFinalizerWrapper finalizerWrapper) : base (bindInfo, finalizerWrapper)
 		{
+			ToSelf ();
+		}
+
+		public FromBinderNonGeneric ToSelf ()
+		{
+			SubFinalizer = new ScopableBindingFinalizer (
+				BindInfo, (container, type) => new TransientProvider (
+				type, container));
+
+			return this;
 		}
 
 		public FromBinderNonGeneric To<TConcrete> ()

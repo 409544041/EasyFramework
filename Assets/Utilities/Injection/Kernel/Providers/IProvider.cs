@@ -5,8 +5,8 @@ namespace UniEasy
 {
 	public interface IProvider
 	{
-		Type GetInstanceType();
+		Type GetInstanceType (InjectContext context);
 
-		IEnumerator<List<object>> GetAllInstancesWithInjectSplit ();
+		IEnumerator<List<object>> GetAllInstancesWithInjectSplit (InjectContext context);
 	}
 }

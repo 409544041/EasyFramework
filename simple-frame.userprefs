@@ -1,29 +1,21 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Example\Scripts\DIExample.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Injection\Kernel\Binding\Finalizers\ProviderBindingFinalizer.cs">
     <Files>
-      <File FileName="Assets\Utilities\Example\Scripts\DIExample.cs" Line="42" Column="3" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" Line="48" Column="3" />
-      <File FileName="Assets\Temp\Zenject\Source\Binding\Binders\NonLazyBinder.cs" Line="18" Column="29" />
-      <File FileName="Assets\Temp\Zenject\Source\Main\DiContainer.cs" Line="649" Column="71" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Util\TypeAnalyzer.cs" Line="33" Column="15" />
-      <File FileName="Assets\Temp\Zenject\Source\Util\TypeAnalyzer.cs" Line="18" Column="40" />
-      <File FileName="Assets\Temp\Zenject\Source\Internal\TypeExtensions.cs" Line="184" Column="45" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Internal\TypeExtensions.cs" Line="165" Column="39" />
-      <File FileName="Assets\Temp\Zenject\Source\Internal\LinqExtensions.cs" Line="58" Column="38" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Internal\LinqExtensions.cs" Line="30" Column="5" />
-      <File FileName="Assets\Temp\Zenject\Source\Util\ZenjectTypeInfo.cs" Line="43" Column="33" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Util\EasyInjectInfo.cs" Line="37" Column="33" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Injection\InjectableInfo.cs" Line="12" Column="3" />
-      <File FileName="Assets\Temp\Zenject\Source\Injection\InjectableInfo.cs" Line="26" Column="9" />
-      <File FileName="Assets\Temp\Zenject\Source\Internal\MiscExtensions.cs" Line="16" Column="1" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Internal\MiscExtensions.cs" Line="5" Column="15" />
-      <File FileName="Assets\Temp\Zenject\Source\Injection\InjectUtil.cs" Line="122" Column="47" />
-      <File FileName="Assets\Temp\Zenject\Source\Validation\ValidationMarker.cs" Line="5" Column="5" />
+      <File FileName="Assets\Utilities\Example\Scripts\DIExample.cs" Line="48" Column="46" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" Line="277" Column="1" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Providers\ResolveProvider.cs" Line="26" Column="4" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Binding\Binders\NonLazyBinder.cs" Line="16" Column="20" />
+      <File FileName="Assets\Utilities\Injection\Kernel\Binding\Finalizers\ProviderBindingFinalizer.cs" Line="27" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="E:\simple-frame\Assets\Utilities\Injection\Kernel\Providers\CachedProvider.cs" line="25" column="1" />
+      <Breakpoint file="E:\simple-frame\Assets\Utilities\Injection\Kernel\Providers\ResolveProvider.cs" line="27" column="1" />
+      <Breakpoint file="E:\simple-frame\Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" line="252" column="1" />
+      <Breakpoint file="E:\simple-frame\Assets\Utilities\Injection\Kernel\Binding\Finalizers\ProviderBindingFinalizer.cs" line="28" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

@@ -17,15 +17,19 @@ namespace UniEasy
 			this.container = container;
 		}
 
-		public Type GetInstanceType ()
+		public Type GetInstanceType (InjectContext context)
 		{
 			return contractType;
 		}
 
-		public IEnumerator<List<object>> GetAllInstancesWithInjectSplit ()
+		public IEnumerator<List<object>> GetAllInstancesWithInjectSplit (InjectContext context)
 		{
-			var context = new InjectContext (container, contractType, identifier);
-			yield return container.ResolveAll (context).Cast<object> ().ToList ();
+			yield return container.ResolveAll (GetContext (context)).Cast<object> ().ToList ();
+		}
+
+		InjectContext GetContext (InjectContext context)
+		{
+			return context.CreateContext (contractType, identifier);
 		}
 	}
 }

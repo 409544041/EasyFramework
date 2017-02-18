@@ -52,5 +52,16 @@ namespace UniEasy
 		{
 			return new BindingId (MemberType, Identifier);
 		}
+
+		public InjectContext CreateContext (Type memberType, object identifier)
+		{
+			var context = new InjectContext ();
+			context.Identifier = identifier;
+			context.MemberType = memberType;
+			context.ObjectType = this.ObjectType;
+			context.ObjectInstance = this.ObjectInstance;
+			context.Container = this.Container;
+			return context;
+		}
 	}
 }

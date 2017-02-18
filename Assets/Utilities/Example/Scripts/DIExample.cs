@@ -15,6 +15,8 @@ public class DIExample : MonoBehaviour
 	public IFoo foo2;
 	[Inject]
 	public List<IFoo> foos;
+	[Inject]
+	public Greeter greeter;
 
 	IEnumerator Start ()
 	{
@@ -27,6 +29,9 @@ public class DIExample : MonoBehaviour
 		container.Bind<IFoo> ().To<Foo2> ().FromInstance (new Foo2 ()).AsSingle ();
 		var foos = new List<Foo3> () { new Foo3 (), new Foo3 (), new Foo3 () };
 		container.Bind<List<IFoo>> ().To (typeof(List<Foo3>)).FromInstance (foos);
+
+		container.Bind<string> ().FromInstance ("Hello World!");
+		container.Bind<Greeter> ().AsSingle ().NonLazy ();
 
 		container.Inject (this);
 
@@ -44,9 +49,7 @@ public class DIExample : MonoBehaviour
 		var foo = container.Instantiate<Foo> (true);
 		Debug.Log ("Test Constructor Inject Function : " + foo._bar);
 
-		container.Bind<string> ().FromInstance ("Hello World!");
-		container.Bind<Greeter> ().AsSingle ().NonLazy ();
-		container.Instantiate<Greeter> (true);
+		Debug.Log ("Test Nonlazy Function : " + greeter);
 
 		yield return null;
 	}

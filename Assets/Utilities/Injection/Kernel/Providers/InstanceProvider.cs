@@ -15,14 +15,14 @@ namespace UniEasy
 			this.instance = instance;
 		}
 
-		public Type GetInstanceType ()
+		public Type GetInstanceType (InjectContext context)
 		{
 			return instanceType;
 		}
 
-		public IEnumerator<List<object>> GetAllInstancesWithInjectSplit ()
+		public IEnumerator<List<object>> GetAllInstancesWithInjectSplit (InjectContext context)
 		{
-			yield return new List<object>() { instance };
+			yield return new List<object> () { instance };
 		}
 	}
 }

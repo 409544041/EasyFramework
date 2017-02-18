@@ -266,6 +266,7 @@
      <Compile Include="Assets\Utilities\Injection\Kernel\Injection\InjectableInfo.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Internal\LinqExtensions.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Internal\MiscExtensions.cs" />
+     <Compile Include="Assets\Utilities\Injection\Kernel\Internal\ProviderUtil.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Internal\ReflectionUtil.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Internal\TypeExtensions.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Main\BindingId.cs" />
@@ -276,6 +277,7 @@
      <Compile Include="Assets\Utilities\Injection\Kernel\Providers\ResolveProvider.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Providers\SingletonId.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Providers\SingletonProviderCreator.cs" />
+     <Compile Include="Assets\Utilities\Injection\Kernel\Providers\TransientProvider.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Usage\InjectAttribute.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Util\EasyInjectInfo.cs" />
      <Compile Include="Assets\Utilities\Injection\Kernel\Util\TypeAnalyzer.cs" />

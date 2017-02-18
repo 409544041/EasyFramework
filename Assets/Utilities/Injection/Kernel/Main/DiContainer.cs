@@ -29,6 +29,7 @@ namespace UniEasy
 
 	public class DiContainer
 	{
+		public const string DependencyRootIdentifier = "DependencyRoot";
 		readonly Dictionary<BindingId, List<ProviderInfo>> providers = new Dictionary<BindingId, List<ProviderInfo>> ();
 		readonly SingletonProviderCreator singletonProviderCreator;
 		readonly Queue<IBindingFinalizer> currentBindings = new Queue<IBindingFinalizer> ();
@@ -220,7 +221,9 @@ namespace UniEasy
 
 		public void BindRootResolve (object identifier, IEnumerable<Type> rootTypes)
 		{
-			Bind<object> ().WithId ("DependencyRootIdentifier").To (rootTypes).FromResolve (identifier);
+			// NonLazy param used Constructor Injection so don't distinguish with Id,
+			// Add a DependencyRootIdentifier just to prevent another injection binded.
+			Bind<object> ().WithId (DependencyRootIdentifier).To (rootTypes).FromResolve (identifier);
 		}
 
 		public void RegisterProvider (BindingId bindingId, BindingCondition condition, IProvider provider)
@@ -240,7 +243,7 @@ namespace UniEasy
 			IProvider provider;
 			var result = TryGetUniqueProvider (context, out provider);
 			if (result) {
-				return SafeGetInstances (provider).SingleOrDefault ();
+				return SafeGetInstances (provider, context).SingleOrDefault ();
 			}
 			return null;
 		}
@@ -252,7 +255,7 @@ namespace UniEasy
 			var matches = GetProviderMatchesInternal (context).ToList ();
 
 			if (matches.Any ()) {
-				var instances = matches.SelectMany (x => SafeGetInstances (x.Provider)).ToArray ();
+				var instances = matches.SelectMany (x => SafeGetInstances (x.Provider, context)).ToArray ();
 
 				return ReflectionUtil.CreateGenericList (context.MemberType, instances);
 			}
@@ -260,9 +263,9 @@ namespace UniEasy
 			return ReflectionUtil.CreateGenericList (context.MemberType, new object[] { });
 		}
 
-		IEnumerable<object> SafeGetInstances (IProvider provider)
+		IEnumerable<object> SafeGetInstances (IProvider provider, InjectContext context)
 		{
-			var runner = provider.GetAllInstancesWithInjectSplit ();
+			var runner = provider.GetAllInstancesWithInjectSplit (context);
 
 			// First get instance
 			bool hasMore = runner.MoveNext ();

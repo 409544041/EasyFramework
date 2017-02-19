@@ -21,7 +21,7 @@ namespace UniEasy
 
 		public static Type GetSceneHierarchyWindow ()
 		{
-//		return GetType ("c:/program files/unity/editor/data/managed/UnityEditor.dll", "UnityEditor.SceneHierarchyWindow");
+//		    return GetType ("c:/program files/unity/editor/data/managed/UnityEditor.dll", "UnityEditor.SceneHierarchyWindow");
 			AssemblyName assemblyName = new AssemblyName ("UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
 			return GetType (assemblyName, "UnityEditor.SceneHierarchyWindow");
 		}

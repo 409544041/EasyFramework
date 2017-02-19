@@ -5,10 +5,8 @@ namespace UniEasy
 {
 	public class EasyCsv
 	{
-		#if UNITY_EDITOR
 		private readonly string[] RowSymbol = { "\n" };
 		private readonly string[] ColumnSymbol = { ";" };
-		#endif
 		private string[][] values;
 		private Dictionary<string, Coordinate> target;
 		private Dictionary<string, List<string>> RowDictionary;

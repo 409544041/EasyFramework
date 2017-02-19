@@ -37,8 +37,6 @@ namespace UniEasy
 		public DiContainer ()
 		{
 			singletonProviderCreator = new SingletonProviderCreator (this);
-
-			Inject (this);
 		}
 
 		public SingletonProviderCreator SingletonProviderCreator {

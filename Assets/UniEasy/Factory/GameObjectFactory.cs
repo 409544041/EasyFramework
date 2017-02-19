@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UniEasy
 {
-	[AddComponentMenu ("Factory/GameObject Factory"), EasySingle]
+	[AddComponentMenu ("Factory/GameObject Factory")]
 	public class GameObjectFactory : MonoBehaviour
 	{
 		static private GameObjectFactory instance;

@@ -45,9 +45,21 @@ namespace UniEasy
 			}
 		}
 
+		public T Instantiate<T> ()
+		{
+			bool autoInject = true;
+			return (T)Instantiate (typeof(T), autoInject);
+		}
+
 		public T Instantiate<T> (bool autoInject)
 		{
 			return (T)Instantiate (typeof(T), autoInject);
+		}
+
+		public object Instantiate (Type concreteType)
+		{
+			bool autoInject = true;
+			return Instantiate (concreteType, autoInject);
 		}
 
 		public object Instantiate (Type concreteType, bool autoInject)

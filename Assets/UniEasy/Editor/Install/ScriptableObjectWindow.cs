@@ -12,6 +12,7 @@ namespace UniEasy.Edit
 	{
 		private int selectedIndex;
 		static private string[] scriptableObjectNames;
+		static private EndNameEdit endNameEdit;
 		static private Type[] types;
 
 		static private Type[] Types { 
@@ -23,6 +24,10 @@ namespace UniEasy.Edit
 		{
 			Types = scriptableObjectTypes;
 			scriptableObjectNames = scriptableObjectTypes.Select (o => o.Name).ToArray ();
+			endNameEdit = ScriptableObject.CreateInstance<EndNameEdit> ();
+			endNameEdit.EndAction += (instanceID, pathName, resourceFile) => {
+				AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceID), AssetDatabase.GenerateUniqueAssetPath (pathName));
+			};
 			var window = EditorWindow.GetWindow<ScriptableObjectWindow> (true, "Create a new ScriptableObject", true);
 			window.ShowPopup ();
 		}
@@ -34,11 +39,9 @@ namespace UniEasy.Edit
 
 			if (GUILayout.Button ("Create")) {
 				var go = ScriptableObject.CreateInstance (Types [selectedIndex]);
-				StartNameEditor.Rename (go.GetInstanceID (), 
-					ScriptableObject.CreateInstance<EndNameEdit> (),
+				StartNameEditor.Create (go.GetInstanceID (), endNameEdit,
 					string.Format ("{0}.asset", scriptableObjectNames [selectedIndex]),
-					AssetPreview.GetMiniThumbnail (go),	
-					"");
+					AssetPreview.GetMiniTypeThumbnail (typeof(ScriptableObject)), "");
 
 				Close ();
 			}

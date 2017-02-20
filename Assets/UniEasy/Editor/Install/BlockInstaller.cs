@@ -2,9 +2,9 @@
 using UnityEditor;
 using System.Reflection;
 
-namespace UniEasy
+namespace UniEasy.Edit
 {
-	public class BlockFactoryEditor : Editor
+	public class BlockInstaller : Editor
 	{
 		static public EasyBlock CreateBlock (GameObject parent)
 		{
@@ -64,7 +64,7 @@ namespace UniEasy
 		static void OnHierarchyGUI (int instanceID, Rect selectionRect)
 		{
 			if (Event.current != null && selectionRect.Contains (Event.current.mousePosition)
-			   && Event.current.button == 1 && Event.current.type == EventType.mouseUp) {
+			    && Event.current.button == 1 && Event.current.type == EventType.mouseUp) {
 				GameObject selectedGameObject = EditorUtility.InstanceIDToObject (instanceID) as GameObject;
 				if (selectedGameObject) {
 
@@ -84,8 +84,8 @@ namespace UniEasy
 					}
 
 					genericMenu.AddSeparator ("");
-					genericMenu.AddItem (new GUIContent ("BlockFactory/Export Block"), false, ExportBlock, selectedGameObject);
-					genericMenu.AddItem (new GUIContent ("BlockFactory/Export Block Group"), false, ExportBlockGroup, selectedGameObject);
+					genericMenu.AddItem (new GUIContent ("Block Installer/Export Block"), false, ExportBlock, selectedGameObject);
+					genericMenu.AddItem (new GUIContent ("Block Installer/Export Block Group"), false, ExportBlockGroup, selectedGameObject);
 					genericMenu.ShowAsContext ();
 				}			
 			}

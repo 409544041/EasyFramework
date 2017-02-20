@@ -1,19 +1,19 @@
-﻿using System.Linq;
+﻿using UnityEngine;
 using UnityEditor;
-using UnityEngine;
+using System.Linq;
 
 namespace UniEasy.Edit
 {
 	/// <summary>
 	/// A helper class for instantiating ScriptableObjects in the editor.
 	/// </summary>
-	public class ScriptableObjectFactoryEditor
+	public class ScriptableObjectInstaller
 	{
-		[MenuItem ("Assets/Create/ScriptableObjectFactory")]
+		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Installer")]
 		public static void CreateScriptableObject ()
 		{
 			var assembly = EasyAssembly.GetAssemblyCSharp ();
-
+			
 			// Get all classes derived from ScriptableObject
 			var allScriptableObjects = (from t in assembly.GetTypes ()
 			                            where t.IsSubclassOf (typeof(ScriptableObject))

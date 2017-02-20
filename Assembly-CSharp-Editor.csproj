@@ -61,12 +61,13 @@
      <Compile Include="Assets\Temp\Zenject\Source\Editor\ZenUnityEditorUtil.cs" />
      <Compile Include="Assets\UniEasy\Editor\Inspector\EasyRectTransform.cs" />
      <Compile Include="Assets\UniEasy\Editor\Inspector\EasyTransform.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Install\BlockInstaller.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Install\MonoBehaviourInstaller.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Install\ScriptableObjectInstaller.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Install\ScriptableObjectWindow.cs" />
      <Compile Include="Assets\UniEasy\Editor\Util\DecoratorEditor.cs" />
      <Compile Include="Assets\UniEasy\Editor\Util\EasyAssembly.cs" />
      <Compile Include="Assets\UniEasy\Editor\Util\StartNameEditor.cs" />
-     <Compile Include="Assets\UniEasy\Factory\Editor\BlockFactoryEditor.cs" />
-     <Compile Include="Assets\UniEasy\Factory\Editor\ScriptableObjectFactoryEditor.cs" />
-     <Compile Include="Assets\UniEasy\Factory\Editor\ScriptableObjectWindow.cs" />
      <None Include="Assets\Temp\Zenject\LICENSE.txt" />
      <None Include="Assets\Temp\Zenject\Version.txt" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />

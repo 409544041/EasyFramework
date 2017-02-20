@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditor.ProjectWindowCallback;
+using System;
 
 namespace UniEasy.Edit
 {
@@ -8,43 +9,21 @@ namespace UniEasy.Edit
 	{
 		#region implemented abstract members of EndNameEditAction
 
-		public override void Action (int instanceId, string pathName, string resourceFile)
+		public override void Action (int instanceID, string pathName, string resourceFile)
 		{
-			AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceId), AssetDatabase.GenerateUniqueAssetPath (pathName));
+			if (EndAction != null) {
+				EndAction (instanceID, pathName, resourceFile);
+			}
 		}
+
+		public event Action<int, string, string> EndAction;
 
 		#endregion
 	}
 
 	public class StartNameEditor : EditorWindow
 	{
-		static public void Rename (GameObject go)
-		{
-			var InstanceID = go.GetInstanceID ();
-			var endAction = ScriptableObject.CreateInstance<EndNameEditAction> ();
-			var pathName = AssetDatabase.GetAssetPath (InstanceID);
-			var icon = AssetPreview.GetMiniThumbnail (go);
-			Rename (InstanceID, endAction, pathName, icon, "");
-		}
-
-		static public void Rename (GameObject go, string resourceFile)
-		{
-			var InstanceID = go.GetInstanceID ();
-			var endAction = ScriptableObject.CreateInstance<EndNameEditAction> ();
-			var pathName = AssetDatabase.GetAssetPath (InstanceID);
-			var icon = AssetPreview.GetMiniThumbnail (go);
-			Rename (InstanceID, endAction, pathName, icon, resourceFile);
-		}
-
-		static public void Rename (GameObject go, EndNameEditAction endAction, string resourceFile)
-		{
-			var InstanceID = go.GetInstanceID ();
-			var pathName = AssetDatabase.GetAssetPath (InstanceID);
-			var icon = AssetPreview.GetMiniThumbnail (go);
-			Rename (InstanceID, endAction, pathName, icon, resourceFile);
-		}
-
-		static public void Rename (int InstanceID, EndNameEditAction endAction, string pathName, Texture2D icon, string resourceFile)
+		static public void Create (int InstanceID, EndNameEditAction endAction, string pathName, Texture2D icon, string resourceFile)
 		{
 			ProjectWindowUtil.StartNameEditingIfProjectWindowExists (
 				InstanceID,

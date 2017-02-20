@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	[AttributeUsage (AttributeTargets.Constructor | AttributeTargets.Method
 	| AttributeTargets.Parameter | AttributeTargets.Property

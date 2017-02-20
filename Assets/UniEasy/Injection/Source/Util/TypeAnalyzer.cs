@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	public class TypeAnalyzer
 	{

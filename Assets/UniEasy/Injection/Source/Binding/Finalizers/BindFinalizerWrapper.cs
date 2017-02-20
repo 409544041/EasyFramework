@@ -1,4 +1,4 @@
-﻿namespace UniEasy
+﻿namespace UniEasy.DI
 {
 	public class BindFinalizerWrapper : IBindingFinalizer
 	{

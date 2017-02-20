@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Linq;
 using System;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	static public class TypeExtensions
 	{

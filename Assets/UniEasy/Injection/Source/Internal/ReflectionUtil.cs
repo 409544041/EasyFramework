@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	public static class ReflectionUtil
 	{

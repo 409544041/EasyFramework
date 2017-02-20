@@ -1,12 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Utilities\Injection\Kernel\Binding\Finalizers\ProviderBindingFinalizer.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\Injection\Source\Main\DiContainer.cs">
     <Files>
-      <File FileName="Assets\Utilities\Example\Scripts\DIExample.cs" Line="48" Column="46" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Main\DiContainer.cs" Line="277" Column="1" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Providers\ResolveProvider.cs" Line="26" Column="4" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Binding\Binders\NonLazyBinder.cs" Line="16" Column="20" />
-      <File FileName="Assets\Utilities\Injection\Kernel\Binding\Finalizers\ProviderBindingFinalizer.cs" Line="27" Column="17" />
+      <File FileName="Assets\UniEasy\Injection\Source\Install\Installer.cs" Line="12" Column="24" />
+      <File FileName="Assets\UniEasy\Injection\Source\Install\IInstaller.cs" Line="1" Column="1" />
+      <File FileName="Assets\UniEasy\Injection\Source\Install\InstallerBase.cs" Line="13" Column="2" />
+      <File FileName="Assets\Temp\Zenject\Source\Install\Installer.cs" Line="22" Column="31" />
+      <File FileName="Assets\Temp\Zenject\Source\Install\ScriptableObjectInstaller.cs" Line="11" Column="61" />
+      <File FileName="Assets\Temp\Zenject\Source\Install\ScriptableObjectInstallerBase.cs" Line="13" Column="5" />
+      <File FileName="Assets\Temp\Zenject\Source\Install\MonoInstallerBase.cs" Line="1" Column="1" />
+      <File FileName="Assets\Temp\Zenject\Source\Install\InstallerBase.cs" Line="1" Column="1" />
+      <File FileName="Assets\Temp\Zenject\Source\Install\ZenjectBinding.cs" Line="1" Column="1" />
+      <File FileName="Assets\UniEasy\Injection\Source\Main\DiContainer.cs" Line="54" Column="44" />
+      <File FileName="Assets\Temp\Zenject\Source\Main\DiContainer.cs" Line="654" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	public static class MiscExtensions
 	{

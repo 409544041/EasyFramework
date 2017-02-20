@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	[System.Diagnostics.DebuggerStepThrough]
 	public class SingletonId : IEquatable<SingletonId>

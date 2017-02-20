@@ -275,9 +275,6 @@
      <Compile Include="Assets\UniEasy\Injection\Source\Binding\Finalizers\ScopableBindingFinalizer.cs" />
      <Compile Include="Assets\UniEasy\Injection\Source\Injection\InjectContext.cs" />
      <Compile Include="Assets\UniEasy\Injection\Source\Injection\InjectableInfo.cs" />
-     <Compile Include="Assets\UniEasy\Injection\Source\Install\IInstaller.cs" />
-     <Compile Include="Assets\UniEasy\Injection\Source\Install\Installer.cs" />
-     <Compile Include="Assets\UniEasy\Injection\Source\Install\InstallerBase.cs" />
      <Compile Include="Assets\UniEasy\Injection\Source\Internal\LinqExtensions.cs" />
      <Compile Include="Assets\UniEasy\Injection\Source\Internal\MiscExtensions.cs" />
      <Compile Include="Assets\UniEasy\Injection\Source\Internal\ProviderUtil.cs" />

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	public class SingletonProviderCreator
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	public class InjectContext
 	{

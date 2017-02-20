@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace UniEasy
+namespace UniEasy.DI
 {
 	public class ConcreteBinderGeneric<TContract> : FromBinderGeneric<TContract>
 	{

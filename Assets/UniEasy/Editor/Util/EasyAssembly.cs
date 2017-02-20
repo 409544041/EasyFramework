@@ -19,6 +19,14 @@ namespace UniEasy
 			return assembly.GetType (typeName);
 		}
 
+		/// <summary>
+		/// Returns the assembly that contains the script code for this project (currently hard coded)
+		/// </summary>
+		public static Assembly GetAssemblyCSharp ()
+		{
+			return Assembly.Load (new AssemblyName ("Assembly-CSharp"));
+		}
+
 		public static Type GetSceneHierarchyWindow ()
 		{
 //		    return GetType ("c:/program files/unity/editor/data/managed/UnityEditor.dll", "UnityEditor.SceneHierarchyWindow");

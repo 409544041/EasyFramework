@@ -63,6 +63,7 @@
      <Compile Include="Assets\UniEasy\Editor\Inspector\EasyTransform.cs" />
      <Compile Include="Assets\UniEasy\Editor\Util\DecoratorEditor.cs" />
      <Compile Include="Assets\UniEasy\Editor\Util\EasyAssembly.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Util\StartNameEditor.cs" />
      <Compile Include="Assets\UniEasy\Factory\Editor\BlockFactoryEditor.cs" />
      <Compile Include="Assets\UniEasy\Factory\Editor\ScriptableObjectFactoryEditor.cs" />
      <Compile Include="Assets\UniEasy\Factory\Editor\ScriptableObjectWindow.cs" />

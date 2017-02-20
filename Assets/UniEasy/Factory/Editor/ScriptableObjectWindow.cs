@@ -1,45 +1,28 @@
 ﻿using System;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.ProjectWindowCallback;
 using UnityEngine;
 
-namespace UniEasy
+namespace UniEasy.Edit
 {
-	internal class EndNameEdit : EndNameEditAction
-	{
-		#region implemented abstract members of EndNameEditAction
-
-		public override void Action (int instanceId, string pathName, string resourceFile)
-		{
-			AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceId), AssetDatabase.GenerateUniqueAssetPath (pathName));
-		}
-
-		#endregion
-	}
-
 	/// <summary>
 	/// Scriptable object window.
 	/// </summary>
 	public class ScriptableObjectWindow : EditorWindow
 	{
 		private int selectedIndex;
-		private static string[] names;
+		static private string[] scriptableObjectNames;
+		static private Type[] types;
 
-		private static Type[] types;
-
-		private static Type[] Types { 
+		static private Type[] Types { 
 			get { return types; }
-			set {
-				types = value;
-				names = types.Select (t => t.FullName).ToArray ();
-			}
+			set { types = value; }
 		}
 
-		public static void Init (Type[] scriptableObjects)
+		public static void Init (Type[] scriptableObjectTypes)
 		{
-			Types = scriptableObjects;
-
+			Types = scriptableObjectTypes;
+			scriptableObjectNames = scriptableObjectTypes.Select (o => o.Name).ToArray ();
 			var window = EditorWindow.GetWindow<ScriptableObjectWindow> (true, "Create a new ScriptableObject", true);
 			window.ShowPopup ();
 		}
@@ -47,16 +30,15 @@ namespace UniEasy
 		public void OnGUI ()
 		{
 			GUILayout.Label ("ScriptableObject Class");
-			selectedIndex = EditorGUILayout.Popup (selectedIndex, names);
+			selectedIndex = EditorGUILayout.Popup (selectedIndex, scriptableObjectNames);
 
 			if (GUILayout.Button ("Create")) {
-				var asset = ScriptableObject.CreateInstance (types [selectedIndex]);
-				ProjectWindowUtil.StartNameEditingIfProjectWindowExists (
-					asset.GetInstanceID (),
+				var go = ScriptableObject.CreateInstance (Types [selectedIndex]);
+				StartNameEditor.Rename (go.GetInstanceID (), 
 					ScriptableObject.CreateInstance<EndNameEdit> (),
-					string.Format ("{0}.asset", names [selectedIndex]),
-					AssetPreview.GetMiniThumbnail (asset), 
-					null);
+					string.Format ("{0}.asset", scriptableObjectNames [selectedIndex]),
+					AssetPreview.GetMiniThumbnail (go),	
+					"");
 
 				Close ();
 			}

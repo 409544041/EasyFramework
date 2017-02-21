@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
-using System.Linq;
+using System;
 
 namespace UniEasy.Edit
 {
@@ -9,19 +9,19 @@ namespace UniEasy.Edit
 	/// </summary>
 	public class ScriptableObjectInstaller
 	{
-		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Installer")]
-		public static void CreateScriptableObject ()
+		public static void CreateScriptableObjectAsset (string assetPath, Type type)
 		{
-			var assembly = EasyAssembly.GetAssemblyCSharp ();
-			
-			// Get all classes derived from ScriptableObject
-			var allScriptableObjects = (from t in assembly.GetTypes ()
-			                            where t.IsSubclassOf (typeof(ScriptableObject))
-			                            where !t.IsGenericType
-			                            select t).ToArray ();
-
-			// Show the selection window.
-			ScriptableObjectWindow.Init (allScriptableObjects);
+			var go = ScriptableObject.CreateInstance (type);
+			var endNameEdit = ScriptableObject.CreateInstance<EndNameEdit> ();
+			endNameEdit.EndAction += (instanceID, pathName, resourceFile) => {
+				AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceID), AssetDatabase.GenerateUniqueAssetPath (pathName));
+			};
+			StartNameEditor.Create (
+				go.GetInstanceID (),
+				endNameEdit,
+				string.Format ("{0}.asset", assetPath),
+				EditorGUIUtility.IconContent ("ScriptableObject Icon", "").image as Texture2D,
+				"");
 		}
 	}
 }

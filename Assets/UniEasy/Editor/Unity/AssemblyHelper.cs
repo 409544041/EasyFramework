@@ -1,41 +1,33 @@
-﻿using UnityEngine;
-using UnityEditor;
-using System.Reflection;
+﻿using System.Reflection;
 using System;
 
-namespace UniEasy
+namespace UniEasy.Edit
 {
-	public class EasyAssembly
+	public class AssemblyHelper
 	{
-		public static Type GetType (string filePath, string typeName)
+		static public Type GetType (string filePath, string typeName)
 		{
 			Assembly assembly = Assembly.LoadFile (filePath);
 			return assembly.GetType (typeName);
 		}
 
-		public static Type GetType (AssemblyName assemblyName, string typeName)
+		static public Type GetType (AssemblyName assemblyName, string typeName)
 		{
 			Assembly assembly = Assembly.Load (assemblyName);
 			return assembly.GetType (typeName);
 		}
 
-		/// <summary>
-		/// Returns the assembly that contains the c# script code for this project (currently hard coded)
-		/// </summary>
-		public static Assembly GetAssemblyCSharp ()
+		static public Assembly GetAssemblyCSharp ()
 		{
 			return Assembly.Load (new AssemblyName ("Assembly-CSharp"));
 		}
 
-		/// <summary>
-		/// Returns the assembly that contains the unity-editor code for this project (currently hard coded)
-		/// </summary>
-		public static Assembly GetAssemblyCSharpEditor ()
+		static public Assembly GetAssemblyCSharpEditor ()
 		{
 			return Assembly.Load (new AssemblyName ("Assembly-CSharp-Editor"));
 		}
 
-		public static Type GetSceneHierarchyWindow ()
+		static public Type GetSceneHierarchyWindow ()
 		{
 //		    return GetType ("c:/program files/unity/editor/data/managed/UnityEditor.dll", "UnityEditor.SceneHierarchyWindow");
 			AssemblyName assemblyName = new AssemblyName ("UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");

@@ -11,21 +11,22 @@ namespace UniEasy.Edit
 	/// </summary>
 	public class ScriptAssetWindow : EditorWindow
 	{
-		private int selectedIndex;
-		private Vector2 scrollPos;
-		private Dictionary<Type, IScriptAssetInstaller> installers = new Dictionary<Type, IScriptAssetInstaller> ();
-		static private string[] scriptAssetNames;
-		static private Type[] types;
+		private int selectedIndex = 0;
+		private Vector2 scrollPos = Vector2.zero;
+		static private Type[] types = new Type[0];
+		static private string[] templates = new string[0];
+		static private Dictionary<Type, IScriptAssetInstaller> installers = 
+			new Dictionary<Type, IScriptAssetInstaller> ();
 
 		static private Type[] Types { 
 			get { return types; }
 			set { types = value; }
 		}
 
-		[MenuItem ("Assets/Create/UniEasy/Template CSharp Installer", false, 20)]
-		public static void OpenScriptAssetWindow ()
+		[MenuItem ("Assets/Create/UniEasy/Template Script Installer", false, 20)]
+		static public void OpenScriptAssetWindow ()
 		{
-			var assembly = EasyAssembly.GetAssemblyCSharpEditor ();
+			var assembly = AssemblyHelper.GetAssemblyCSharpEditor ();
 
 			// Get all classes derived from ScriptAssetInstallerBase
 			Types = (from t in assembly.GetTypes ()
@@ -33,7 +34,7 @@ namespace UniEasy.Edit
 			         where !t.IsGenericType
 			         select t).ToArray ();
 
-			scriptAssetNames = Types.Select (o => o.Name).ToArray ();
+			templates = Types.Select (o => o.Name).ToArray ();
 
 			var window = EditorWindow.GetWindow<ScriptAssetWindow> (true, "Create a Template Script", true);
 			window.ShowPopup ();
@@ -42,23 +43,21 @@ namespace UniEasy.Edit
 		public void OnGUI ()
 		{
 			GUILayout.Label ("Select Template");
-			selectedIndex = EditorGUILayout.Popup (selectedIndex, scriptAssetNames);
+
+			selectedIndex = EditorGUILayout.Popup (selectedIndex, templates);
 
 			IScriptAssetInstaller installer;
-			if (!installers.TryGetValue (types [selectedIndex], out installer))
-				installer = (IScriptAssetInstaller)Activator.CreateInstance (types [selectedIndex]);
+			if (!installers.TryGetValue (Types [selectedIndex], out installer))
+				installer = (IScriptAssetInstaller)Activator.CreateInstance (Types [selectedIndex]);
 
 			scrollPos = EditorGUILayout.BeginScrollView (scrollPos);
-			EditorGUILayout.TextArea (installer.GetScriptAssetName () + ".cs\n\n");
-			EditorGUILayout.TextArea (installer.GetScriptAssetContents ());
+			EditorGUILayout.TextArea (installer.GetName () + "\n\n");
+			EditorGUILayout.TextArea (installer.GetContents ());
 			EditorGUILayout.EndScrollView ();
 
 			GUILayout.FlexibleSpace ();
 			if (GUILayout.Button ("Create")) {
-				ScriptAssetUlit.CreateScriptAsset (
-					installer.GetScriptAssetName (),
-					installer.GetScriptAssetContents ());
-
+				installer.Create ();
 				Close ();
 			}
 		}

@@ -22,7 +22,7 @@ namespace UniEasy.Edit
 		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Installer", false, 30)]
 		public static void OpenScriptableObjectWindow ()
 		{
-			var assembly = EasyAssembly.GetAssemblyCSharp ();
+			var assembly = AssemblyHelper.GetAssemblyCSharp ();
 
 			// Get all classes derived from ScriptableObject
 			Types = (from t in assembly.GetTypes ()
@@ -41,6 +41,7 @@ namespace UniEasy.Edit
 			GUILayout.Label ("ScriptableObject Class");
 			selectedIndex = EditorGUILayout.Popup (selectedIndex, scriptableObjectNames);
 
+			GUILayout.FlexibleSpace ();
 			if (GUILayout.Button ("Create")) {
 				ScriptableObjectInstaller.CreateScriptableObjectAsset (
 					scriptableObjectNames [selectedIndex],

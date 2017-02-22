@@ -1,9 +1,15 @@
-﻿namespace UniEasy.Edit
+﻿using UnityEngine;
+
+namespace UniEasy.Edit
 {
 	public abstract class ScriptAssetInstallerBase : IScriptAssetInstaller
 	{
-		abstract public string GetScriptAssetName ();
+		abstract public void Create ();
 
-		abstract public string GetScriptAssetContents ();
+		abstract public string GetName ();
+
+		abstract public string GetContents ();
+
+		abstract public Texture2D GetIcon ();
 	}
 }

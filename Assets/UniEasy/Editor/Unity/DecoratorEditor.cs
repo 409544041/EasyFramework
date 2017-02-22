@@ -118,12 +118,6 @@ namespace UniEasy
 			}
 		}
 
-		public void OnSceneGUI ()
-		{
-// 		I got some error form this function, so i disable it.
-//		CallInspectorMethod("OnSceneGUI");
-		}
-
 		protected override void OnHeaderGUI ()
 		{
 			CallInspectorMethod ("OnHeaderGUI");

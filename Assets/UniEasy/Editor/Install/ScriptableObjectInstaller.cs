@@ -12,11 +12,11 @@ namespace UniEasy.Edit
 		public static void CreateScriptableObjectAsset (string assetPath, Type type)
 		{
 			var go = ScriptableObject.CreateInstance (type);
-			var endNameEdit = ScriptableObject.CreateInstance<EndNameEdit> ();
+			var endNameEdit = ScriptableObject.CreateInstance<EndNameEditUtil> ();
 			endNameEdit.EndAction += (instanceID, pathName, resourceFile) => {
 				AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceID), AssetDatabase.GenerateUniqueAssetPath (pathName));
 			};
-			StartNameEditor.Create (
+			ProjectWindowUtil.StartNameEditingIfProjectWindowExists (
 				go.GetInstanceID (),
 				endNameEdit,
 				string.Format ("{0}.asset", assetPath),

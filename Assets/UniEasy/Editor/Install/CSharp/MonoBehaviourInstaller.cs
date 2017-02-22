@@ -1,13 +1,13 @@
 ﻿namespace UniEasy.Edit
 {
-	public class MonoBehaviourInstaller : ScriptAssetInstallerBase
+	public class MonoBehaviourInstaller : ScriptAssetInstaller
 	{
-		public override string GetScriptAssetName ()
+		public override string GetName ()
 		{
-			return "NewBehaviourScript";
+			return "NewBehaviourScript.cs";
 		}
 
-		public override string GetScriptAssetContents ()
+		public override string GetContents ()
 		{
 			return "using UnityEngine;" +
 			"\nusing System.Collections;" +

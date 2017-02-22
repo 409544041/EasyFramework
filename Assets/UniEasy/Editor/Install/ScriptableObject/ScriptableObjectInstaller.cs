@@ -9,7 +9,7 @@ namespace UniEasy.Edit
 	/// </summary>
 	public class ScriptableObjectInstaller
 	{
-		public static void CreateScriptableObjectAsset (string assetPath, Type type)
+		public static void Create (string path, Type type)
 		{
 			var go = ScriptableObject.CreateInstance (type);
 			var endNameEdit = ScriptableObject.CreateInstance<EndNameEditUtil> ();
@@ -19,7 +19,7 @@ namespace UniEasy.Edit
 			ProjectWindowUtil.StartNameEditingIfProjectWindowExists (
 				go.GetInstanceID (),
 				endNameEdit,
-				string.Format ("{0}.asset", assetPath),
+				string.Format ("{0}.asset", path),
 				EditorGUIUtility.IconContent ("ScriptableObject Icon", "").image as Texture2D,
 				"");
 		}

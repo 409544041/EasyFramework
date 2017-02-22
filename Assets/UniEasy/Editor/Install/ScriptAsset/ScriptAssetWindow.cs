@@ -26,6 +26,14 @@ namespace UniEasy.Edit
 		[MenuItem ("Assets/Create/UniEasy/Template Script Installer", false, 20)]
 		static public void OpenScriptAssetWindow ()
 		{
+			Steup ();
+
+			var window = EditorWindow.GetWindow<ScriptAssetWindow> (true, "Create a Template Script", true);
+			window.ShowPopup ();
+		}
+
+		static void Steup ()
+		{
 			var assembly = AssemblyHelper.GetAssemblyCSharpEditor ();
 
 			// Get all classes derived from ScriptAssetInstallerBase
@@ -35,9 +43,11 @@ namespace UniEasy.Edit
 			         select t).ToArray ();
 
 			templates = Types.Select (o => o.Name).ToArray ();
+		}
 
-			var window = EditorWindow.GetWindow<ScriptAssetWindow> (true, "Create a Template Script", true);
-			window.ShowPopup ();
+		void OnEnable ()
+		{
+			Steup ();
 		}
 
 		public void OnGUI ()
@@ -58,7 +68,6 @@ namespace UniEasy.Edit
 			GUILayout.FlexibleSpace ();
 			if (GUILayout.Button ("Create")) {
 				installer.Create ();
-				Close ();
 			}
 		}
 	}

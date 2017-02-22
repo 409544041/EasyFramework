@@ -7,6 +7,14 @@ using UnityEditor;
 
 namespace UniEasy
 {
+	/// <summary>
+	/// Use only in the Unity Editor.
+	/// </summary>
+	public interface IScriptableObjectLoadCallback
+	{
+		void OnAfterAssetLoaded ();
+	}
+
 	[System.Serializable]
 	public class EasyAsset : EasyAsset<Object>
 	{

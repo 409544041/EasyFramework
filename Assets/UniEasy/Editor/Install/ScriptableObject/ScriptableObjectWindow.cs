@@ -11,8 +11,8 @@ namespace UniEasy.Edit
 	public class ScriptableObjectWindow : EditorWindow
 	{
 		private int selectedIndex;
-		static private string[] scriptableObjectNames;
-		static private Type[] types;
+		static private Type[] types = new Type[0];
+		static private string[] scriptableObjects = new string[0];
 
 		static private Type[] Types { 
 			get { return types; }
@@ -22,6 +22,14 @@ namespace UniEasy.Edit
 		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Installer", false, 30)]
 		public static void OpenScriptableObjectWindow ()
 		{
+			Steup ();
+
+			var window = EditorWindow.GetWindow<ScriptableObjectWindow> (true, "Create a new ScriptableObject", true);
+			window.ShowPopup ();
+		}
+
+		static void Steup ()
+		{
 			var assembly = AssemblyHelper.GetAssemblyCSharp ();
 
 			// Get all classes derived from ScriptableObject
@@ -29,25 +37,25 @@ namespace UniEasy.Edit
 			         where t.IsSubclassOf (typeof(ScriptableObject))
 			         where !t.IsGenericType
 			         select t).ToArray ();
-			
-			scriptableObjectNames = Types.Select (o => o.Name).ToArray ();
 
-			var window = EditorWindow.GetWindow<ScriptableObjectWindow> (true, "Create a new ScriptableObject", true);
-			window.ShowPopup ();
+			scriptableObjects = Types.Select (o => o.Name).ToArray ();
+		}
+
+		void OnEnable ()
+		{
+			Steup ();
 		}
 
 		public void OnGUI ()
 		{
 			GUILayout.Label ("ScriptableObject Class");
-			selectedIndex = EditorGUILayout.Popup (selectedIndex, scriptableObjectNames);
+			selectedIndex = EditorGUILayout.Popup (selectedIndex, scriptableObjects);
 
 			GUILayout.FlexibleSpace ();
 			if (GUILayout.Button ("Create")) {
-				ScriptableObjectInstaller.CreateScriptableObjectAsset (
-					scriptableObjectNames [selectedIndex],
-					types [selectedIndex]);
-				
-				Close ();
+				ScriptableObjectInstaller.Create (
+					scriptableObjects [selectedIndex],
+					Types [selectedIndex]);
 			}
 		}
 	}

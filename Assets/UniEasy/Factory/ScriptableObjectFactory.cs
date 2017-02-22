@@ -8,11 +8,6 @@ using UnityEditor;
 
 namespace UniEasy
 {
-	public interface IScriptableObjectLoadCallback
-	{
-		void OnAfterAssetLoaded ();
-	}
-
 	public class ScriptableObjectFactory
 	{
 		static public void SaveAssetPanel<T> (T asset, string defaultName = "New ScriptableObject")
@@ -47,7 +42,7 @@ namespace UniEasy
 				return default (T);
 			}
 			#else
-		return default (T);
+			return default (T);
 			#endif
 		}
 
@@ -58,7 +53,7 @@ namespace UniEasy
 			(o as IScriptableObjectLoadCallback).OnAfterAssetLoaded ();
 			return (T)((object)o);
 			#else
-		return default (T);
+			return default (T);
 			#endif
 		}
 	}

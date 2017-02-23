@@ -15,7 +15,7 @@ namespace UniEasy
 				#if UNITY_EDITOR
 				string serialize = JsonUtility.ToJson (t, true);
 				#else
-			string serialize = JsonUtility.ToJson (t);
+				string serialize = JsonUtility.ToJson (t);
 				#endif
 				byte[] bytes = Encoding.UTF8.GetBytes (serialize);
 				fs.Write (bytes, 0, bytes.Length);

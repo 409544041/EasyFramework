@@ -4,27 +4,28 @@ using System;
 
 namespace UniEasy
 {
-	public class EasyConvert
+	public static class ConvertExtensions
 	{
-		static public string ArrayToString<T> (object value)
+		static public string ToString<T> (this object value)
+		{
+			if (value.GetType () == typeof(List<T>)) {
+				return (value as List<T>).ToArray ().ToString<T> ();
+			} else if (value.GetType () == typeof(T[])) {
+				return (value as T[]).ToString<T> ();
+			}
+			return "";
+		}
+
+		static public string ToString<T> (this T[] array)
 		{
 			Type type = typeof(T);
-			T[] array = default (T[]);
-			if (value.GetType () == typeof(List<T>)) {
-				array = (value as List<T>).ToArray ();
-			} else if (value.GetType () == typeof(T[])) {
-				array = value as T[];
-			} else {
-				Debug.LogError ("Sorry, this function only support T[] or List<T>!");
-				return default (string);
-			}
 			if (type == typeof(string)) {
 				return JsonUtility.ToJson (new EasyStrings (array as string[]));
 			} else if (type.IsArray) {
 			} else if (type.IsSerializable && type.IsPrimitive) {
-				EasyData[] datas = new EasyData[array.Length];
+				EasyObject[] datas = new EasyObject[array.Length];
 				for (int i = 0; i < datas.Length; i++) {
-					datas [i] = new EasyData (array [i]);
+					datas [i] = new EasyObject (array [i]);
 				}
 				return JsonUtility.ToJson (new EasyObjects (datas));
 			} else if (type.IsSerializable && type.IsEnum) {
@@ -39,7 +40,7 @@ namespace UniEasy
 			return default (string);
 		}
 
-		static public T[] StringToArray<T> (string value)
+		static public T[] ToArray<T> (this string value)
 		{
 			Type type = typeof(T);
 			T[] array = default (T[]);
@@ -47,7 +48,7 @@ namespace UniEasy
 				array = JsonUtility.FromJson<EasyStrings> (value).ToList ().ToArray () as T[];
 			} else if (type.IsArray) {
 			} else if (type.IsSerializable && type.IsPrimitive) {
-				EasyData[] datas = JsonUtility.FromJson<EasyObjects> (value).ToList ().ToArray ();
+				EasyObject[] datas = JsonUtility.FromJson<EasyObjects> (value).ToList ().ToArray ();
 				array = new T[datas.Length];
 				for (int i = 0; i < datas.Length; i++) {
 					array [i] = (T)datas [i].GetObject ();

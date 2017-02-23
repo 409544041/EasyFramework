@@ -8,9 +8,9 @@ namespace UniEasy
 	public partial class EasyWriter : IDisposable
 	{
 		private string filePath;
-		private static Dictionary<string, EasyData<string, EasyData>> files;
+		private static Dictionary<string, EasyDictionary<string, EasyObject>> files;
 
-		public EasyData<string, EasyData> target {
+		public EasyDictionary<string, EasyObject> target {
 			get {
 				return files [filePath];
 			}
@@ -20,23 +20,23 @@ namespace UniEasy
 		{
 			filePath = path;
 			if (files == null) {
-				files = new Dictionary<string, EasyData<string, EasyData>> ();
+				files = new Dictionary<string, EasyDictionary<string, EasyObject>> ();
 				Observable.OnceApplicationQuit ().Subscribe (_ => {
 					Dispose ();
 				});
 			}
 			if (!files.ContainsKey (filePath)) {
-				var value = Deserialize<EasyData<string, EasyData>> (filePath);
+				var value = Deserialize<EasyDictionary<string, EasyObject>> (filePath);
 				if (value != null)
 					files.Add (filePath, value);
 				else
-					files.Add (filePath, new EasyData<string, EasyData> (new Dictionary<string, EasyData> ()));
+					files.Add (filePath, new EasyDictionary<string, EasyObject> (new Dictionary<string, EasyObject> ()));
 			}
 		}
 
 		public void Dispose ()
 		{
-			Serialize<EasyData<string, EasyData>> (filePath, target);
+			Serialize<EasyDictionary<string, EasyObject>> (filePath, target);
 		}
 
 		public object GetObject (string key)
@@ -50,9 +50,9 @@ namespace UniEasy
 		public void SetObject (string key, object value)
 		{
 			if (target.ToDictionary ().ContainsKey (key)) {
-				target.ToDictionary () [key] = new EasyData (value);
+				target.ToDictionary () [key] = new EasyObject (value);
 			} else {
-				target.ToDictionary ().Add (key, new EasyData (value));
+				target.ToDictionary ().Add (key, new EasyObject (value));
 			}
 			#if UNITY_EDITOR
 			if (!Application.isPlaying) {
@@ -67,18 +67,16 @@ namespace UniEasy
 			if (type == typeof(string)) {
 				return (T)GetObject (key);
 			} else if (type.IsArray) {
-				Debug.LogError ("Sorry, we can not auto convert string to array type, " +
-				"you can used Get<string> () function replaced, " +
-				"then call EasyWriter.ConvertStringToArray<T> function convert string to target type.");
+				Debug.LogError ("Sorry, we can not auto convert string type to array type, " +
+				"But you can use GetArray<T> (string key) method replaced.");
 			} else if (type.IsSerializable && type.IsPrimitive) {
 				return (T)GetObject (key);
 			} else if (type.IsSerializable && type.IsEnum) {
 			} else if (type.IsSerializable && type == typeof(Nullable)) {
 			} else if (type.IsSerializable && (type.IsClass || type.IsValueType)) {
 				if (type.IsSubclassOf (typeof(UnityEngine.Object))) {
-					Debug.LogError ("Only plain classes and structures are supported; " +
-					"classes derived from UnityEngine.Object (such as MonoBehaviour or ScriptableObject) are not." +
-					"so please use Get<T> (string key, T target) replaced.");
+					Debug.LogError ("Sorry, we can not got the data whose is sub class UnityEngine.Object(such as MonoBehaviour or ScriptableObject) directly, " +
+					"But you can use Get<T> (string key, T target) method replaced.");
 				} else {
 					return JsonUtility.FromJson<T> (GetObject (key).ToString ());
 				}
@@ -109,7 +107,7 @@ namespace UniEasy
 		{
 			string content = Get<string> (key);
 			if (!string.IsNullOrEmpty (content)) {
-				return EasyConvert.StringToArray<T> (content);
+				return content.ToArray<T> ();
 			}
 			return default (T[]);
 		}
@@ -122,9 +120,8 @@ namespace UniEasy
 			} else if (type == typeof(string)) {
 				SetObject (key, value);
 			} else if (type.IsArray) {
-				Debug.LogError ("Sorry, we can not auto convert array to string type, " +
-				"you can used EasyWriter.ConvertArrayToString () function convert to string first, " +
-				"then call this function to save data.");
+				Debug.LogError ("Sorry, we can not auto convert array type to string type, " +
+				"But you can use SetArray<T> (string key, object value) method replaced.");
 			} else if (type.IsSerializable && type.IsPrimitive) {
 				SetObject (key, value);
 			} else if (type.IsSerializable && type.IsEnum) {
@@ -133,7 +130,7 @@ namespace UniEasy
 				#if UNITY_EDITOR
 				SetObject (key, JsonUtility.ToJson (value, true));
 				#else
-			SetObject (key, JsonUtility.ToJson (value));
+				SetObject (key, JsonUtility.ToJson (value));
 				#endif
 			}
 		}
@@ -143,9 +140,9 @@ namespace UniEasy
 			string content = default (string);
 			if (!value.GetType ().IsArray) {
 				T[] o = new object[] { value } as T[];
-				content = EasyConvert.ArrayToString<T> (o);
+				content = o.ToString<T> ();
 			} else
-				content = EasyConvert.ArrayToString<T> (value);
+				content = value.ToString<T> ();
 			Set<string> (key, content);
 		}
 
@@ -154,13 +151,13 @@ namespace UniEasy
 			var dictionary = target.ToDictionary ();
 			if (dictionary != null && dictionary.ContainsKey (key)) {
 				dictionary.Remove (key);
-				files [filePath] = new EasyData<string, EasyData> (dictionary);
+				files [filePath] = new EasyDictionary<string, EasyObject> (dictionary);
 			}
 		}
 
 		public void Clear ()
 		{
-			files [filePath] = new EasyData<string, EasyData> (new Dictionary<string, EasyData> ());
+			files [filePath] = new EasyDictionary<string, EasyObject> (new Dictionary<string, EasyObject> ());
 		}
 	}
 }

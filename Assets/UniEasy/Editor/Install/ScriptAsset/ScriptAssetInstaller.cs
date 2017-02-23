@@ -14,7 +14,7 @@ namespace UniEasy.Edit
 
 		public override void Create ()
 		{
-			var path = ProjectWindowUtilExtensions.GetActiveFolderPath () + "/" + GetName ();
+			var path = ProjectWindowUtilHelper.GetActiveFolderPath () + "/" + GetName ();
 						
 			var endNameEdit = ScriptableObject.CreateInstance<EndNameEditUtil> ();
 			endNameEdit.EndAction += (instanceID, pathName, resourceFile) => {

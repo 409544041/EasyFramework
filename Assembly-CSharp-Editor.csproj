@@ -72,7 +72,7 @@
      <Compile Include="Assets\UniEasy\Editor\Unity\AssemblyHelper.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\DecoratorEditor.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\EndNameEditUtil.cs" />
-     <Compile Include="Assets\UniEasy\Editor\Unity\ProjectWindowUtilExtensions.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\ProjectWindowUtilHelper.cs" />
      <None Include="Assets\Temp\Zenject\LICENSE.txt" />
      <None Include="Assets\Temp\Zenject\Version.txt" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />

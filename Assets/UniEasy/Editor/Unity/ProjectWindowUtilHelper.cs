@@ -6,18 +6,11 @@ using System;
 
 namespace UniEasy.Edit
 {
-	public class ProjectWindowUtilExtensions
+	public class ProjectWindowUtilHelper
 	{
 		// empty array for invoking methods using reflection
 		static private readonly object[] EMPTY_ARRAY = new object[0];
 		static private Dictionary<string, MethodInfo> methods = new Dictionary<string, MethodInfo> ();
-		static private ProjectWindowUtil instance = null;
-
-		static public ProjectWindowUtil Instance {
-			get {
-				return instance;
-			}
-		}
 
 		static protected object CallMethod (string methodName)
 		{
@@ -39,9 +32,9 @@ namespace UniEasy.Edit
 			}
 
 			if (method != null) {
-				return method.Invoke (Instance, EMPTY_ARRAY);
+				return method.Invoke (null, EMPTY_ARRAY);
 			}
-			return default (object);
+			return null;
 		}
 
 		static public string GetActiveFolderPath ()

@@ -87,7 +87,7 @@ namespace UniEasy
 			#if UNITY_EDITOR
 			Debug.LogError ("Can not create snapshot because already have same name [" + name + "]");
 			#endif
-		else
+			else
 				snapshots.Add (name, target);
 		}
 

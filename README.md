@@ -1,10 +1,16 @@
 # simple-frame
+
 welcome, this framework is based on my years of project experience summed up.
 i hope everyone like it and easy to use,cheers!
 
-2016-09-08 01:22 -create ssh key
+What's UniEasy
+---
 
-2016-09-08 01:51 -summary:
+History
+---
+2016-09-08 01:22 create ssh key
+
+2016-09-08 01:51 summary
 	
 1.set user name and email
 	$ git config --global user.name "humingx"
@@ -15,7 +21,7 @@ i hope everyone like it and easy to use,cheers!
 	if don't need password continuous input enter 3 times
 	finally,get 2 files: id_rsa and id_rsa.pub
 
-3.login Github and add ssh id_rsa.pub
+3.login Github and add ssh id_rsa.pub 
 	copy id_rsa.pub content to Settings>>SSH and GPG keys>>New SSH key
 	Title can input authorized_keys
 
@@ -33,19 +39,19 @@ i hope everyone like it and easy to use,cheers!
 	change to
 	url = git@github.com/...
 
-2016-10-22 14:18 -create unity project ver5.4.1f1
+2016-10-22 14:18 create unity project ver5.4.1f1
 
-2016-10-22 14:27 -add uniRx plugin ver5.5.0
+2016-10-22 14:27 add uniRx plugin ver5.5.0
 
-2016-11-26 16:02 create submodule : 
-	-1.remove uniRx plugin ver5.5.0
-	-2.create easy plugins repository
-	-3.git submodule add  git@github.com:chaolunner/EasyPlugins.git Assets/Plugins
-	-4.add uniRx plugin to Plugins folder
+2016-11-26 16:02 create submodule
+	1.remove uniRx plugin ver5.5.0
+	2.create easy plugins repository
+	3.git submodule add  git@github.com:chaolunner/EasyPlugins.git Assets/Plugins
+	4.add uniRx plugin to Plugins folder
 
 2016-12-12 23:27 completed EasyWriter
-	-Now you can save Primitive,Struct,Class,MonoBehavior,ScriptableObject or their Array.
-	-First used EasyWriter writer = new EasyWriter (filePath) Create and Save the json file in filePath.
-	-Then Call Set<T> (string key, T value) and SetArray<T> (string key, object value) to save the data.
-	-Call Get<T> (string key) and GetArray<T> (string key) to load the data.
-	-Call Get<T> (string key, T target) and GetArray<T> (string key, T[] target) to overwrite the MonoBehavior or ScriptableObject.
+	Now you can save Primitive,Struct,Class,MonoBehavior,ScriptableObject or their Array
+	First used EasyWriter writer = new EasyWriter (filePath) Create and Save the json file in filePath
+	Then Call Set<T> (string key, T value) and SetArray<T> (string key, object value) to save the data
+	Call Get<T> (string key) and GetArray<T> (string key) to load the data
+	Call Get<T> (string key, T target) and GetArray<T> (string key, T[] target) to overwrite the MonoBehavior or ScriptableObject

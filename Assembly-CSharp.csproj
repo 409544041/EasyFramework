@@ -284,10 +284,10 @@
      <Compile Include="Assets\UniEasy\Injection\Source\Util\EasyInjectInfo.cs" />
      <Compile Include="Assets\UniEasy\Injection\Source\Util\TypeAnalyzer.cs" />
      <Compile Include="Assets\UniEasy\Storage\Extensions\ConvertExtensions.cs" />
-     <Compile Include="Assets\UniEasy\Storage\Kernel\BlockObject.cs" />
+     <Compile Include="Assets\UniEasy\Storage\Kernel\EasyAsset.cs" />
      <Compile Include="Assets\UniEasy\Storage\Kernel\EasyStructer.cs" />
      <Compile Include="Assets\UniEasy\Storage\Kernel\EasyWriter.cs" />
-     <Compile Include="Assets\UniEasy\Storage\Main\EasyAsset.cs" />
+     <Compile Include="Assets\UniEasy\Storage\Main\BlockObject.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyBlock.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyCsv.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyWriter.cs" />

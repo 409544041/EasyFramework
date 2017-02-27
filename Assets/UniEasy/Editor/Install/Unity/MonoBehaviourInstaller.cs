@@ -1,7 +1,15 @@
-﻿namespace UniEasy.Edit
+﻿using UnityEditor;
+
+namespace UniEasy.Edit
 {
 	public class MonoBehaviourInstaller : ScriptAssetInstaller
 	{
+		[MenuItem ("Assets/Create/UniEasy/MonoBehaviour Installer", false, 9)]
+		static public void CreateMonoBehaviour ()
+		{
+			new MonoBehaviourInstaller ().Create ();
+		}
+
 		public override string GetName ()
 		{
 			return "NewBehaviourScript.cs";

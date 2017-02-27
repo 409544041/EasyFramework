@@ -12,14 +12,15 @@ namespace UniEasy.Edit
 	{
 		private int selectedIndex;
 		static private Type[] types = new Type[0];
-		static private string[] scriptableObjects = new string[0];
+		static private string[] scriptableFullNames = new string[0];
+		static private string[] scriptableNames = new string[0];
 
 		static private Type[] Types { 
 			get { return types; }
 			set { types = value; }
 		}
 
-		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Installer", false, 30)]
+		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Window", false, 50)]
 		public static void OpenScriptableObjectWindow ()
 		{
 			Steup ();
@@ -38,7 +39,8 @@ namespace UniEasy.Edit
 			         where !t.IsGenericType
 			         select t).ToArray ();
 
-			scriptableObjects = Types.Select (o => o.Name).ToArray ();
+			scriptableFullNames = Types.Select (o => o.FullName).ToArray ();
+			scriptableNames = Types.Select (o => o.Name).ToArray (); 
 		}
 
 		void OnEnable ()
@@ -49,12 +51,12 @@ namespace UniEasy.Edit
 		public void OnGUI ()
 		{
 			GUILayout.Label ("ScriptableObject Class");
-			selectedIndex = EditorGUILayout.Popup (selectedIndex, scriptableObjects);
+			selectedIndex = EditorGUILayout.Popup (selectedIndex, scriptableFullNames);
 
 			GUILayout.FlexibleSpace ();
 			if (GUILayout.Button ("Create")) {
-				ScriptableObjectInstaller.Create (
-					scriptableObjects [selectedIndex],
+				ScriptableObjectInstallerUtil.Create (
+					scriptableNames [selectedIndex],
 					Types [selectedIndex]);
 			}
 		}

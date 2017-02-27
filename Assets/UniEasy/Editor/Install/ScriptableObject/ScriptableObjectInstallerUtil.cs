@@ -7,7 +7,7 @@ namespace UniEasy.Edit
 	/// <summary>
 	/// A helper class for instantiating ScriptableObjects in the editor.
 	/// </summary>
-	public class ScriptableObjectInstaller
+	public class ScriptableObjectInstallerUtil
 	{
 		public static void Create (string path, Type type)
 		{

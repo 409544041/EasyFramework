@@ -298,6 +298,8 @@
      <Compile Include="Assets\UniEasy\Storage\Main\EasyBlock.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyCsv.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyWriter.cs" />
+     <Compile Include="Assets\UniEasy\UniECS\Extensions\DiContainerExtensions.cs" />
+     <Compile Include="Assets\UniEasy\UniECS\Install\FootstoneInstaller.cs" />
      <None Include="Assets\Temp\Zenject\LICENSE.txt" />
      <None Include="Assets\Temp\Zenject\Version.txt" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />

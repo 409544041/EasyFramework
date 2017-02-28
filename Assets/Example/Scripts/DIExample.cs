@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UniEasy.DI;
 
-public class DIExample : MonoBehaviour
+public class DIExample : MonoInstaller<DIExample>
 {
 	[Inject (Id = "first")]
 	public string primitiveTestFirst;
@@ -18,22 +18,20 @@ public class DIExample : MonoBehaviour
 	[Inject]
 	public Greeter greeter;
 
-	IEnumerator Start ()
+	public override void InstallBindings ()
 	{
-		DiContainer container = new DiContainer ();
-
-		container.Bind<string> ().WithId ("first").FromInstance ("first output!")
+		Container.Bind<string> ().WithId ("first").FromInstance ("first output!")
 			.AsSingle ().WhenInjectedInto<DIExample> ();
-		container.Bind<string> ().WithId ("second").FromInstance ("second output!").AsSingle ();
-		container.Bind<IFoo> ().WithId ("foo").To<Foo1> ().FromInstance (new Foo1 ()).AsSingle ();
-		container.Bind<IFoo> ().To<Foo2> ().FromInstance (new Foo2 ()).AsSingle ();
+		Container.Bind<string> ().WithId ("second").FromInstance ("second output!").AsSingle ();
+		Container.Bind<IFoo> ().WithId ("foo").To<Foo1> ().FromInstance (new Foo1 ()).AsSingle ();
+		Container.Bind<IFoo> ().To<Foo2> ().FromInstance (new Foo2 ()).AsSingle ();
 		var foos = new List<Foo3> () { new Foo3 (), new Foo3 (), new Foo3 () };
-		container.Bind<List<IFoo>> ().To (typeof(List<Foo3>)).FromInstance (foos);
+		Container.Bind<List<IFoo>> ().To (typeof(List<Foo3>)).FromInstance (foos);
 
-		container.Bind<string> ().FromInstance ("Hello World!");
-		container.Bind<Greeter> ().AsSingle ().NonLazy ();
+		Container.Bind<string> ().FromInstance ("Hello World!");
+		Container.Bind<Greeter> ().AsSingle ().NonLazy ();
 
-		container.Inject (this);
+		Container.Inject (this);
 
 		Debug.Log ("primitiveTestFirst : " + primitiveTestFirst);
 		Debug.Log ("primitiveTestSecond : " + primitiveTestSecond);
@@ -43,15 +41,13 @@ public class DIExample : MonoBehaviour
 		foreach (IFoo sub in foos) {
 			Debug.Log ("foo sub : " + sub);
 		}
-		Debug.Log ("has binding IFoo : " + container.HasBinding<IFoo> ());
+		Debug.Log ("has binding IFoo : " + Container.HasBinding<IFoo> ());
 
-		container.Bind<IBar> ().To<Bar1> ().FromInstance (new Bar1 ()).WhenInjectedInto<Foo> ();
-		var foo = container.Instantiate<Foo> (true);
+		Container.Bind<IBar> ().To<Bar1> ().FromInstance (new Bar1 ()).WhenInjectedInto<Foo> ();
+		var foo = Container.Instantiate<Foo> (true);
 		Debug.Log ("Test Constructor Inject Function : " + foo._bar);
 
 		Debug.Log ("Test Nonlazy Function : " + greeter);
-
-		yield return null;
 	}
 }
 

@@ -23,7 +23,7 @@ namespace UniEasy.Edit
 			set { types = value; }
 		}
 
-		[MenuItem ("Assets/Create/UniEasy/Template Script Window", false, 40)]
+		[MenuItem ("Assets/Create/UniEasy/Template Script Window", false, 61)]
 		static public void OpenScriptAssetWindow ()
 		{
 			Steup ();

@@ -4,9 +4,15 @@ namespace UniEasy.ECS
 {
 	public static class DiContainerExtensions
 	{
+		public static DiContainer Container {
+			get;
+			set;
+		}
+
 		public static void InjectSelf (this DiContainer container)
 		{
-			container.Inject (container);
+			Container = container;
+			Container.Inject (container);
 		}
 	}
 }

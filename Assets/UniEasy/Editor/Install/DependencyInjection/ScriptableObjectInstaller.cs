@@ -4,7 +4,7 @@ namespace UniEasy.Edit
 {
 	public class ScriptableObjectInstaller : ScriptAssetInstaller
 	{
-		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Installer", false, 24)]
+		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Installer", false, 43)]
 		static public void CreateScriptableObjectInstaller ()
 		{
 			new ScriptableObjectInstaller ().Create ();

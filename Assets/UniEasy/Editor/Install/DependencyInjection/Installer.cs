@@ -4,7 +4,7 @@ namespace UniEasy.Edit
 {
 	public class Installer : ScriptAssetInstaller
 	{
-		[MenuItem ("Assets/Create/UniEasy/Installer", false, 22)]
+		[MenuItem ("Assets/Create/UniEasy/Installer", false, 41)]
 		static public void CreateInstaller ()
 		{
 			new Installer ().Create ();

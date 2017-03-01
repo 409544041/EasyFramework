@@ -4,7 +4,7 @@ namespace UniEasy.Edit
 {
 	public class MonoInstaller : ScriptAssetInstaller
 	{
-		[MenuItem ("Assets/Create/UniEasy/Mono Installer", false, 23)]
+		[MenuItem ("Assets/Create/UniEasy/Mono Installer", false, 42)]
 		static public void CreateMonoInstaller ()
 		{
 			new MonoInstaller ().Create ();

@@ -20,7 +20,7 @@ namespace UniEasy.Edit
 			set { types = value; }
 		}
 
-		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Window", false, 50)]
+		[MenuItem ("Assets/Create/UniEasy/ScriptableObject Window", false, 62)]
 		public static void OpenScriptableObjectWindow ()
 		{
 			Steup ();

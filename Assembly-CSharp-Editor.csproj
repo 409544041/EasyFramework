@@ -65,6 +65,8 @@
      <Compile Include="Assets\UniEasy\Editor\Install\DependencyInjection\Installer.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\DependencyInjection\MonoInstaller.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\DependencyInjection\ScriptableObjectInstaller.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Install\ECS\ComponentBehaviourInstaller.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Install\ECS\SystemBehaviourInstaller.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\MonoBehaviourInstaller.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ScriptAsset\IScriptAssetInstaller.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ScriptAsset\ScriptAssetInstaller.cs" />

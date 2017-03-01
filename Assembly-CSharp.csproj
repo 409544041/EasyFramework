@@ -299,7 +299,11 @@
      <Compile Include="Assets\UniEasy\Storage\Main\EasyCsv.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyWriter.cs" />
      <Compile Include="Assets\UniEasy\UniECS\Extensions\DiContainerExtensions.cs" />
+     <Compile Include="Assets\UniEasy\UniECS\Extensions\IBehaviourExtensions.cs" />
      <Compile Include="Assets\UniEasy\UniECS\Install\FootstoneInstaller.cs" />
+     <Compile Include="Assets\UniEasy\UniECS\Main\ComponentBehaviour.cs" />
+     <Compile Include="Assets\UniEasy\UniECS\Main\IBehaviour.cs" />
+     <Compile Include="Assets\UniEasy\UniECS\Main\SystemBehaviour.cs" />
      <None Include="Assets\Temp\Zenject\LICENSE.txt" />
      <None Include="Assets\Temp\Zenject\Version.txt" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />

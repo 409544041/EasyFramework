@@ -5,7 +5,7 @@ namespace UniEasy.ECS
 {
 	public class FootstoneInstaller : Installer<FootstoneInstaller>
 	{
-		[RuntimeInitializeOnLoadMethod]
+		[RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.BeforeSceneLoad)]
 		public static void Initialize ()
 		{
 			DiContainer container = new DiContainer ();

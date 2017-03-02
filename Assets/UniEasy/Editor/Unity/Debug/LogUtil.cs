@@ -63,7 +63,9 @@ namespace UniEasy.Edit
 			if (logListView == null)
 				return false;
 			else {  
-				int row = (int)logListViewCurrentRow.GetValue (logListView);  
+				int row = (int)logListViewCurrentRow.GetValue (logListView);
+				if (row < 0)
+					return false;
 				logEntriesGetEntry.Invoke (null, new object[] {
 					row,
 					logEntry

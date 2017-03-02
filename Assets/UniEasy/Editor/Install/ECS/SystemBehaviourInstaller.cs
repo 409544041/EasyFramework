@@ -12,7 +12,7 @@ namespace UniEasy.Edit
 
 		public override string GetName ()
 		{
-			return "NewSystemBehaviourInstaller.cs";
+			return "NewSystemBehaviour.cs";
 		}
 
 		public override string GetContents ()
@@ -20,7 +20,7 @@ namespace UniEasy.Edit
 			return "using UnityEngine;" +
 			"\nusing UniEasy.ECS;" +
 			"\n" +
-			"\npublic class NewSystemBehaviourInstaller : SystemBehaviour" +
+			"\npublic class NewSystemBehaviour : SystemBehaviour" +
 			"\n{" +
 			"\n\tprotected override void Awake ()" +
 			"\n\t{" +

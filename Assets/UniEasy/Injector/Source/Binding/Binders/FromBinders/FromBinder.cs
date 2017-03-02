@@ -23,7 +23,7 @@
 		protected ScopeBinder FromInstanceBase (object instance)
 		{
 			SubFinalizer = new ScopableBindingFinalizer (BindInfo, (container, concreteType) => {
-				return new InstanceProvider (concreteType, instance);
+				return new InstanceProvider (container, concreteType, instance);
 			});
 			return this;
 		}

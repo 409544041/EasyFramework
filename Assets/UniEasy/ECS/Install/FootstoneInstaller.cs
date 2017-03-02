@@ -10,7 +10,6 @@ namespace UniEasy.ECS
 		{
 			DiContainer container = new DiContainer ();
 			container.Bind<DiContainer> ().FromInstance (container).AsSingle ();
-			container.InjectSelf ();
 
 			FootstoneInstaller.Install (container);
 			var installers = GameObject.FindObjectsOfType<MonoInstallerBase> ();
@@ -22,7 +21,7 @@ namespace UniEasy.ECS
 
 		public override void InstallBindings ()
 		{
-			
+			IBehaviourExtensions.Container = Container;
 		}
 	}
 }

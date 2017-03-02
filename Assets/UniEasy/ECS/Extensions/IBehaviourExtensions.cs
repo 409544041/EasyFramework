@@ -4,9 +4,14 @@ namespace UniEasy.ECS
 {
 	public static class IBehaviourExtensions
 	{
+		public static DiContainer Container {
+			get;
+			set;
+		}
+
 		public static void InjectSelf (this IBehaviour behaviour)
 		{
-			DiContainerExtensions.Container.Inject (behaviour);
+			Container.Inject (behaviour);
 		}
 	}
 }

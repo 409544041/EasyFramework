@@ -72,12 +72,14 @@
      <Compile Include="Assets\UniEasy\Editor\Install\MonoScript\ScriptAssetWindow.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ScriptableObject\ScriptableObjectInstallerUtil.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ScriptableObject\ScriptableObjectWindow.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\Debug\LogUtil.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyRectTransform.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyTransform.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Util\AssemblyHelper.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Util\DecoratorEditor.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Util\EndNameEditUtil.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Util\ProjectWindowUtilHelper.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\Util\TypeHelper.cs" />
      <None Include="Assets\Temp\Zenject\LICENSE.txt" />
      <None Include="Assets\Temp\Zenject\Version.txt" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />

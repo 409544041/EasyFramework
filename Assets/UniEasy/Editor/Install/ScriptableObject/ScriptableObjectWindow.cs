@@ -31,7 +31,7 @@ namespace UniEasy.Edit
 
 		static void Steup ()
 		{
-			var assembly = AssemblyHelper.GetAssemblyCSharp ();
+			var assembly = AssemblyHelper.CSharp;
 
 			// Get all classes derived from ScriptableObject
 			Types = (from t in assembly.GetTypes ()

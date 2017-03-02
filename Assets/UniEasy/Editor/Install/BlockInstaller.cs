@@ -72,7 +72,7 @@ namespace UniEasy.Edit
 
 					GenericMenu genericMenu = new GenericMenu ();
 
-					System.Type type = AssemblyHelper.GetSceneHierarchyWindow ();
+					System.Type type = TypeHelper.SceneHierarchyWindow;
 
 					int contextClickedItemID = 0;
 					object[] parametors = new object[]{ genericMenu, contextClickedItemID }; 

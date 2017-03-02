@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UniEasy.DI;
+using UniEasy;
 
 public class DIExample : MonoInstaller<DIExample>
 {
@@ -33,21 +34,21 @@ public class DIExample : MonoInstaller<DIExample>
 
 		Container.Inject (this);
 
-		Debug.Log ("primitiveTestFirst : " + primitiveTestFirst);
-		Debug.Log ("primitiveTestSecond : " + primitiveTestSecond);
-		Debug.Log ("foo1 : " + foo1);
-		Debug.Log ("foo2 : " + foo2);
-		Debug.Log ("foos : " + foos.Count);
+		Debugger.Log ("primitiveTestFirst : " + primitiveTestFirst);
+		Debugger.Log ("primitiveTestSecond : " + primitiveTestSecond);
+		Debugger.Log ("foo1 : " + foo1);
+		Debugger.Log ("foo2 : " + foo2);
+		Debugger.Log ("foos : " + foos.Count);
 		foreach (IFoo sub in foos) {
-			Debug.Log ("foo sub : " + sub);
+			Debugger.Log ("foo sub : " + sub);
 		}
-		Debug.Log ("has binding IFoo : " + Container.HasBinding<IFoo> ());
+		Debugger.Log ("has binding IFoo : " + Container.HasBinding<IFoo> ());
 
 		Container.Bind<IBar> ().To<Bar1> ().FromInstance (new Bar1 ()).WhenInjectedInto<Foo> ();
 		var foo = Container.Instantiate<Foo> (true);
-		Debug.Log ("Test Constructor Inject Function : " + foo._bar);
+		Debugger.Log ("Test Constructor Inject Function : " + foo._bar);
 
-		Debug.Log ("Test Nonlazy Function : " + greeter);
+		Debugger.Log ("Test Nonlazy Function : " + greeter);
 	}
 }
 
@@ -55,7 +56,7 @@ public class Greeter
 {
 	public Greeter (string message)
 	{
-		Debug.Log (message);
+		Debugger.Log (message);
 	}
 }
 

@@ -243,6 +243,8 @@
      <Compile Include="Assets\Temp\Zenject\Source\Util\ZenjectTypeInfo.cs" />
      <Compile Include="Assets\Temp\Zenject\Source\Validation\IValidatable.cs" />
      <Compile Include="Assets\Temp\Zenject\Source\Validation\ValidationMarker.cs" />
+     <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />
+     <Compile Include="Assets\UniEasy\Debug\DebuggerMask.cs" />
      <Compile Include="Assets\UniEasy\ECS\Extensions\IBehaviourExtensions.cs" />
      <Compile Include="Assets\UniEasy\ECS\Install\FootstoneInstaller.cs" />
      <Compile Include="Assets\UniEasy\ECS\Main\ComponentBehaviour.cs" />

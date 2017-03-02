@@ -34,7 +34,7 @@ namespace UniEasy.Edit
 
 		static void Steup ()
 		{
-			var assembly = AssemblyHelper.GetAssemblyCSharpEditor ();
+			var assembly = AssemblyHelper.CSharpEditor;
 
 			// Get all classes derived from ScriptAssetInstallerBase
 			Types = (from t in assembly.GetTypes ()

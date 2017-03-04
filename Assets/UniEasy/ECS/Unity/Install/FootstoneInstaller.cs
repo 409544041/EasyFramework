@@ -1,5 +1,6 @@
 using UnityEngine;
 using UniEasy.DI;
+using UniRx;
 
 namespace UniEasy.ECS
 {
@@ -22,6 +23,8 @@ namespace UniEasy.ECS
 		public override void InstallBindings ()
 		{
 			IBehaviourExtensions.Container = Container;
+			Container.Bind<IMessageBroker> ().To<MessageBroker> ().AsSingle ();
+			Container.Bind<IEventSystem> ().To<EventSystem> ().AsSingle ();
 		}
 	}
 }

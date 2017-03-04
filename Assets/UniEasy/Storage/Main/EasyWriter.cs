@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using System.IO;
 using System;
 using UniRx;
 
@@ -19,6 +20,10 @@ namespace UniEasy
 		public EasyWriter (string path)
 		{
 			filePath = path;
+			var directoryName = Path.GetDirectoryName (path);
+			if (!Directory.Exists (directoryName)) {
+				Directory.CreateDirectory (directoryName);
+			}
 			if (files == null) {
 				files = new Dictionary<string, EasyDictionary<string, EasyObject>> ();
 				Observable.OnceApplicationQuit ().Subscribe (_ => {
@@ -34,9 +39,31 @@ namespace UniEasy
 			}
 		}
 
+		public bool HasKey (string key)
+		{
+			return target.ToDictionary ().ContainsKey (key);
+		}
+
 		public void Dispose ()
 		{
+			#if UNITY_EDITOR
+			// If you create directly in the streamingassets folder,
+			// The file created is not correct.
+			if (filePath.Contains (Application.streamingAssetsPath)) {
+				var fileName = Path.GetFileName (filePath);
+				var tempPath = Application.dataPath + "/" + fileName;
+				Serialize<EasyDictionary<string, EasyObject>> (tempPath, target);
+				var newPath = filePath.Replace (Application.streamingAssetsPath, "Assets/StreamingAssets");
+				UnityEditor.AssetDatabase.Refresh ();
+				UnityEditor.AssetDatabase.DeleteAsset (newPath);
+				UnityEditor.AssetDatabase.MoveAsset ("Assets/" + fileName, newPath);
+			} else {
+				Serialize<EasyDictionary<string, EasyObject>> (filePath, target);
+			}
+			UnityEditor.AssetDatabase.Refresh ();
+			#else
 			Serialize<EasyDictionary<string, EasyObject>> (filePath, target);
+			#endif
 		}
 
 		public object GetObject (string key)
@@ -49,7 +76,7 @@ namespace UniEasy
 
 		public void SetObject (string key, object value)
 		{
-			if (target.ToDictionary ().ContainsKey (key)) {
+			if (HasKey (key)) {
 				target.ToDictionary () [key] = new EasyObject (value);
 			} else {
 				target.ToDictionary ().Add (key, new EasyObject (value));

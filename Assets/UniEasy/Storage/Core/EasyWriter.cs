@@ -8,7 +8,7 @@ namespace UniEasy
 {
 	public partial class EasyWriter
 	{
-		static public void Serialize<T> (string path, T t)
+		public static void Serialize<T> (string path, T t)
 		{
 			FileStream fs = new FileStream (path, FileMode.Create);
 			try {
@@ -27,7 +27,7 @@ namespace UniEasy
 			}
 		}
 
-		static public T Deserialize<T> (string path)
+		public static T Deserialize<T> (string path)
 		{
 			T t = default (T);
 			if (File.Exists (path)) {

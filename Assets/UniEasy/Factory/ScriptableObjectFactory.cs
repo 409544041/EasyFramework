@@ -27,6 +27,31 @@ namespace UniEasy
 
 		static public T CreateAsset<T> (T asset, string assetPath)
 		{
+			var directoryName = Path.GetDirectoryName (assetPath);
+			if (!Directory.Exists (directoryName)) {
+				Directory.CreateDirectory (directoryName);
+			}
+			#if UNITY_EDITOR
+			// If you create directly in the streamingassets folder,
+			// The file created is not correct.
+			if (assetPath.Contains (Application.streamingAssetsPath)) {
+				var fileName = Path.GetFileName (assetPath);
+				var tempPath = "Assets/" + fileName;
+				var result = DirectCreateAsset<T> (asset, tempPath);
+				var newPath = assetPath.Replace (Application.streamingAssetsPath, "Assets/StreamingAssets");
+				AssetDatabase.DeleteAsset (newPath);
+				AssetDatabase.MoveAsset (tempPath, newPath);
+				AssetDatabase.Refresh ();
+				return result;
+			}
+			return DirectCreateAsset<T> (asset, assetPath);
+			#else
+			return default (T);
+			#endif
+		}
+
+		private static T DirectCreateAsset<T> (T asset, string assetPath)
+		{
 			#if UNITY_EDITOR
 			if (asset.GetType ().IsSubclassOf (typeof(ScriptableObject))) {
 				if (File.Exists (assetPath)) {

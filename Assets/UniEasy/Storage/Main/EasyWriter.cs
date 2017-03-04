@@ -26,9 +26,10 @@ namespace UniEasy
 			}
 			if (files == null) {
 				files = new Dictionary<string, EasyDictionary<string, EasyObject>> ();
-				Observable.OnceApplicationQuit ().Subscribe (_ => {
-					Dispose ();
-				});
+				if (Application.isPlaying)
+					Observable.OnceApplicationQuit ().Subscribe (_ => {
+						Dispose ();
+					});
 			}
 			if (!files.ContainsKey (filePath)) {
 				var value = Deserialize<EasyDictionary<string, EasyObject>> (filePath);

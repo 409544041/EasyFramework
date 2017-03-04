@@ -1,0 +1,11 @@
+{
+    "keys": [
+        "Default"
+    ],
+    "values": [
+        {
+            "typeCode": 18,
+            "value": "{\n    \"value\": [\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"Layer 0\"\n        }\n    ]\n}"
+        }
+    ]
+}

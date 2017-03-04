@@ -5,7 +5,7 @@
     "values": [
         {
             "typeCode": 18,
-            "value": "{\n    \"value\": [\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"Layer 0\"\n        }\n    ]\n}"
+            "value": "{\n    \"value\": [\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"Layer 0\"\n        },\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"Layer 1\"\n        },\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"Default\"\n        }\n    ]\n}"
         }
     ]
 }

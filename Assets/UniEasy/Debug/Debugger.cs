@@ -8,6 +8,8 @@ namespace UniEasy
 	{
 		private static DebuggerMask debuggerMask;
 
+		public static event Action<string> BeforeCheckLayerInEditorEvent;
+
 		public static bool IsLogEnabled {
 			get {
 				return Debug.logger.logEnabled;
@@ -53,6 +55,11 @@ namespace UniEasy
 
 		private static void Log (LogType logType, object message, string layerName, UnityEngine.Object context)
 		{
+			#if UNITY_EDITOR
+			if (BeforeCheckLayerInEditorEvent != null) {
+				BeforeCheckLayerInEditorEvent.Invoke (layerName);
+			}
+			#endif
 			if (IsLogLayerAllowed (layerName)) {
 				Debug.logger.Log (logType, message, context);
 			}

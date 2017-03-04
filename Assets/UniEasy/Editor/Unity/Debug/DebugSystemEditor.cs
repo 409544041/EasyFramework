@@ -42,6 +42,9 @@ namespace UniEasy.Edit
 			if (isDirty) {
 				this.DebugSystem.DebugMask = new DebugMask (masks);
 				this.DebugSystem.Dispose ();
+				if (Application.isPlaying) {
+					this.DebugSystem.Refresh ();
+				}
 			}
 			EditorGUILayout.EndVertical ();
 		}

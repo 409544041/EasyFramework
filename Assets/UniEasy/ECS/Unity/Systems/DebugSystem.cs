@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using System;
 
 namespace UniEasy.ECS
@@ -36,7 +37,6 @@ namespace UniEasy.ECS
 	{
 		private DebugMask debugMask;
 		private EasyWriter debugWriter;
-		private readonly string Path = Application.streamingAssetsPath + "/DebugSystem/DefaultConfig.json";
 
 		public EasyWriter DebugWriter {
 			get {
@@ -61,14 +61,43 @@ namespace UniEasy.ECS
 			}
 		}
 
+		public string Path {
+			get {
+				return Application.streamingAssetsPath + "/DebugSystem/DefaultConfig.json";
+			}
+		}
+
 		protected override void Awake ()
 		{
 			base.Awake ();
+			// For performance consideration : 
+			// We can't auto add a new layer when debug happened in every platform,
+			// But you can add a new layer by hand or run in editor wait log output.
+			Debugger.BeforeCheckLayerInEditorEvent += (layerName) => {
+				if (!DebugMask.ToList ().Select (mask => mask.LayerName).Contains (layerName)) {
+					var tempMask = DebugMask.ToList ();
+					tempMask.Add (new DebugLayer (true, layerName));
+					DebugMask = new DebugMask (tempMask);
+					Refresh ();
+					Dispose ();
+				}
+			};
 		}
 
 		void Start ()
 		{
-			
+		}
+
+		public void Refresh ()
+		{
+			var masks = DebugMask.ToList ();
+			var layers = new List<string> ();
+			for (int i = 0; i < masks.Count; i++) {
+				if (masks [i].IsEnable) {
+					layers.Add (masks [i].LayerName);
+				}
+			}
+			Debugger.SetLayerMask (layers.ToArray ());
 		}
 
 		public void Dispose ()

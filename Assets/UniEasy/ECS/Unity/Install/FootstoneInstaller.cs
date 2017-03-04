@@ -25,6 +25,10 @@ namespace UniEasy.ECS
 			IBehaviourExtensions.Container = Container;
 			Container.Bind<IMessageBroker> ().To<MessageBroker> ().AsSingle ();
 			Container.Bind<IEventSystem> ().To<EventSystem> ().AsSingle ();
+			var DebugSystem = GameObject.FindObjectOfType<DebugSystem> () ??
+			                  new GameObject ("DebugSystem").AddComponent<DebugSystem> ();
+			GameObject.DontDestroyOnLoad (DebugSystem);
+			Container.Bind<DebugSystem> ().FromInstance (DebugSystem).AsSingle ();
 		}
 	}
 }

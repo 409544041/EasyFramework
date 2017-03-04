@@ -59,29 +59,29 @@ public class SimpleExample : MonoBehaviour
 		writer.Set<EasyBlock> ("block", blocks [0]);
 		writer.SetArray<EasyBlock> ("block array", blocks);
 
-		Debug.Log (writer.Get<byte> ("byte"));
-		Debug.Log (writer.Get<bool> ("bool"));
-		Debug.Log (writer.Get<int> ("int"));   
-		Debug.Log (writer.Get<float> ("float"));
-		Debug.Log (writer.Get<string> ("string"));
-		Debug.Log (writer.GetArray<byte> ("byte[]") [0]);
-		Debug.Log (writer.GetArray<bool> ("bool[]") [3]);
-		Debug.Log (writer.GetArray<int> ("int[]") [4]);
-		Debug.Log (writer.GetArray<float> ("float[]") [3]);
-		Debug.Log (writer.GetArray<string> ("string[]") [5]);
-		Debug.Log (writer.Get<StructSample> ("struct").position);
-		Debug.Log (writer.GetArray<StructSample> ("struct array") [0].position);
-		Debug.Log (writer.Get<ClassSample> ("class").rect);
-		Debug.Log (writer.GetArray<ClassSample> ("class array") [1].rect);
+		Debugger.Log (writer.Get<byte> ("byte"));
+		Debugger.Log (writer.Get<bool> ("bool"));
+		Debugger.Log (writer.Get<int> ("int"));   
+		Debugger.Log (writer.Get<float> ("float"));
+		Debugger.Log (writer.Get<string> ("string"));
+		Debugger.Log (writer.GetArray<byte> ("byte[]") [0]);
+		Debugger.Log (writer.GetArray<bool> ("bool[]") [3]);
+		Debugger.Log (writer.GetArray<int> ("int[]") [4]);
+		Debugger.Log (writer.GetArray<float> ("float[]") [3]);
+		Debugger.Log (writer.GetArray<string> ("string[]") [5]);
+		Debugger.Log (writer.Get<StructSample> ("struct").position);
+		Debugger.Log (writer.GetArray<StructSample> ("struct array") [0].position);
+		Debugger.Log (writer.Get<ClassSample> ("class").rect);
+		Debugger.Log (writer.GetArray<ClassSample> ("class array") [1].rect);
 		writer.Get<SimpleExample> ("this", this);
 		writer.GetArray<SimpleExample> ("this array", new SimpleExample[] { this, this });
 		writer.Get<EasyBlock> ("block", blocks [0]);
 		writer.GetArray<EasyBlock> ("block array", blocks);
 
 		writer.Remove ("string");
-		Debug.Log ("already remove 'string' key : " + writer.Get<string> ("string"));
+		Debugger.Log ("already remove 'string' key : " + writer.Get<string> ("string"));
 		writer.Clear ();
-		Debug.Log ("already clear : " + writer.Get<string> ("string[]"));
+		Debugger.Log ("already clear : " + writer.Get<string> ("string[]"));
 
 		if (isOpenFile) {
 			string path = Path.GetFullPath (Application.persistentDataPath);

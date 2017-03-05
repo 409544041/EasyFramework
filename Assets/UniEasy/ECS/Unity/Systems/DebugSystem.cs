@@ -21,6 +21,8 @@ namespace UniEasy.ECS
 	[Serializable]
 	public class DebugMask : EasyList<DebugLayer>
 	{
+		public bool IsLogEnabled = true;
+
 		public DebugMask (List<DebugLayer> value)
 		{
 			this.value = value;
@@ -70,6 +72,7 @@ namespace UniEasy.ECS
 		protected override void Awake ()
 		{
 			base.Awake ();
+			Debugger.IsLogEnabled = DebugMask.IsLogEnabled;
 			// For performance consideration : 
 			// We can't auto add a new layer when debug happened in every platform,
 			// But you can add a new layer by hand or run in editor wait log output.
@@ -98,6 +101,7 @@ namespace UniEasy.ECS
 				}
 			}
 			Debugger.SetLayerMask (layers.ToArray ());
+			Debugger.IsLogEnabled = DebugMask.IsLogEnabled;
 		}
 
 		public void Dispose ()

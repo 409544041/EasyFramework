@@ -1,11 +1,11 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple-frame", "Assembly-CSharp-firstpass.csproj", "{1654F902-BAB0-8DEE-E65C-B4CAE39369F1}"
+# Visual Studio 2008
+
+Project("{C208A6DB-63F4-F426-A2DE-92A00E33E225}") = "simple-frame", "Assembly-CSharp-firstpass.csproj", "{1654F902-BAB0-8DEE-E65C-B4CAE39369F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple-frame", "Assembly-CSharp.csproj", "{9F50DBF1-492F-A5E3-CB40-E996F72912B8}"
+Project("{C208A6DB-63F4-F426-A2DE-92A00E33E225}") = "simple-frame", "Assembly-CSharp.csproj", "{9F50DBF1-492F-A5E3-CB40-E996F72912B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simple-frame", "Assembly-CSharp-Editor.csproj", "{DC45F0BA-C567-C981-745E-00E7BC333181}"
+Project("{C208A6DB-63F4-F426-A2DE-92A00E33E225}") = "simple-frame", "Assembly-CSharp-Editor.csproj", "{DC45F0BA-C567-C981-745E-00E7BC333181}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

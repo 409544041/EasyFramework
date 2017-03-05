@@ -20,6 +20,13 @@ namespace UniEasy.Edit
 		{
 			EditorGUILayout.BeginVertical ();
 			isDirty = false;
+ 
+			EditorGUILayout.BeginHorizontal ();
+			var isLogEnable = EditorGUILayout.Toggle (this.DebugSystem.DebugMask.IsLogEnabled, GUILayout.MinWidth (20), GUILayout.MaxWidth (20));
+			EditorGUILayout.LabelField ("IsLogEnabled");
+			isDirty = isDirty == false ? !(isLogEnable == this.DebugSystem.DebugMask.IsLogEnabled) : true;
+			EditorGUILayout.EndHorizontal ();
+
 			var masks = this.DebugSystem.DebugMask.ToList ();
 			for (int i = 0; i < masks.Count; i++) {
 				EditorGUILayout.BeginHorizontal ();
@@ -41,6 +48,7 @@ namespace UniEasy.Edit
 			}
 			if (isDirty) {
 				this.DebugSystem.DebugMask = new DebugMask (masks);
+				this.DebugSystem.DebugMask.IsLogEnabled = isLogEnable;
 				this.DebugSystem.Dispose ();
 				if (Application.isPlaying) {
 					this.DebugSystem.Refresh ();

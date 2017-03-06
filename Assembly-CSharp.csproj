@@ -245,6 +245,8 @@
      <Compile Include="Assets\Temp\Zenject\Source\Validation\ValidationMarker.cs" />
      <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebuggerMask.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Entities\Entity.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Entities\IEntity.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Events\EventSystem.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Events\IEventSystem.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\ComponentBehaviour.cs" />

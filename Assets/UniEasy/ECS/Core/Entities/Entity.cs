@@ -12,10 +12,9 @@ namespace UniEasy.ECS
 
 		public IEnumerable<object> Components { get { return components.Values; } }
 
-		public Entity (int id, IEventSystem eventSystem)
+		public Entity (int id)
 		{
 			Id = id;
-			EventSystem = eventSystem;
 			components = new Dictionary<Type, object> ();
 		}
 

@@ -18,6 +18,8 @@ public class DIExample : MonoInstaller<DIExample>
 	public List<IFoo> foos;
 	[Inject]
 	public Greeter greeter;
+	[MinMaxRange (0, 10)]
+	public RangedFloat rangefloat;
 
 	public override void InstallBindings ()
 	{

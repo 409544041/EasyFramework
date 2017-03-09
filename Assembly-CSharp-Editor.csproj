@@ -76,6 +76,8 @@
      <Compile Include="Assets\UniEasy\Editor\Unity\Debug\LogUtil.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyRectTransform.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyTransform.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\ExtendInspectorDisplayDrawer.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\MinMaxRangeDrawer.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Util\AssemblyHelper.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Util\DecoratorEditor.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Util\EndNameEditUtil.cs" />

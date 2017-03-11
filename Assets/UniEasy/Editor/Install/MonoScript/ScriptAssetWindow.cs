@@ -28,7 +28,7 @@ namespace UniEasy.Edit
 		{
 			Steup ();
 
-			var window = EditorWindow.GetWindow<ScriptAssetWindow> (true, "Create a Template Script", true);
+			var window = EditorWindow.GetWindow<ScriptAssetWindow> (false, "MonoScript", true);
 			window.ShowPopup ();
 		}
 
@@ -52,7 +52,7 @@ namespace UniEasy.Edit
 
 		public void OnGUI ()
 		{
-			GUILayout.Label ("Select Template");
+			GUILayout.Label ("Select a Template Script to Create");
 
 			selectedIndex = EditorGUILayout.Popup (selectedIndex, templates);
 

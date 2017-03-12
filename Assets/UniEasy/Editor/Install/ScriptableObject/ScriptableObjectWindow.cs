@@ -13,7 +13,7 @@ namespace UniEasy.Edit
 	{
 		private int selectedNamespaceIndex;
 		private int selectedTypeIndex;
-		private string searchCondition;
+		private string searchCondition = "";
 		private Type currentSelectedType;
 		private UnityEngine.Object currentSelectedObject;
 		static private Type[] scriptableTypes;
@@ -60,9 +60,9 @@ namespace UniEasy.Edit
 			// Select depend on namespace
 			string[] keys;
 			if (!string.IsNullOrEmpty (searchCondition)) {
-				var key0 = scriptableTypes.Where (t => t.FullName.Length >= searchCondition.Length && t.FullName.StartsWith (searchCondition)).Select (v => v.Namespace);
-				var key1 = scriptableTypes.Where (t => t.Namespace.Length >= searchCondition.Length && t.Namespace.StartsWith (searchCondition)).Select (v => v.Namespace);
-				var key2 = scriptableTypes.Where (t => t.Name.Length >= searchCondition.Length && t.Name.StartsWith (searchCondition)).Select (v => v.Namespace);
+				var key0 = scriptableTypes.Where (t => t.FullName.Length >= searchCondition.Length && t.FullName.StartsWith (searchCondition, true, null)).Select (v => v.Namespace);
+				var key1 = scriptableTypes.Where (t => t.Namespace.Length >= searchCondition.Length && t.Namespace.StartsWith (searchCondition, true, null)).Select (v => v.Namespace);
+				var key2 = scriptableTypes.Where (t => t.Name.Length >= searchCondition.Length && t.Name.StartsWith (searchCondition, true, null)).Select (v => v.Namespace);
 				keys = key0.Union (key1).Union (key2).Distinct ().ToArray ();
 			} else {
 				keys = scriptableTypes.Select (t => t.Namespace).Distinct ().ToArray ();
@@ -80,8 +80,8 @@ namespace UniEasy.Edit
 			string[] names;
 			if (!string.IsNullOrEmpty (searchCondition)) {
 				var types = scriptableDictionary [currentKey];
-				var name0 = types.Where (t => t.FullName.Length >= searchCondition.Length && t.FullName.StartsWith (searchCondition)).Select (v => v.Name);
-				var name1 = types.Where (t => t.Name.Length >= searchCondition.Length && t.Name.StartsWith (searchCondition)).Select (v => v.Name);
+				var name0 = types.Where (t => t.FullName.Length >= searchCondition.Length && t.FullName.StartsWith (searchCondition, true, null)).Select (v => v.Name);
+				var name1 = types.Where (t => t.Name.Length >= searchCondition.Length && t.Name.StartsWith (searchCondition, true, null)).Select (v => v.Name);
 				names = name0.Union (name1).ToArray ();
 			} else {
 				names = scriptableDictionary [currentKey].Select (t => t.Name).ToArray ();
@@ -94,7 +94,7 @@ namespace UniEasy.Edit
 			selectedTypeIndex = Mathf.Clamp (selectedTypeIndex, 0, names.Length - 1);
 			selectedTypeIndex = EditorGUILayout.Popup (selectedTypeIndex, names);
 
-			var type = scriptableDictionary [currentKey].GetValue (selectedTypeIndex) as Type;
+			var type = scriptableDictionary [currentKey].Where (t => t.Name == names [selectedTypeIndex]).FirstOrDefault ();
 			var isDirty = currentSelectedType == type ? false : true;
 
 			if (isDirty) {

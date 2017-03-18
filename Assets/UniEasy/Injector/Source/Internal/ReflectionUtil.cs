@@ -12,8 +12,8 @@ namespace UniEasy.DI
 
 			var list = (IList)Activator.CreateInstance (genericType);
 
-			foreach (var obj in contentsAsObj) {
-				list.Add (obj);
+			for (int i = 0; i < contentsAsObj.Length; i++) {
+				list.Add (contentsAsObj [i]);
 			}
 
 			return list;

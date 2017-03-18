@@ -139,12 +139,13 @@ namespace UniEasy.DI
 
 			var postInjectInfos = new List<PostInjectableInfo> ();
 
-			foreach (var methodInfo in values) {
-				var paramsInfo = methodInfo.GetParameters ();
+			var methodInfos = values.ToArray ();
+			for (int i = 0; i < methodInfos.Length; i++) {
+				var paramsInfo = methodInfos [i].GetParameters ();
 
 				postInjectInfos.Add (
 					new PostInjectableInfo (
-						methodInfo,
+						methodInfos [i],
 						paramsInfo.Select (paramInfo =>
 							CreateInjectableInfoForParam (type, paramInfo)).ToList ()));
 			}

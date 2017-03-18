@@ -133,13 +133,15 @@ namespace UniEasy.DI
 		// Returns all instance methods, including private and public and also those in base classes
 		public static IEnumerable<MethodInfo> GetAllInstanceMethods (this Type type)
 		{
-			foreach (var methodInfo in type.DeclaredInstanceMethods()) {
-				yield return methodInfo;
+			var methodInfos = type.DeclaredInstanceMethods ();
+			for (int i = 0; i < methodInfos.Length; i++) {
+				yield return methodInfos [i];
 			}
 
 			if (type.BaseType () != null && type.BaseType () != typeof(object)) {
-				foreach (var methodInfo in type.BaseType().GetAllInstanceMethods()) {
-					yield return methodInfo;
+				var instanceMethods = type.BaseType ().GetAllInstanceMethods ().ToArray ();
+				for (int j = 0; j < instanceMethods.Length; j++) {
+					yield return instanceMethods [j];
 				}
 			}
 		}
@@ -157,8 +159,9 @@ namespace UniEasy.DI
 
 			yield return type.BaseType ();
 
-			foreach (var ancestor in type.BaseType().GetParentTypes()) {
-				yield return ancestor;
+			var ancestors = type.BaseType ().GetParentTypes ().ToArray ();
+			for (int i = 0; i < ancestors.Length; i++) {
+				yield return ancestors [i];
 			}
 		}
 

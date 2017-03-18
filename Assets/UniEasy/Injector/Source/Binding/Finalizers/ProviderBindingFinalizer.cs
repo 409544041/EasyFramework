@@ -51,10 +51,11 @@ namespace UniEasy.DI
 		{
 			var providerMap = concreteTypes.ToDictionary (x => x, x => providerFunc (container, x));
 
-			foreach (var contractType in BindInfo.ContractTypes) {
-				foreach (var concreteType in concreteTypes) {
-					if (ValidateBindTypes (concreteType, contractType)) {
-						RegisterProvider (container, contractType, providerMap [concreteType]);
+			var contractTypes = BindInfo.ContractTypes.ToArray ();
+			for (int i = 0; i < contractTypes.Length; i++) {
+				for (int j = 0; j < concreteTypes.Count; j++) {
+					if (ValidateBindTypes (concreteTypes [j], contractTypes [i])) {
+						RegisterProvider (container, contractTypes [i], providerMap [concreteTypes [j]]);
 					}
 				}
 			}

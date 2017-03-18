@@ -54,6 +54,15 @@
      <Compile Include="Assets\UniEasy\ECS\Core\Entities\IEntity.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Events\EventSystem.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Events\IEventSystem.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Groups\Group.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Groups\GroupFactory.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Groups\IGroup.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Pools\IPool.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Pools\IPoolManager.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Pools\Identifiers\IIdentityGenerator.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Pools\Identifiers\SequentialIdentityGenerator.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Pools\Pool.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Pools\PoolManager.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\ComponentBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\IBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" />

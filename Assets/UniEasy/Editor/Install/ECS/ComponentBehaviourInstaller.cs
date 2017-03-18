@@ -19,6 +19,9 @@ namespace UniEasy.Edit
 		{
 			return "using UnityEngine;" +
 			"\nusing UniEasy.ECS;" +
+			"\nusing UniEasy;" +
+			"\nusing System;" +
+			"\nusing UniRx;" +
 			"\n" +
 			"\npublic class NewComponentBehaviour : ComponentBehaviour" +
 			"\n{" +

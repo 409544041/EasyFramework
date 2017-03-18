@@ -247,6 +247,27 @@ namespace UniEasy.DI
 			}
 		}
 
+		public TContract Resolve<TContract> ()
+		{
+			return (TContract)Resolve (typeof(TContract));
+		}
+
+		public object Resolve (Type contractType)
+		{
+			return ResolveId (contractType, null);
+		}
+
+		public TContract ResolveId<TContract> (object identifier)
+		{
+			return (TContract)ResolveId (typeof(TContract), identifier);
+		}
+
+		public object ResolveId (Type contractType, object identifier)
+		{
+			return Resolve (
+				new InjectContext (this, contractType, identifier));
+		}
+
 		public object Resolve (InjectContext context)
 		{
 			FlushBindings ();

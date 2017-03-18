@@ -1,16 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\Editor\Install\ScriptableObject\ScriptableObjectWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\ECS\Unity\Systems\DebugSystem.cs">
     <Files>
-      <File FileName="Assets\UniEasy\Editor\Install\ECS\SystemBehaviourInstaller.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\Editor\Install\ECS\ComponentBehaviourInstaller.cs" Line="1" Column="1" />
-      <File FileName="Assets\Example\Scripts\DIExample.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\Factory\ScriptableObjectFactory.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\Factory\GameObjectFactory.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\ECS\Core\Events\IEventSystem.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\ECS\Core\Events\EventSystem.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\Editor\Install\ScriptableObject\ScriptableObjectWindow.cs" Line="90" Column="35" />
-      <File FileName="Assets\UniEasy\Editor\Install\MonoScript\ScriptAssetWindow.cs" Line="100" Column="116" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Install\FootstoneInstaller.cs" Line="25" Column="18" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\ComponentBehaviour.cs" Line="11" Column="1" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" Line="7" Column="2" />
+      <File FileName="Assets\UniEasy\ECS\Core\Systems\ISystem.cs" Line="3" Column="26" />
+      <File FileName="Assets\UniEasy\Injector\Source\Main\DiContainer.cs" Line="250" Column="19" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\IBehaviour.cs" Line="2" Column="2" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Extensions\IBehaviourExtensions.cs" Line="20" Column="4" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Systems\DebugSystem.cs" Line="109" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

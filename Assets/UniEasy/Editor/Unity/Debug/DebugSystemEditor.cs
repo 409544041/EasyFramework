@@ -49,7 +49,7 @@ namespace UniEasy.Edit
 			if (isDirty) {
 				this.DebugSystem.DebugMask = new DebugMask (masks);
 				this.DebugSystem.DebugMask.IsLogEnabled = isLogEnable;
-				this.DebugSystem.Dispose ();
+				this.DebugSystem.Save ();
 				if (Application.isPlaying) {
 					this.DebugSystem.Refresh ();
 				}

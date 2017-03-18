@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Example\Scripts\DIExample.cs" />
      <Compile Include="Assets\Example\Scripts\SimpleExample.cs" />
+     <Compile Include="Assets\Example\Scripts\TestSystemBehaviour.cs" />
      <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebuggerMask.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Entities\Entity.cs" />
@@ -63,7 +64,9 @@
      <Compile Include="Assets\UniEasy\ECS\Core\Pools\Identifiers\SequentialIdentityGenerator.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Pools\Pool.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Pools\PoolManager.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Core\Systems\ISystem.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\ComponentBehaviour.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\EntityBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\IBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Extensions\IBehaviourExtensions.cs" />

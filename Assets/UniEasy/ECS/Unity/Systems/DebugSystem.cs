@@ -37,6 +37,7 @@ namespace UniEasy.ECS
 
 	public class DebugSystem : SystemBehaviour
 	{
+		private const string DefaultDebugName = "default";
 		private DebugMask debugMask;
 		private EasyWriter debugWriter;
 
@@ -51,8 +52,8 @@ namespace UniEasy.ECS
 		public DebugMask DebugMask {
 			get {
 				if (debugMask == null) {
-					if (DebugWriter.HasKey ("Default"))
-						debugMask = DebugWriter.Get<DebugMask> ("Default");
+					if (DebugWriter.HasKey (DefaultDebugName))
+						debugMask = DebugWriter.Get<DebugMask> (DefaultDebugName);
 					else
 						debugMask = new DebugMask (new List<DebugLayer> ());
 				}
@@ -82,7 +83,7 @@ namespace UniEasy.ECS
 					tempMask.Add (new DebugLayer (true, layerName));
 					DebugMask = new DebugMask (tempMask);
 					Refresh ();
-					Dispose ();
+					Save ();
 				}
 			};
 		}
@@ -104,9 +105,9 @@ namespace UniEasy.ECS
 			Debugger.IsLogEnabled = DebugMask.IsLogEnabled;
 		}
 
-		public void Dispose ()
+		public void Save ()
 		{
-			DebugWriter.Set ("Default", DebugMask);
+			DebugWriter.Set (DefaultDebugName, DebugMask);
 		}
 	}
 }

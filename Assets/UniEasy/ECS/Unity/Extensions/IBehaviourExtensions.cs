@@ -13,5 +13,10 @@ namespace UniEasy.ECS
 		{
 			Container.Inject (behaviour);
 		}
+
+		public static TContract Resolve<TContract> (this IBehaviour behaviour)
+		{
+			return Container.Resolve<TContract> ();
+		}
 	}
 }

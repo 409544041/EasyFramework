@@ -5,13 +5,21 @@ Created by chaolun
 welcome, this framework is based on my years of project experience summed up.
 i hope everyone like it and easy to use,cheers!
 
+- <a href="#introduction">Introduction</a>
+- <a href="#quick_start">Quick Start</a>
+- <a href="#history">History</a>
+
+## <a id="introduction"></a>Introduction
 What is UniEasy?
 ---
 
 Why UniEasy?
 ---
 
-History
+## <a id="quick_start"></a>Quick Start
+
+
+## <a id="history"></a>History
 ---
 2016-09-08 01:22 create ssh key
 
@@ -63,3 +71,63 @@ History
 	3.Then Call Set<T> (string key, T value) and SetArray<T> (string key, object value) to save the data
 	4.Call Get<T> (string key) and GetArray<T> (string key) to load the data
 	5.Call Get<T> (string key, T target) and GetArray<T> (string key, T[] target) to overwrite the MonoBehavior or ScriptableObject
+
+2017-03-18 17:00 completed DI
+
+	0.Before Start : Don't forgot using UniEasy.DI!
+	1.About Inject - You can use like : 
+
+		1 - Constructor Injection
+	
+			public class Foo 
+			{
+		    	    IBar bar;
+
+		    	    public Foo(IBar bar)
+		    	    {
+			        this.bar = bar;
+		    	    }
+			}
+		
+		2 - Field Injection
+		
+			public class Foo
+			{
+			    [Inject]
+			    IBar bar;
+			}
+		
+		3 - Property Injection
+		
+			public class Foo
+			{
+		    	    [Inject]
+		    	    public IBar Bar {
+			        get;
+			        private set;
+			    }
+			}
+		
+		4 - Method Injection
+		
+			public class Foo
+			{
+			    IBar bar;
+
+			    [Inject]
+			    public Init(IBar bar)
+			    {
+			        this.bar = bar;
+			    }
+			}
+		
+	2.About Binding - You can use like : 
+	
+		Container.Bind<Foo>().AsSingle();
+		Container.Bind<IBar>().To<Bar>().AsSingle();
+		Container.Bind<IBar>().To<Bar>().FromInstance (new Bar ()).AsSingle();
+		Container.Bind<IBar> ().WithId ("id").To<Bar> ().FromInstance (new Bar ()).AsSingle ();
+		Container.Bind<Foo>().AsSingle().WhenInjectedInto<Bar> (); -- (It mean delay binding wait until have Bar type Inject).
+		Container.Bind<Foo>().AsSingle().NonLazy (); -- (Normally, the ResultType is only ever instantiated when the binding is first used. However, when NonLazy is used, ResultType will immediately by created on startup).
+		
+	3.Want Inject work - after var bar = new Bar() don't forgot use DiContainer.Inject (bar); if class Bar is sub class of MonoBehaviour, it is better add DiContainer.Inject (this) to void Awake ().

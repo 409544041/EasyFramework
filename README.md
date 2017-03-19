@@ -10,34 +10,30 @@ i hope everyone like it and easy to use,cheers!
 - <a href="#history">History</a>
 
 ## <a id="introduction"></a>Introduction
-What is UniEasy?
----
-
-Why UniEasy?
----
+...
 
 ## <a id="quick_start"></a>Quick Start
-
+...
 
 ## <a id="history"></a>History
----
-2016-09-08 01:22 create ssh key
-
-2016-09-08 01:51 summary 
+2016-09-08 Create A Github Project
 	
 1.set user name and email
 
 	$ git config --global user.name "humingx"
   	$ git config --global user.email "humingx@yeah.net"
+	
 2.create ssh key
 
 	$ ssh-keygen -t rsa -C "humingx@yeah.net"
 	if don't need password continuous input enter 3 times
 	finally,get 2 files: id_rsa and id_rsa.pub
+	
 3.login Github and add ssh id_rsa.pub
 
 	copy id_rsa.pub content to Settings>>SSH and GPG keys>>New SSH key
 	Title can input authorized_keys
+	
 4.test ssh whether successful
 
 	$ ssh -T git@github.com
@@ -47,24 +43,23 @@ Why UniEasy?
     		Are you sure you want to continue connecting (yes/no)?
 	select: yes
 	if you see your user name behind Hi,success!
+	
 5.modified .git/config file
 
 	url = https://github.com/...
 	change to
 	url = git@github.com/...
 
-2016-10-22 14:18 create unity project ver5.4.1f1
+2016-10-22 Create Unity Project ver5.4.1f1
 
-2016-10-22 14:27 add uniRx plugin ver5.5.0
-
-2016-11-26 16:02 create submodule
+2016-11-26 Create Submodule
 
 	1.remove uniRx plugin ver5.5.0
 	2.create easy plugins repository
 	3.git submodule add  git@github.com:chaolunner/EasyPlugins.git Assets/Plugins
 	4.add uniRx plugin to Plugins folder
 
-2016-12-12 23:27 completed EasyWriter
+2016-12-12 EasyWriter
 
 	1.Now you can save Primitive,Struct,Class,MonoBehavior,ScriptableObject or their Array
 	2.First used EasyWriter writer = new EasyWriter (filePath) Create and Save the json file in filePath
@@ -72,7 +67,7 @@ Why UniEasy?
 	4.Call Get<T> (string key) and GetArray<T> (string key) to load the data
 	5.Call Get<T> (string key, T target) and GetArray<T> (string key, T[] target) to overwrite the MonoBehavior or ScriptableObject
 
-2017-03-18 17:00 completed DI
+2017-03-18 Dependency Injection
 
 	0.Before Start : Don't forgot using UniEasy.DI!
 	1.About Inject - You can use like : 

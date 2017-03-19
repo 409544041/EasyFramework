@@ -126,3 +126,94 @@ i hope everyone like it and easy to use,cheers!
 		Container.Bind<Foo>().AsSingle().NonLazy (); -- (Normally, the ResultType is only ever instantiated when the binding is first used. However, when NonLazy is used, ResultType will immediately by created on startup).
 		
 	3.Want Inject work - after var bar = new Bar() don't forgot use DiContainer.Inject (bar); if class Bar is sub class of MonoBehaviour, it is better add DiContainer.Inject (this) to void Awake ().
+
+2017-03-19 Ranged Int & Ranged Float
+
+	you can use RangedInt or RangedFloat like : 
+		public class Example {
+		    [MinMaxRange (0, 10)]
+		    public RangedInt a;
+		    [MinMaxRange (0, 10)]
+		    public RangedFloat b;
+		}
+	then you just need drag the slider to select the range in Inspector
+
+2017-03-19 ScriptableObject Window
+
+	1. Right click in Project Window Select >> Create >> UniEasy >> ScriptableObject Window.
+	2. You can use search or drop-down menu select a ScriptableObject class (you can found all ScriptableObject class in project).
+	3. Click Create Button create you selected class as a asset file.
+	
+2017-03-19 Template Script Window
+
+	1. Right click in Project Window Select >> Create >> UniEasy >> Template Script Window.
+	2. You can use search or drop-down menu select a IScriptAssetInstaller (you can found all IScriptAssetInstaller in project).
+	3. Click Create Button create you selected template script as a .cs file.
+	
+2017-03-19 Entity-Component-System
+
+	1. As a Entity you need add a EntityBehaviour Component on GameObject.
+	2. You can use Right click in Project Window Select >> Create >> UniEasy >> ComponentBehaviour Installer Create a 'Component'.
+	3. You can use Right clicj in Project Window Select >> Create >> UniEasy >> SystemBehaviour Installer Create a 'System'.
+	4. For Example : 
+
+[Entity]
+
+	Scene : 
+		Entity(GameObject) : 
+			.Transform
+			.EntityBehaviour
+			.Health(ComponentBehaviour)
+	DontDestoryOnLoadScene : 
+		System(GameObject) : 
+			.Transform
+			.HealthSystem
+
+[Component]
+
+	using UnityEngine;
+	using UniEasy.ECS;
+	using UniEasy;
+	using System;
+	using UniRx;
+
+	public class Health : ComponentBehaviour
+	{
+  	    public float CurrentHealth;
+	    public float StartingHealth;
+	    
+	    protected override void Awake ()
+	    {
+	        base.Awake ();
+	    }
+	    
+	    void Start ()
+	    {
+	    }
+	}
+	
+[System]
+
+	using UnityEngine;
+	using UniEasy.ECS;
+	using UniEasy;
+	using System;
+	using UniRx;
+	
+	public class HealthSystem : SystemBehaviour
+	{
+	    protected override void Awake ()
+	    {
+	        base.Awake ();
+	    }
+	    
+  	    void Start()
+	    {
+		var HealthComponents = GroupFactory.Create(typeof(Health));
+		HealthComponents.Entities.ObserveAdd ().Select(x => x.Value).StartWith(group.Entities).Subscribe (entity =>
+        	{
+          	    var healthComponent = entity.GetComponent<Health>()
+         	    healthComponent.CurrentHealth = healthComponent.StartingHealth;
+        	}).AddTo(this.Disposer);
+  	    }
+	}

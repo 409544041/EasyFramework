@@ -217,3 +217,22 @@ i hope everyone like it and easy to use,cheers!
         	}).AddTo(this.Disposer);
   	    }
 	}
+
+2017-03-19 Debug System
+
+	using UniEasy;
+	
+	public class Example : MonoBehaviour
+	{
+	    void Start ()
+	    {
+	        Debugger.Log ("white context", "Layer 0");
+		Debugger.LogWarnning ("yellow context", "Layer 1");
+		Debugger.LogError ("red context", "Layer 2");
+	    }
+	}
+	
+1. Run in editor found DebugSystem Component at DontDestoryOnLoad Scene >> DebugSystem GameObject >> DebugSystem Component.
+2. you can see a IsLogEnable toggle on DebugSystem Component at Inspector Window, if IsLogEnable == false nothing on Console Window.
+3. you can see all layers toggle on DebugSystem Component at Inspector Window, if layer0 == false "white context" will not output to Console Window.
+4. the new layer will auto add to debugsystem when you debugger.log ("", "a new layer name") when run in editor;

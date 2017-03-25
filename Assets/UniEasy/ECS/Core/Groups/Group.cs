@@ -6,7 +6,7 @@ using UniRx;
 
 namespace UniEasy.ECS
 {
-	public class Group : IGroup, IDisposable
+	public class Group : IGroup, IDisposable, IDisposableContainer
 	{
 		public IEventSystem EventSystem { get; set; }
 
@@ -50,6 +50,22 @@ namespace UniEasy.ECS
 					AddEntity (entities [i]);
 				}
 			}
+
+			EventSystem.Receive<EntityAddedEvent> ().Where (x => x.Entity.HasComponents (Components.ToArray ())).Subscribe (x => {
+				AddEntity (x.Entity);
+			}).AddTo (this);
+
+			EventSystem.Receive<EntityRemovedEvent> ().Where (x => Entities.Contains (x.Entity)).Subscribe (x => {
+				RemoveEntity (x.Entity);
+			}).AddTo (this);
+
+			EventSystem.Receive<ComponentAddedEvent> ().Where (x => x.Entity.HasComponents (Components.ToArray ()) && Entities.Contains (x.Entity) == false).Subscribe (x => {
+				AddEntity (x.Entity);
+			}).AddTo (this);
+
+			EventSystem.Receive<ComponentRemovedEvent> ().Where (x => Components.Contains (x.Component.GetType ()) && Entities.Contains (x.Entity)).Subscribe (x => {
+				RemoveEntity (x.Entity);
+			}).AddTo (this);
 		}
 
 		void AddEntity (IEntity entity)

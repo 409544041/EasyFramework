@@ -8,19 +8,23 @@ namespace UniEasy.ECS
 	{
 		private readonly Dictionary<Type, object> components;
 
+		public IEventSystem EventSystem { get; private set; }
+
 		public int Id { get; private set; }
 
 		public IEnumerable<object> Components { get { return components.Values; } }
 
-		public Entity (int id)
+		public Entity (int id, IEventSystem eventSystem)
 		{
 			Id = id;
+			EventSystem = eventSystem;
 			components = new Dictionary<Type, object> ();
 		}
 
 		public void AddComponent (object component)
 		{
 			components.Add (component.GetType (), component);
+			EventSystem.Publish (new ComponentAddedEvent (this, component));
 		}
 
 		public void AddComponent<T> () where T : class, new()
@@ -39,6 +43,7 @@ namespace UniEasy.ECS
 			}
 
 			components.Remove (component.GetType ());
+			EventSystem.Publish (new ComponentRemovedEvent (this, component));
 		}
 
 		public void RemoveComponent<T> () where T : class

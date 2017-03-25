@@ -26,6 +26,7 @@ namespace UniEasy.ECS
 		{
 			var pool = new Pool (name, IdentityGenerator, EventSystem);
 			pools.Add (name, pool);
+			EventSystem.Publish (new PoolAddedEvent (pool));
 			return pool;
 		}
 
@@ -39,7 +40,9 @@ namespace UniEasy.ECS
 			if (!pools.ContainsKey (name)) {
 				return;
 			}
+			var pool = pools [name];
 			pools.Remove (name);
+			EventSystem.Publish (new PoolRemovedEvent (pool));
 		}
 	}
 }

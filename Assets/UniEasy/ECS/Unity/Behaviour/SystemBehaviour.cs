@@ -5,7 +5,7 @@ using UniRx;
 
 namespace UniEasy.ECS
 {
-	public class SystemBehaviour : MonoBehaviour, ISystem, IBehaviour, IDisposable
+	public class SystemBehaviour : MonoBehaviour, ISystem, IBehaviour, IDisposable, IDisposableContainer
 	{
 		[Inject]
 		public IEventSystem EventSystem { get; set; }

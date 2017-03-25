@@ -27,9 +27,10 @@ namespace UniEasy.ECS
 		public IEntity CreateEntity ()
 		{
 			var newId = IdentityGenerator.GenerateId ();
-			var entity = new Entity (newId);
+			var entity = new Entity (newId, EventSystem);
 
 			entities.Add (entity);
+			EventSystem.Publish (new EntityAddedEvent (entity, this));
 
 			return entity;
 		}
@@ -44,6 +45,8 @@ namespace UniEasy.ECS
 					(components [i] as IDisposable).Dispose ();
 				}
 			}
+
+			EventSystem.Publish (new EntityRemovedEvent (entity, this));
 		}
 	}
 }

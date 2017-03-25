@@ -58,10 +58,13 @@
      <Compile Include="Assets\UniEasy\Editor\Install\MonoScript\ScriptAssetWindow.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ScriptableObject\ScriptableObjectInstallerUtil.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ScriptableObject\ScriptableObjectWindow.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\BaseContextMenu.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\ComponentContextMenuExtend.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\EasyMenuItemAttribute.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Debug\DebugSystemEditor.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Debug\LogUtil.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Hierarchy\BlockInstaller.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\Hierarchy\HierarchyContextMenu.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Hierarchy\SearchSceneMissingWindow.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyRectTransform.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyTransform.cs" />

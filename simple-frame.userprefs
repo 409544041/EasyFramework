@@ -1,14 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\ECS\Core\Pools\Pool.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\Editor\Unity\Hierarchy\HierarchyContextMenu.cs">
     <Files>
       <File FileName="Assets\UniEasy\ECS\Unity\Install\FootstoneInstaller.cs" Line="22" Column="3" />
-      <File FileName="Assets\Example\Scripts\TestSystemBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\EntityBehaviour.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\ECS\Core\Groups\GroupFactory.cs" Line="10" Column="37" />
-      <File FileName="Assets\UniEasy\ECS\Core\Groups\Group.cs" Line="47" Column="50" />
-      <File FileName="Assets\UniEasy\ECS\Core\Entities\Entity.cs" Line="17" Column="16" />
-      <File FileName="Assets\UniEasy\ECS\Core\Pools\Pool.cs" Line="45" Column="49" />
+      <File FileName="Assets\UniEasy\Editor\Unity\Hierarchy\BlockInstaller.cs" Line="59" Column="44" />
+      <File FileName="Assets\UniEasy\Editor\Unity\Hierarchy\SearchSceneMissingWindow.cs" Line="20" Column="118" />
+      <File FileName="Assets\UniEasy\Editor\Unity\Hierarchy\HierarchyContextMenu.cs" Line="10" Column="45" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

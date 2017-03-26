@@ -236,3 +236,34 @@ i hope everyone like it and easy to use,cheers!
 2. you can see a IsLogEnable toggle on DebugSystem Component at Inspector Window, if IsLogEnable == false nothing on Console Window.
 3. you can see all layers toggle on DebugSystem Component at Inspector Window, if layer0 == false "white context" will not output to Console Window.
 4. the new layer will auto add to debugsystem when you debugger.log ("", "a new layer name") when run in editor;
+
+2017-03-26 Context Menu
+	
+Now you can use EasyMenuItem Attribute Instead of MenuItem Attribute, its usage is very similar to MenuItem. But why not use MenuItem, because I don't like the sort of MenuItem, it can't adjust the order of the parent menu by setting the priority value.
+Use EasyMenuItem the function you want to called must isStatic, you can set the partition line by setting the priority value (set up a split line for every 50 items), you can even call a method with a parameter and parameter type must be set to System.Object, the incoming parameter is your selected Object.
+For example, you can call hierarchy context menu like this : 
+
+	[EasyMenuItem ("GameObject/Do Something/NonParam", false, 1)]
+	static public void DoSomething ()
+	{
+	    ...
+	}
+	
+	[EasyMenuItem ("GameObject/Do Something/NonParam", true, 1)]
+	static public bool CheckDoSomething ()
+	{
+	    ...
+	    return true;
+	}
+	
+	[EasyMenuItem ("GameObject/Do Something/Param", false, 2)]
+	static public void DoSomething (object activeGameObject)
+	{
+	    ...
+	}
+	
+2017-03-26 Search Missing Component
+
+The component on the GameObject is missing ? This is a very common situation, because programmers need to modify the component and can not remember how many GameObjects add the component. Of course, we don't want to missing the components of the GameObject exists in the scene. We can code a simple function to remove all missing components, but it's not intuitive, maybe we need know where missing component and use a new component to replace it.
+
+Fortunately, UniEasy achieved this feature. you can right click in hierarchy window and select >> UniEasy >> Search for All Missing Components then click. Now All game objects that missing component are listed in the hierarchy window.

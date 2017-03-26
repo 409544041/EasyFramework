@@ -9,15 +9,15 @@ namespace UniEasy.Edit
 {
 	public class BaseContextMenu
 	{
-		protected static Dictionary<EasyMenuItemAttribute, MethodInfo> Functions = new Dictionary<EasyMenuItemAttribute, MethodInfo> ();
+		protected static Dictionary<EasyMenuItem, MethodInfo> Functions = new Dictionary<EasyMenuItem, MethodInfo> ();
 
 		[InitializeOnLoadMethod]
-		static void StartInitializeOnLoadMethod ()
+		static internal void Steup ()
 		{
 			var group = AssemblyHelper.CSharpEditor.GetTypes ().Distinct ().ToArray ();
 			for (int i = 0; i < group.Length; i++) {
-				var methods = group [i].GetMethods (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).Where (m => m.HasAttribute (typeof(EasyMenuItemAttribute))).ToArray ();
-				var items = methods.Select (x => x.AllAttributes<EasyMenuItemAttribute> ().SingleOrDefault ()).ToArray ();
+				var methods = group [i].GetMethods (BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static).Where (m => m.HasAttribute (typeof(EasyMenuItem))).ToArray ();
+				var items = methods.Select (x => x.AllAttributes<EasyMenuItem> ().SingleOrDefault ()).ToArray ();
 				for (int j = 0; j < items.Length; j++) {
 					Functions.Add (items [j], methods [j]);
 				}

@@ -7,43 +7,43 @@ using System;
 
 namespace UniEasy.Edit
 {
-	public class SearchSceneMissingWindow : EditorWindow
+	public class SearchSceneMissingContextMenu
 	{
-		private static FieldInfo searchFilterFieldInfo;
-		private static PropertyInfo treeViewPropertyInfo;
-		private static MethodInfo searchChangedMethodInfo;
-		private static EditorWindow sceneHierarchyWindowObject;
+		private static PropertyInfo treeView;
+		private static FieldInfo searchFilter;
+		private static MethodInfo searchChanged;
+		private static EditorWindow sceneHierarchyWindow;
 
 		public static EditorWindow SceneHierarchyWindowObject {
 			get {
-				if (sceneHierarchyWindowObject == null) {
-					sceneHierarchyWindowObject = EditorWindow.GetWindow (TypeHelper.SceneHierarchyWindow, false, "Hierarchy", true);
+				if (sceneHierarchyWindow == null) {
+					sceneHierarchyWindow = EditorWindow.GetWindow (TypeHelper.SceneHierarchyWindow, false, "Hierarchy", true);
 				}
-				return sceneHierarchyWindowObject;
+				return sceneHierarchyWindow;
 			}
 		}
 
 		public static string SearchFilter {
 			get {
-				if (searchFilterFieldInfo == null) {
-					searchFilterFieldInfo = TypeHelper.SceneHierarchyWindow.GetField ("m_SearchFilter", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+				if (searchFilter == null) {
+					searchFilter = TypeHelper.SceneHierarchyWindow.GetField ("m_SearchFilter", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 				}
-				return searchFilterFieldInfo.GetValue (SceneHierarchyWindowObject).ToString ();
+				return searchFilter.GetValue (SceneHierarchyWindowObject).ToString ();
 			}
 			set {
-				if (searchFilterFieldInfo == null) {
-					searchFilterFieldInfo = TypeHelper.SceneHierarchyWindow.GetField ("m_SearchFilter", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+				if (searchFilter == null) {
+					searchFilter = TypeHelper.SceneHierarchyWindow.GetField ("m_SearchFilter", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 				}
-				searchFilterFieldInfo.SetValue (SceneHierarchyWindowObject, value);
+				searchFilter.SetValue (SceneHierarchyWindowObject, value);
 			}
 		}
 
 		public static object TreeView {
 			get {
-				if (treeViewPropertyInfo == null) {
-					treeViewPropertyInfo = TypeHelper.SceneHierarchyWindow.GetProperty ("treeView", BindingFlags.NonPublic | BindingFlags.Instance);
+				if (treeView == null) {
+					treeView = TypeHelper.SceneHierarchyWindow.GetProperty ("treeView", BindingFlags.NonPublic | BindingFlags.Instance);
 				}
-				return treeViewPropertyInfo.GetValue (SceneHierarchyWindowObject, null);
+				return treeView.GetValue (SceneHierarchyWindowObject, null);
 			}
 		}
 
@@ -71,14 +71,14 @@ namespace UniEasy.Edit
 
 		public static MethodInfo SearchChanged {
 			get {
-				if (searchChangedMethodInfo == null) {
-					searchChangedMethodInfo = TypeHelper.SceneHierarchyWindow.GetMethod ("SearchChanged");
+				if (searchChanged == null) {
+					searchChanged = TypeHelper.SceneHierarchyWindow.GetMethod ("SearchChanged");
 				}
-				return searchChangedMethodInfo;
+				return searchChanged;
 			}
 		}
 
-		[MenuItem ("GameObject/UniEasy/Search for All Missing Components", false, 0)]
+		[EasyMenuItem ("GameObject/UniEasy/Search for All Missing Components", false, 1)]
 		public static void SearchForAllMissingComponents ()
 		{
 			SceneHierarchyWindowObject.Show ();
@@ -142,17 +142,18 @@ namespace UniEasy.Edit
 			return result.ToArray ();
 		}
 
-		[MenuItem ("GameObject/UniEasy/Clean Selected Missing Components", false, 1)]
+		[EasyMenuItem ("GameObject/UniEasy/Clean Selected Missing Components", false, 2)]
 		static void CleanSelectedMissingComponents ()
 		{
 			CleanupMissingComponents<Component> (Selection.gameObjects);
 		}
 
-		[MenuItem ("GameObject/UniEasy/Clean Selected Missing Components", true)]
+		[EasyMenuItem ("GameObject/UniEasy/Clean Selected Missing Components", true, 2)]
 		static bool CheckSelectedGameObjectsInSceneNotEmpty ()
 		{
-			if (Selection.gameObjects.Length > 0)
+			if (Selection.gameObjects.Length > 0) {
 				return true;
+			}
 			return false;
 		}
 

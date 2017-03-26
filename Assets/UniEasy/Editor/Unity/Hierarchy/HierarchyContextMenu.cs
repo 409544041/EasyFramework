@@ -35,7 +35,7 @@ namespace UniEasy.Edit
 		public static System.Action ContextClickOutsideItemsEvent { get; set; }
 
 		[InitializeOnLoadMethod]
-		static void StartInitializeOnLoadMethod ()
+		static void StartSteup ()
 		{
 			EditorApplication.hierarchyWindowItemOnGUI += OnHierarchyGUI;
 
@@ -70,25 +70,54 @@ namespace UniEasy.Edit
 
 				GenericMenu genericMenu = new GenericMenu ();
 
+				var items = Functions.OrderBy (x => x.Key.priority).GetEnumerator ();
+				var separator = 50;
+				while (items.MoveNext ()) {
+					var attribute = items.Current.Key;
+					var function = items.Current.Value;
+					if (attribute.menuItem.Contains ("GameObject/")) {
+						var itemName = attribute.menuItem.Replace ("GameObject/", "");
+						if (attribute.priority > separator) {
+							genericMenu.AddSeparator (itemName.Substring (0, itemName.LastIndexOf ("/") + 1));
+							separator += 50;
+						}
+						var result = true;
+						if (attribute.validate) {
+							result = (bool)function.Invoke (null, null);
+						}
+
+						var param = function.GetParameters ();
+						if (param.Length > 1) {
+							result = false;
+						} else if (param.Length == 1) {
+							result = false;
+							if (param [0].ParameterType == typeof(object) && Selection.activeGameObject != null) {
+
+								genericMenu.AddItem (new GUIContent (itemName), false, (go) => {
+									function.Invoke (null, new object[] { go });
+								}, Selection.activeGameObject);
+
+								result = true;
+								continue;
+							}
+						}
+
+						if (result) {
+							genericMenu.AddItem (new GUIContent (itemName), false, () => {
+								function.Invoke (null, null);
+							});
+						} else {
+							genericMenu.AddDisabledItem (new GUIContent (itemName));
+						}
+					}
+				}
+
+				genericMenu.AddSeparator ("");
+
 				var contextClickedItemID = 0;
 				var parametors = new object[]{ genericMenu, contextClickedItemID }; 
 				var CreateGameObjectContextClick = TypeHelper.SceneHierarchyWindow.GetMethod ("CreateGameObjectContextClick", BindingFlags.Instance | BindingFlags.NonPublic);
 				CreateGameObjectContextClick.Invoke (SceneHierarchyWindow, parametors);
-
-				genericMenu.AddSeparator ("");
-
-				var items = Functions.GetEnumerator ();
-				while (items.MoveNext ()) {
-					if (items.Current.Key.Name.Contains ("GameObject")) {
-						genericMenu.AddItem (new GUIContent (items.Current.Key.Name), false, () => {
-							items.Current.Value.Invoke (null, null);
-						});
-					}
-				}
-
-				if (selectionRect.Contains (Event.current.mousePosition)) {
-					
-				}
 
 				genericMenu.ShowAsContext ();
 			}

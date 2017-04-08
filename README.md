@@ -267,3 +267,11 @@ For example, you can call hierarchy context menu like this :
 The component on the GameObject is missing ? This is a very common situation, because programmers need to modify the component and can not remember how many GameObjects add the component. Of course, we don't want to missing the components of the GameObject exists in the scene. We can code a simple function to remove all missing components, but it's not intuitive, maybe we need know where missing component and use a new component to replace it.
 
 Fortunately, UniEasy achieved this feature. you can right click in hierarchy window and select >> UniEasy >> Search for All Missing Components then click. Now All game objects that missing component are listed in the hierarchy window.
+
+2017-04-08 Upgrade Project to Unity5.6.0f3
+
+2017-04-08 Add Distortion Effect
+
+	You can add this component to the Text(UGUI), then you can adjust the animation curve in the Inspector window to change the shape of the Text's text.
+	You also can add it use Inspector >> Add Component >> UI >> Effects >> Distortion.
+

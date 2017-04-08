@@ -1,13 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\Editor\Unity\Hierarchy\BlockInstaller.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\unity-decompiled\Assets\UnityEditor\UnityEditor\EditorUtility.cs">
     <Files>
-      <File FileName="Assets\UniEasy\ECS\Unity\Install\FootstoneInstaller.cs" Line="22" Column="3" />
-      <File FileName="Assets\UniEasy\Editor\Unity\Hierarchy\BlockInstaller.cs" Line="25" Column="17" />
-      <File FileName="Assets\UniEasy\Editor\Unity\Hierarchy\SearchSceneMissingWindow.cs" Line="163" Column="37" />
-      <File FileName="Assets\UniEasy\Editor\Unity\Hierarchy\HierarchyContextMenu.cs" Line="5" Column="14" />
-      <File FileName="Assets\UniEasy\Editor\Unity\ContextMenu\BaseContextMenu.cs" Line="26" Column="3" />
-      <File FileName="Assets\UniEasy\Editor\Unity\ContextMenu\EasyMenuItemAttribute.cs" Line="2" Column="1" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Install\FootstoneInstaller.cs" Line="1" Column="1" />
+      <File FileName="Assets\UniEasy\Editor\Unity\Hierarchy\BlockContextMenu.cs" Line="1" Column="1" />
+      <File FileName="Assets\UniEasy\Editor\Unity\ContextMenu\ProjectContextMenu.cs" Line="88" Column="19" />
+      <File FileName="..\unity-decompiled\Assets\UnityEditor\UnityEditor\ProjectBrowser.cs" Line="1" Column="1" />
+      <File FileName="..\unity-decompiled\Assets\UnityEditor\UnityEditor\EditorUtility.cs" Line="204" Column="61" />
+      <File FileName="..\unity-decompiled\Assets\UnityEditor\UnityEditor\SceneHierarchyWindow.cs" Line="1319" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

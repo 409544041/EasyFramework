@@ -275,3 +275,24 @@ Fortunately, UniEasy achieved this feature. you can right click in hierarchy win
 	You can add this component to the Text(UGUI), then you can adjust the animation curve in the Inspector window to change the shape of the Text's text.
 	You also can add it use Inspector >> Add Component >> UI >> Effects >> Distortion.
 
+2017-04-09 Operate Active Entity
+
+	You can use GroupFactory.CreateAsSingle() replace GroupFactory.Create() most of the time. This will help to improve performance.
+	
+	public class SystemBehaviour {
+	    var group = GroupFactory.CreateAsSingle (new Type[] {
+	        typeof(EntityBehaviour),
+	    });
+	    
+	    // it will debug when a entity be set active = true or entitybehaviour awake.
+	    // you can use group.GetEntities (true) get all active entities,
+	    // use group.GetEntities (false) get all nonactive entities.
+	    group.GetEntities (true).ObserveAdd ().Select (x => x.Value).StartWith (group.Entities).Subscribe (entity => {
+	        Debugger.Log ("", "UniEasy");
+	    }).AddTo (this.Disposer);
+	    
+	    // it will debug when a entity be set active = false or destroy.
+	    group.GetEntities (true).ObserveRemove ().Select (x => x.Value).Subscribe (entity => {
+	        Debugger.Log ("", "UniEasy");
+	    }).AddTo (this.Disposer);
+	}

@@ -4,7 +4,7 @@ using UniRx;
 
 namespace UniEasy.ECS
 {
-	public class FootstoneInstaller : Installer<FootstoneInstaller>
+	public class UniEasyInstaller : Installer<UniEasyInstaller>
 	{
 		[RuntimeInitializeOnLoadMethod (RuntimeInitializeLoadType.BeforeSceneLoad)]
 		public static void Initialize ()
@@ -12,7 +12,7 @@ namespace UniEasy.ECS
 			DiContainer container = new DiContainer ();
 			container.Bind<DiContainer> ().FromInstance (container).AsSingle ();
 
-			FootstoneInstaller.Install (container);
+			UniEasyInstaller.Install (container);
 			var installers = GameObject.FindObjectsOfType<MonoInstallerBase> ();
 			for (int i = 0; i < installers.Length; i++) {
 				container.Inject (installers [i]);

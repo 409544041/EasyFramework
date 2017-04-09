@@ -86,6 +86,7 @@ namespace UniEasy.ECS
 					Save ();
 				}
 			};
+			Refresh ();
 		}
 
 		void Start ()

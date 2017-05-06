@@ -296,3 +296,20 @@ Fortunately, UniEasy achieved this feature. you can right click in hierarchy win
 	        Debugger.Log ("", "UniEasy");
 	    }).AddTo (this.Disposer);
 	}
+
+2017-05-06 Scene Container
+
+        Separate Inject Container to Project Container and Scene Container. The Project Container is a singleton, 
+	global, you can call through UniEasyInstaller.ProjectContainer.
+	
+        Every scene has a Scene Container expect DontDestroyOnLoad scene. Them are Project Container's childs, 
+	so you can get Project Container bindings on them.
+	
+        Quick start, you just need to add the SceneInstaller component to the root gameobject in the scene. 
+	SceneInstaller will binding all systems(SystemBehaviour) in this scene. All ComponentBehaviour and SystemBehaviour 
+	will be auto inject, These logic codes are written on the UniEasyInstaller.
+	
+        Why we need separate container? Because the script call between the scene and the scene will increase the coupling. 
+	If it is core data you can use Project Container bind it. If is not, it should only can be called in this scene. 
+	If other scene need to its data you can use EventSystem transfer data.
+	

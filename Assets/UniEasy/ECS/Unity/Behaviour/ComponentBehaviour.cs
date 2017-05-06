@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
+using UniEasy.DI;
 using System;
 using UniRx;
 
 namespace UniEasy.ECS
 {
-	public class ComponentBehaviour : MonoBehaviour, IBehaviour, IDisposable
+	public class ComponentBehaviour : MonoBehaviour, IDisposable
 	{
 		public IEventSystem EventSystem {
 			get {
-				return eventSystem == null ? this.Resolve<IEventSystem> () : eventSystem;
+				return eventSystem == null ? UniEasyInstaller.ProjectContainer.Resolve<IEventSystem> () : eventSystem;
 			}
 			set { eventSystem = value; }
 		}
@@ -17,7 +18,7 @@ namespace UniEasy.ECS
 
 		public IPoolManager PoolManager {
 			get {
-				return poolManager == null ? this.Resolve<IPoolManager> () : poolManager;
+				return poolManager == null ? UniEasyInstaller.ProjectContainer.Resolve<IPoolManager> () : poolManager;
 			}
 			set { poolManager = value; }
 		}
@@ -31,9 +32,10 @@ namespace UniEasy.ECS
 			set { disposer = value; }
 		}
 
-		protected virtual void Awake ()
+		[Inject]
+		public virtual void Setup ()
 		{
-			this.InjectSelf ();
+
 		}
 
 		void Start ()

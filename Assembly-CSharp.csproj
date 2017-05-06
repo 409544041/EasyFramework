@@ -75,10 +75,9 @@
      <Compile Include="Assets\UniEasy\ECS\Core\Systems\System.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\ComponentBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\EntityBehaviour.cs" />
-     <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\IBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Extensions\GroupExtensions.cs" />
-     <Compile Include="Assets\UniEasy\ECS\Unity\Extensions\IBehaviourExtensions.cs" />
+     <Compile Include="Assets\UniEasy\ECS\Unity\Install\SceneInstaller.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Install\UniEasyInstaller.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Systems\DebugSystem.cs" />
      <Compile Include="Assets\UniEasy\Factory\BlockFactory.cs" />

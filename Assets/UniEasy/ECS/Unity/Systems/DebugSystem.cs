@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using System.Linq;
 using System;
 
@@ -70,9 +70,9 @@ namespace UniEasy.ECS
 			}
 		}
 
-		protected override void Awake ()
+		public override void Setup ()
 		{
-			base.Awake ();
+			base.Setup ();
 			Debugger.IsLogEnabled = DebugMask.IsLogEnabled;
 			// For performance consideration : 
 			// We can't auto add a new layer when debug happened in every platform,

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace UniEasy
 {
@@ -47,7 +47,7 @@ namespace UniEasy
 				#if UNITY_EDITOR
 				Debug.LogError ("Sorry, add block failed!\nbecause block name [" + name + "] conflict.");
 				#endif
-			else
+				else
 					target.Add (name, asset);
 			}
 		}

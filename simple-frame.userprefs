@@ -1,12 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\unity-decompiled\Assets\UnityEditor\UnityEditor\SceneHierarchyWindow.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\Factory\GameObjectFactory.cs">
     <Files>
-      <File FileName="Assets\UniEasy\ECS\Unity\Install\FootstoneInstaller.cs" Line="1" Column="1" />
-      <File FileName="Assets\UniEasy\Editor\Unity\Hierarchy\BlockContextMenu.cs" Line="1" Column="1" />
-      <File FileName="..\unity-decompiled\Assets\UnityEditor\UnityEditor\ProjectBrowser.cs" Line="1" Column="1" />
-      <File FileName="..\unity-decompiled\Assets\UnityEditor\UnityEditor\EditorUtility.cs" Line="199" Column="18" />
-      <File FileName="..\unity-decompiled\Assets\UnityEditor\UnityEditor\SceneHierarchyWindow.cs" Line="1301" Column="16" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Install\UniEasyInstaller.cs" Line="19" Column="13" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Extensions\GroupExtensions.cs" Line="24" Column="9" />
+      <File FileName="Assets\UniEasy\Factory\BlockFactory.cs" Line="7" Column="43" />
+      <File FileName="Assets\UniEasy\Factory\GameObjectFactory.cs" Line="100" Column="4" />
+      <File FileName="Assets\UniEasy\Factory\ScriptableObjectFactory.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

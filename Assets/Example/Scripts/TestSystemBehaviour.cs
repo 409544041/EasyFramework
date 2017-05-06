@@ -6,13 +6,10 @@ using UniRx;
 
 public class TestSystemBehaviour : SystemBehaviour
 {
-	protected override void Awake ()
+	public override void Setup ()
 	{
-		base.Awake ();
-	}
+		base.Setup ();
 
-	void Start ()
-	{
 		var group = GroupFactory.CreateAsSingle (new Type[] {
 			typeof(BoxCollider),
 			typeof(Animator),
@@ -30,5 +27,10 @@ public class TestSystemBehaviour : SystemBehaviour
 		group.GetEntities (true).ObserveRemove ().Select (x => x.Value).Subscribe (entity => {
 			Debugger.Log ("remove : " + entity.GetComponent<EntityBehaviour> ().name, "UniEasy");
 		}).AddTo (this.Disposer);
+	}
+
+	void Start ()
+	{
+
 	}
 }

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 using System.Linq;
 using System;
 
@@ -33,10 +33,29 @@ namespace UniEasy.DI
 		readonly Dictionary<BindingId, List<ProviderInfo>> providers = new Dictionary<BindingId, List<ProviderInfo>> ();
 		readonly SingletonProviderCreator singletonProviderCreator;
 		readonly Queue<IBindingFinalizer> currentBindings = new Queue<IBindingFinalizer> ();
+		readonly List<IBindingFinalizer> childBindings = new List<IBindingFinalizer> ();
 
 		public DiContainer ()
 		{
 			singletonProviderCreator = new SingletonProviderCreator (this);
+		}
+
+		public DiContainer (DiContainer parentContainer)
+		{
+			singletonProviderCreator = new SingletonProviderCreator (this);
+			if (parentContainer != null) {
+				parentContainer.FlushBindings ();
+				for (int i = 0; i < parentContainer.childBindings.Count; i++) {
+					currentBindings.Enqueue (parentContainer.childBindings [i]);
+				}
+
+				FlushBindings ();
+			}
+		}
+
+		public DiContainer CreateSubContainer ()
+		{
+			return new DiContainer (this);
 		}
 
 		public SingletonProviderCreator SingletonProviderCreator {
@@ -172,6 +191,8 @@ namespace UniEasy.DI
 			while (!currentBindings.IsEmpty ()) {
 				var binding = currentBindings.Dequeue ();
 				binding.FinalizeBinding (this);
+
+				childBindings.Add (binding);
 			}
 		}
 

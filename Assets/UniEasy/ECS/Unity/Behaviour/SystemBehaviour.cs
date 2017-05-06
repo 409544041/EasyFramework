@@ -5,7 +5,7 @@ using UniRx;
 
 namespace UniEasy.ECS
 {
-	public class SystemBehaviour : MonoBehaviour, ISystem, IBehaviour, IDisposable, IDisposableContainer
+	public class SystemBehaviour : MonoBehaviour, ISystem, IDisposable, IDisposableContainer
 	{
 		[Inject]
 		public IEventSystem EventSystem { get; set; }
@@ -23,9 +23,10 @@ namespace UniEasy.ECS
 			set { disposer = value; }
 		}
 
-		protected virtual void Awake ()
+		[Inject]
+		public virtual void Setup ()
 		{
-			this.InjectSelf ();
+
 		}
 
 		void Start ()

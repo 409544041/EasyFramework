@@ -28,9 +28,9 @@ namespace UniEasy.ECS
 
 		private IEntity entity;
 
-		protected override void Awake ()
+		public override void Setup ()
 		{
-			base.Awake ();
+			base.Setup ();
 
 			var components = GetComponents<Component> ();
 			for (int i = 0; i < components.Length; i++) {
@@ -39,11 +39,10 @@ namespace UniEasy.ECS
 				} else {
 					var type = components [i].GetType ();
 					if (type != typeof(Transform)) {
-						if (type == typeof(EntityBehaviour)) {
-							if (!Entity.HasComponent<EntityBehaviour> ())
-								Entity.AddComponent (components [i]);
-						} else {
+						if (!Entity.HasComponents (type)) {
 							Entity.AddComponent (components [i]);
+						} else {
+							Debug.LogError ("Cannot add multiple identical components on " + this.gameObject.name + " this is not supported!");
 						}
 					}
 				}

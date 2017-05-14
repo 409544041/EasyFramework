@@ -51,7 +51,7 @@ namespace UniEasy.Edit
 						}
 						ProjectWindowUtil.ShowCreatedAsset (AssetDatabase.LoadAssetAtPath<Object> (assetPath));
 					} else
-						Debugger.LogError ("Sorry, we can't save .asset file out of assets folder!");
+						Debug.LogError ("Sorry, we can't save .asset file out of assets folder!");
 				}
 			}
 		}

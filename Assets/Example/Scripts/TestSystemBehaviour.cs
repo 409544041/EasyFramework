@@ -10,21 +10,30 @@ public class TestSystemBehaviour : SystemBehaviour
 	{
 		base.Setup ();
 
-		var group = GroupFactory.CreateAsSingle (new Type[] {
+		var group = GroupFactory.Create (new Type[] {
 			typeof(BoxCollider),
 			typeof(Animator),
 		});
-
+			
+		var isActive = new ReactiveProperty<bool> ();
 		group.Entities.ObserveAdd ().Select (x => x.Value).StartWith (group.Entities).Subscribe (entity => {
 			var animator = entity.GetComponent<Animator> ();
+			animator.gameObject.ObserveEveryValueChanged (go => go.activeSelf).Subscribe (b => {
+				isActive.Value = b;
+			}).AddTo (this.Disposer);
 			Debugger.Log (animator.name);
 		}).AddTo (this.Disposer);
 
-		group.GetEntities (true).ObserveAdd ().Select (x => x.Value).StartWith (group.Entities).Subscribe (entity => {
+		var activeGroup = GroupFactory.AddTypes (typeof(BoxCollider), typeof(Animator))
+			.WithPredicate (entity => {
+			return isActive;
+		}).Create ();
+
+		activeGroup.Entities.ObserveAdd ().Select (x => x.Value).StartWith (group.Entities).Subscribe (entity => {
 			Debugger.Log ("added : " + entity.GetComponent<EntityBehaviour> ().name, "UniEasy");
 		}).AddTo (this.Disposer);
 
-		group.GetEntities (true).ObserveRemove ().Select (x => x.Value).Subscribe (entity => {
+		activeGroup.Entities.ObserveRemove ().Select (x => x.Value).Subscribe (entity => {
 			Debugger.Log ("remove : " + entity.GetComponent<EntityBehaviour> ().name, "UniEasy");
 		}).AddTo (this.Disposer);
 	}

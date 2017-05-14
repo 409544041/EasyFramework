@@ -15,7 +15,5 @@ namespace UniEasy.ECS
 		ReactiveCollection<IEntity> Entities { get; set; }
 
 		IEnumerable<Type> Components { get; set; }
-
-		Predicate<IEntity> Predicate { get; }
 	}
 }

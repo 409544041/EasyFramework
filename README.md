@@ -337,4 +337,34 @@ Fortunately, UniEasy achieved this feature. you can right click in hierarchy win
 	}).AddTo (this.Disposer);
 	
 >##### Why we remove GroupFactory.CreateAsSingle() ? 
-> because in future group should be disposed depened on system and after add 'with preficate', create a single group it will become more complex and unstable. As a replacement for it, for a high frequency group you can choose to create a class for him to inherit group, then bind and inject it into every system that needs to be used.
+> because in future group should be disposed depened on system and after add 'with preficate', create a single group it will become more complex and unstable. As a replacement for it, for a high frequency group you can choose to create a class for him to inherit group, then bind and inject it into every system that needs to be used. For example : 
+
+	public class DeadEntities : Group
+	{
+ 		public override void Setup (IEventSystem eventSystem, IPoolManager poolManager)
+ 		{
+ 			Components = new Type[] { typeof(HealthComponent) };
+ 
+ 			Func<IEntity, ReactiveProperty<bool>> checkIsDead = (e) =>
+ 			{
+ 				var health = e.GetComponent<HealthComponent> ();
+ 				health.CurrentHealth.Value = health.StartingHealth;
+ 
+ 				var isDead = health.CurrentHealth.DistinctUntilChanged ().Select (value => value <= 0).ToReactiveProperty();
+ 				return isDead;
+			};
+ 
+			Predicates.Add(checkIsDead);
+ 
+			base.Setup (eventSystem, poolManager);
+		} 
+	}
+	
+ 	public class GroupsInstaller : MonoInstaller<GroupsInstaller>
+	{
+		public override void InstallBindings()
+		{
+			Container.Bind<DeadEntities>().To<DeadEntities>().AsSingle();
+		}
+	}
+>##### Then add the GroupsInstaller component to the root gameobject in the scene.

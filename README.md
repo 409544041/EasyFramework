@@ -275,7 +275,8 @@ Fortunately, UniEasy achieved this feature. you can right click in hierarchy win
 	You can add this component to the Text(UGUI), then you can adjust the animation curve in the Inspector window to change the shape of the Text's text.
 	You also can add it use Inspector >> Add Component >> UI >> Effects >> Distortion.
 
-2017-04-09 Operate Active Entity
+~~2017-04-09 Operate Active Entity~~
+> We don't use it any more (2017/05/14) <a href="#20170514">Use this replace</a>
 
 	You can use GroupFactory.CreateAsSingle() replace GroupFactory.Create() most of the time. This will help to improve performance.
 	
@@ -313,3 +314,27 @@ Fortunately, UniEasy achieved this feature. you can right click in hierarchy win
 	If it is core data you can use Project Container bind it. If is not, it should only can be called in this scene. 
 	If other scene need to its data you can use EventSystem transfer data.
 	
+<a id="20170514"></a>2017-05-14 GroupFactory WithPredicate
+
+>###### Now we add 'with preficate' function to the group, so we can do more cool things. And it can completely replaced 'Operate Active Entity', like this : 
+	
+	var group = GroupFactory
+		.AddTypes (new Type[] { typeof(EntityBehaviour), typeof(ActiveComponent) })
+		.WithPredicate ((entity) => {
+			var activeComponent = e.GetComponent<ActiveComponent> ();
+			activeComponent.gameObject.ObserveEveryValueChanged (go => go.activeSelf).Subscribe (b => {
+				activeComponent.IsActiveSelf.Value = b;
+			}).AddTo (activeComponent.Disposer);
+			return activeComponent.IsActiveSelf;
+		}).Create ();
+		
+	group.Entities.ObserveAdd ().Select (x => x.Value).StartWith (group.Entities).Subscribe (entity => {
+		Debug.Log ("each time the gameObject is set to active will be called");
+	}).AddTo (this.Disposer);
+
+	group.Entities.ObserveRemove ().Select (x => x.Value).Subscribe (entity => {
+		Debug.Log ("each time the gameObject is set to inactive will be called");
+	}).AddTo (this.Disposer);
+	
+>##### Why we remove GroupFactory.CreateAsSingle() ? 
+> because in future group should be disposed depened on system and after add 'with preficate', create a single group it will become more complex and unstable. As a replacement for it, for a high frequency group you can choose to create a class for him to inherit group, then bind and inject it into every system that needs to be used.

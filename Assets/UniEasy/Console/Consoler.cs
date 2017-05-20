@@ -8,10 +8,11 @@ using UniRx;
 
 namespace UniEasy.Console
 {
-	public class ConsoleController : SystemBehaviour
+	public class Consoler : SystemBehaviour
 	{
 		private const int inputHistoryCapacity = 100;
 		private ConsoleInputHistory inputHistory = new ConsoleInputHistory (inputHistoryCapacity);
+		private ConsoleView consoleView;
 
 		public override void Setup ()
 		{
@@ -23,9 +24,10 @@ namespace UniEasy.Console
 			});
 
 			group.Entities.ObserveAdd ().Select (x => x.Value).StartWith (group.Entities).Subscribe (entity => {
-				var consoleView = entity.GetComponent<ConsoleView> ();
+				consoleView = entity.GetComponent<ConsoleView> ();
 
-				consoleView.canvas = (Canvas)CreateUIComponent ("Canvas", consoleView.transform.parent, typeof(Canvas));
+				consoleView.canvas = (Canvas)CreateUIComponent ("UniEasy Canvas", null, typeof(Canvas));
+				DontDestroyOnLoad (consoleView.canvas.gameObject);
 				consoleView.canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 				consoleView.canvasScaler = consoleView.canvas.gameObject.AddComponent<CanvasScaler> ();
 				consoleView.graphicRaycaster = consoleView.canvas.gameObject.AddComponent<GraphicRaycaster> ();
@@ -79,10 +81,8 @@ namespace UniEasy.Console
 					if (UnityEngine.EventSystems.EventSystem.current.alreadySelecting)
 						return;
 					if (consoleView.inputField.text.Length > 0) {
-						var result = ExecuteCommand (consoleView.inputField.text);
+						ExecuteCommand (consoleView.inputField.text);
 						consoleView.scrollbar.value = 0;
-						consoleView.outputText.text += string.IsNullOrEmpty (consoleView.outputText.text) ? "> " + consoleView.inputField.text : Environment.NewLine + "> " + consoleView.inputField.text;
-						consoleView.outputText.text += Environment.NewLine + result;
 						consoleView.inputField.MoveTextStart (false);
 						consoleView.inputField.text = "";
 						consoleView.inputField.MoveTextEnd (false);
@@ -146,17 +146,29 @@ namespace UniEasy.Console
 			return rectTransform;
 		}
 
-		string ExecuteCommand (string input)
+		public void ExecuteCommand (string input)
 		{
 			var parts = input.Split (' ');
 			var command = parts [0];
 			var args = parts.Skip (1).ToArray ();
-
-			Console.Log ("> " + input);
-			var result = CommandLibrary.ExecuteCommand (command, args);
-			Console.Log (result);
+			
+			Log ("> " + input);
+			Log (CommandLibrary.ExecuteCommand (command, args));
 			inputHistory.AddNewInputEntry (input);
-			return result;
+		}
+
+		public void Log (string message)
+		{
+			#if UNITY_EDITOR
+			Debug.Log (message);
+			#endif
+			if (consoleView != null) {
+				if (string.IsNullOrEmpty (consoleView.outputText.text)) {
+					consoleView.outputText.text += message;
+				} else {
+					consoleView.outputText.text += Environment.NewLine + message;
+				}
+			}
 		}
 	}
 }

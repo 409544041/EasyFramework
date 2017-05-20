@@ -54,11 +54,10 @@
      <Compile Include="Assets\UniEasy\Console\Commands\HelpCommand.cs" />
      <Compile Include="Assets\UniEasy\Console\Commands\LoadSceneCommand.cs" />
      <Compile Include="Assets\UniEasy\Console\Commands\QuitCommand.cs" />
-     <Compile Include="Assets\UniEasy\Console\Console.cs" />
      <Compile Include="Assets\UniEasy\Console\ConsoleCommand.cs" />
-     <Compile Include="Assets\UniEasy\Console\ConsoleController.cs" />
      <Compile Include="Assets\UniEasy\Console\ConsoleInputHistory.cs" />
      <Compile Include="Assets\UniEasy\Console\ConsoleView.cs" />
+     <Compile Include="Assets\UniEasy\Console\Consoler.cs" />
      <Compile Include="Assets\UniEasy\Console\NoSuchCommandException.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebugSystem.cs" />
      <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />

@@ -5,9 +5,16 @@ Created by chaolun
 welcome, this framework is based on my years of project experience summed up.
 i hope everyone like it and easy to use,cheers!
 
+- <a href="#todo">ToDo</a>
 - <a href="#introduction">Introduction</a>
 - <a href="#quick_start">Quick Start</a>
 - <a href="#history">History</a>
+
+## <a id="todo"></a>TODO
+##### 1. Console System (https://github.com/Wenzil/UnityConsole)
+##### 2. Debug System Modify (Save data on mobile platforms and Support for display on OnGUI)
+##### 3. PrefabFactory about ECS (Support to Dynamic creation entity)
+...
 
 ## <a id="introduction"></a>Introduction
 ...

@@ -409,7 +409,14 @@ Use the ``CommandLibrary.RegisterCommand()`` method to register your own command
 Then add the TakeInstaller component to the root gameObject in the scene.
 
 ##### Logging
-Anywhere in your code, simply use ``Console.Log()`` to output to the console
+Anywhere in your code, simply use ``Consoler.Log()`` to output to the console
+
+	public class TakeSystem : SystemBehaviour
+	{
+		[Inject]
+		private Consoler Consoler { get; set; }
+		...
+	}
 
 ##### Default Commands
 The console comes with three commands by default.

@@ -1,5 +1,6 @@
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UniEasy.Console;
 using UnityEngine;
 using System.Linq;
 using UniEasy.DI;
@@ -67,6 +68,19 @@ namespace UniEasy.ECS
 			GameObject.DontDestroyOnLoad (DebugSystem);
 			Container.Inject (DebugSystem);
 			Container.Bind<DebugSystem> ().FromInstance (DebugSystem).AsSingle ();
+
+			var Console = new GameObject ("Console");
+			var ConsoleSystem = new GameObject ("ConsoleSystem");
+			var ConsoleComponent = new GameObject ("ConsoleComponent");
+			ConsoleSystem.transform.SetParent (Console.transform);
+			ConsoleComponent.transform.SetParent (Console.transform);
+			var ConsoleEntity = ConsoleComponent.AddComponent<EntityBehaviour> ();
+			var ConsoleView = ConsoleComponent.AddComponent<ConsoleView> ();
+			var ConsoleController = ConsoleSystem.AddComponent<ConsoleController> ();
+			GameObject.DontDestroyOnLoad (Console);
+			Container.Inject (ConsoleController);
+			Container.Inject (ConsoleEntity);
+			Container.Bind<ConsoleController> ().FromInstance (ConsoleController).AsSingle ();
 		}
 	}
 }

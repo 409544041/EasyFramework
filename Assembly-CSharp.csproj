@@ -49,6 +49,13 @@
      <Compile Include="Assets\Example\Scripts\DIExample.cs" />
      <Compile Include="Assets\Example\Scripts\SimpleExample.cs" />
      <Compile Include="Assets\Example\Scripts\TestSystemBehaviour.cs" />
+     <Compile Include="Assets\UniEasy\Console\CommandLibrary.cs" />
+     <Compile Include="Assets\UniEasy\Console\Console.cs" />
+     <Compile Include="Assets\UniEasy\Console\ConsoleCommand.cs" />
+     <Compile Include="Assets\UniEasy\Console\ConsoleController.cs" />
+     <Compile Include="Assets\UniEasy\Console\ConsoleInputHistory.cs" />
+     <Compile Include="Assets\UniEasy\Console\ConsoleView.cs" />
+     <Compile Include="Assets\UniEasy\Console\NoSuchCommandException.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebugSystem.cs" />
      <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebuggerMask.cs" />

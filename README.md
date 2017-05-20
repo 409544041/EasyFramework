@@ -11,8 +11,10 @@ i hope everyone like it and easy to use,cheers!
 - <a href="#history">History</a>
 
 ## <a id="todo"></a>TODO
-##### 1. Console System (https://github.com/Wenzil/UnityConsole)
-##### 2. Debug System Modify (Save data on mobile platforms and Support for display on OnGUI)
+##### 1. ~~Console System (https://github.com/Wenzil/UnityConsole)~~
+##### 1.1 Console System Core Logic is Ok! Next step add more common commands and support on mobile, also need to add unregister command function.
+##### 2. ~~Debug System Modify (Save data on mobile platforms and Support for display on OnGUI)~~
+##### 2.1 Debug System Update --Save data on mobile should have problem I guess, so need fix :P and Add output to UGUI logic (no long support OnGUI because OnGUI is hard to used). I want the Console System and Debug System to share the canvas.
 ##### 3. PrefabFactory about ECS (Support to Dynamic creation entity)
 ...
 
@@ -375,3 +377,43 @@ Fortunately, UniEasy achieved this feature. you can right click in hierarchy win
 		}
 	}
 >##### Then add the GroupsInstaller component to the root gameobject in the scene.
+
+2017-05-20 Console
+
+##### Quick Start
+Use the '~' key switch console system, Use the 'esc' key turn off console system.
+
+Use the CommandInstaller.cs to register global commands, It will auto steup when playing start.
+
+Use the ``CommandLibrary.RegisterCommand()`` method to register your own commands. Here's an example.
+
+	public class TakeInstaller : MonoInstaller
+	{
+		public override void InstallBindings ()
+		{
+			CommandLibrary.RegisterCommand (TakeCommand.name, TakeCommand.description, TakeCommand.usage, TakeCommand.Execute);
+		}
+	}
+	
+	public static class TakeCommand
+	{
+		public static readonly string name = "Take";
+		public static readonly string description = "Partake in a great adventure alone.";
+		public static readonly string usage = "Take";
+
+		public static string Execute (params string[] args)
+		{
+			return "It is dangerous to go alone! Take this.";
+		}
+	}
+Then add the TakeInstaller component to the root gameObject in the scene.
+
+##### Logging
+Anywhere in your code, simply use ``Console.Log()`` to output to the console
+
+##### Default Commands
+The console comes with three commands by default.
+
+* ``HELP`` - Display the list of available commands or details about a specific command.
+* ``LOADSCENE`` - Load the specified scene by name. Before you can load a scene you have to add it to the list of levels used in the game. Use File->Build Settings... in Unity and add the levels you need to the level list there.
+* ``QUIT`` - Quit the application.

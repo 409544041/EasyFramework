@@ -1,13 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\ECS\Unity\Install\UniEasyInstaller.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Example\Scripts\TestSystemBehaviour.cs">
     <Files>
       <File FileName="Assets\UniEasy\ECS\Unity\Install\UniEasyInstaller.cs" Line="10" Column="31" />
       <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" Line="8" Column="46" />
-      <File FileName="Assets\Example\Scripts\TestSystemBehaviour.cs" Line="36" Column="2" />
-      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\EntityBehaviour.cs" Line="32" Column="4" />
-      <File FileName="Assets\Example\Scripts\DIExample.cs" Line="26" Column="41" />
-      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\ComponentBehaviour.cs" Line="12" Column="67" />
+      <File FileName="Assets\Example\Scripts\TestSystemBehaviour.cs" Line="35" Column="3" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\EntityBehaviour.cs" Line="35" Column="28" />
+      <File FileName="Assets\UniEasy\ECS\Core\Groups\GroupFactory.cs" Line="36" Column="36" />
+      <File FileName="Assets\UniEasy\ECS\Core\Groups\Group.cs" Line="62" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

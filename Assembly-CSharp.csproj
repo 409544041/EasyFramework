@@ -49,6 +49,7 @@
      <Compile Include="Assets\Example\Scripts\DIExample.cs" />
      <Compile Include="Assets\Example\Scripts\SimpleExample.cs" />
      <Compile Include="Assets\Example\Scripts\TestSystemBehaviour.cs" />
+     <Compile Include="Assets\UniEasy\Debug\DebugSystem.cs" />
      <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebuggerMask.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Entities\Entity.cs" />
@@ -78,7 +79,6 @@
      <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Install\SceneInstaller.cs" />
      <Compile Include="Assets\UniEasy\ECS\Unity\Install\UniEasyInstaller.cs" />
-     <Compile Include="Assets\UniEasy\ECS\Unity\Systems\DebugSystem.cs" />
      <Compile Include="Assets\UniEasy\Factory\BlockFactory.cs" />
      <Compile Include="Assets\UniEasy\Factory\GameObjectFactory.cs" />
      <Compile Include="Assets\UniEasy\Factory\ScriptableObjectFactory.cs" />
@@ -134,10 +134,10 @@
      <Compile Include="Assets\UniEasy\Storage\Main\EasyBlock.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyCsv.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyWriter.cs" />
-     <Compile Include="Assets\UniEasy\Util\Unity\Structure\RangedFloat.cs" />
-     <Compile Include="Assets\UniEasy\Util\Unity\Structure\RangedInt.cs" />
-     <Compile Include="Assets\UniEasy\Util\Unity\UI\Effects\Distortion.cs" />
-     <Compile Include="Assets\UniEasy\Util\Unity\Usage\MinMaxRangeAttribute.cs" />
+     <Compile Include="Assets\UniEasy\Util\UI\Effects\Distortion.cs" />
+     <Compile Include="Assets\UniEasy\Util\Usage\MinMaxRangeAttribute.cs" />
+     <Compile Include="Assets\UniEasy\Util\Usage\RangedFloat.cs" />
+     <Compile Include="Assets\UniEasy\Util\Usage\RangedInt.cs" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

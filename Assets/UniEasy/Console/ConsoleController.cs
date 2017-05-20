@@ -79,9 +79,10 @@ namespace UniEasy.Console
 					if (UnityEngine.EventSystems.EventSystem.current.alreadySelecting)
 						return;
 					if (consoleView.inputField.text.Length > 0) {
-						ExecuteCommand (consoleView.inputField.text);
+						var result = ExecuteCommand (consoleView.inputField.text);
 						consoleView.scrollbar.value = 0;
-						consoleView.outputText.text += string.IsNullOrEmpty (consoleView.outputText.text) ? consoleView.inputField.text : Environment.NewLine + consoleView.inputField.text;
+						consoleView.outputText.text += string.IsNullOrEmpty (consoleView.outputText.text) ? "> " + consoleView.inputField.text : Environment.NewLine + "> " + consoleView.inputField.text;
+						consoleView.outputText.text += Environment.NewLine + result;
 						consoleView.inputField.MoveTextStart (false);
 						consoleView.inputField.text = "";
 						consoleView.inputField.MoveTextEnd (false);
@@ -94,6 +95,9 @@ namespace UniEasy.Console
 				clickStream.Subscribe (_ => {
 					if (Input.GetKeyDown (KeyCode.BackQuote)) {
 						consoleView.panel.gameObject.SetActive (!consoleView.panel.gameObject.activeSelf);
+						if (consoleView.panel.gameObject.activeSelf) {
+							consoleView.inputField.ActivateInputField ();
+						}
 					} else if (Input.GetKeyDown (KeyCode.Escape)) {
 						consoleView.panel.gameObject.SetActive (false);
 					} else if (Input.GetKeyDown (KeyCode.UpArrow)) {
@@ -142,15 +146,17 @@ namespace UniEasy.Console
 			return rectTransform;
 		}
 
-		void ExecuteCommand (string input)
+		string ExecuteCommand (string input)
 		{
-			string[] parts = input.Split (' ');
-			string command = parts [0];
-			string[] args = parts.Skip (1).ToArray ();
+			var parts = input.Split (' ');
+			var command = parts [0];
+			var args = parts.Skip (1).ToArray ();
 
 			Console.Log ("> " + input);
-			Console.Log (CommandLibrary.ExecuteCommand (command, args));
+			var result = CommandLibrary.ExecuteCommand (command, args);
+			Console.Log (result);
 			inputHistory.AddNewInputEntry (input);
+			return result;
 		}
 	}
 }

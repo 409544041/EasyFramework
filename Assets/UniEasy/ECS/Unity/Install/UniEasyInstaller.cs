@@ -74,13 +74,13 @@ namespace UniEasy.ECS
 			var ConsoleComponent = new GameObject ("ConsoleComponent");
 			ConsoleSystem.transform.SetParent (Console.transform);
 			ConsoleComponent.transform.SetParent (Console.transform);
-			var ConsoleEntity = ConsoleComponent.AddComponent<EntityBehaviour> ();
-			var ConsoleView = ConsoleComponent.AddComponent<ConsoleView> ();
+			ConsoleComponent.AddComponent<ConsoleView> ();
+			Container.Inject (ConsoleComponent.AddComponent<EntityBehaviour> ());
 			var ConsoleController = ConsoleSystem.AddComponent<ConsoleController> ();
-			GameObject.DontDestroyOnLoad (Console);
 			Container.Inject (ConsoleController);
-			Container.Inject (ConsoleEntity);
+			GameObject.DontDestroyOnLoad (Console);
 			Container.Bind<ConsoleController> ().FromInstance (ConsoleController).AsSingle ();
+			CommandInstaller.Install (Container);
 		}
 	}
 }

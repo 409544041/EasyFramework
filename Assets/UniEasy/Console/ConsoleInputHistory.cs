@@ -19,7 +19,7 @@ namespace UniEasy.Console
 
 		public string Navigate (bool up)
 		{
-			bool down = !up;
+			var down = !up;
 
 			if (!isNavigating)
 				isNavigating = (up && inputHistory.Count > 0) || (down && currentInput > 0);

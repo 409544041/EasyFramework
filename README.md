@@ -19,7 +19,7 @@ i hope everyone like it and easy to use,cheers!
 
 2.1 Debug System Update --save data on mobile should have problem I guess, so need fix :P and Add output to UGUI logic (no long support OnGUI because OnGUI is hard to used). I want the Console System and Debug System to share the canvas.
 
-3. PrefabFactory about ECS (support to dynamic creation entity).
+3. ~~PrefabFactory about ECS (support to dynamic creation entity).~~
 ...
 
 ## <a id="introduction"></a>Introduction
@@ -414,3 +414,22 @@ The console comes with three commands by default.
 * ``LOADSCENE`` - Load the specified scene by name. Before you can load a scene you have to add it to the list of levels used in the game. Use File->Build Settings... in Unity and add the levels you need to the level list there.
 * ``DEREGISTER`` - Deregister a specific command.
 * ``QUIT`` - Quit the application.
+
+2017-05-21 PrefabFactory
+	
+If you want to dynamic create an entity have EntityBheaviour Component, you can use it for example :
+
+	public class PrefabSystem : SystemBehaviour
+	{
+		public GameObject prefab;
+	
+		public override void Setup ()
+		{
+			base.Setup ();
+			
+			if (prefab != null)
+			{
+				PrefabFactory.Instantiate (prefab);
+			}
+		}
+	}

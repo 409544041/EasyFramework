@@ -11,11 +11,15 @@ i hope everyone like it and easy to use,cheers!
 - <a href="#history">History</a>
 
 ## <a id="todo"></a>TODO
-##### 1. ~~Console System (https://github.com/Wenzil/UnityConsole)~~
-##### 1.1 Console System Core Logic is Ok! Next step add more common commands and support on mobile, also need to add unregister command function.
-##### 2. ~~Debug System Modify (Save data on mobile platforms and Support for display on OnGUI)~~
-##### 2.1 Debug System Update --Save data on mobile should have problem I guess, so need fix :P and Add output to UGUI logic (no long support OnGUI because OnGUI is hard to used). I want the Console System and Debug System to share the canvas.
-##### 3. PrefabFactory about ECS (Support to Dynamic creation entity)
+1. ~~Console System (https://github.com/Wenzil/UnityConsole).~~
+
+1.1 Add more default commands and support on mobile, also need to add unregister command function.
+
+2. ~~Debug System Modify (save data on mobile platforms and support for output to OnGUI).~~
+
+2.1 Debug System Update --save data on mobile should have problem I guess, so need fix :P and Add output to UGUI logic (no long support OnGUI because OnGUI is hard to used). I want the Console System and Debug System to share the canvas.
+
+3. PrefabFactory about ECS (support to dynamic creation entity).
 ...
 
 ## <a id="introduction"></a>Introduction

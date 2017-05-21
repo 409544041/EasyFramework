@@ -7,11 +7,14 @@ using UniRx;
 
 public class TestSystemBehaviour : SystemBehaviour
 {
+	public GameObject prefab;
+
 	public override void Setup ()
 	{
 		base.Setup ();
 
 		var group = GroupFactory.Create (new Type[] {
+			typeof(EntityBehaviour),
 			typeof(BoxCollider),
 			typeof(Animator),
 		});
@@ -25,7 +28,10 @@ public class TestSystemBehaviour : SystemBehaviour
 			Debugger.Log (animator.name);
 		}).AddTo (this.Disposer);
 
-		var activeGroup = GroupFactory.AddTypes (typeof(BoxCollider), typeof(Animator))
+		var activeGroup = GroupFactory.AddTypes (
+			                  typeof(BoxCollider), 
+			                  typeof(Animator), 
+			                  typeof(EntityBehaviour))
 			.WithPredicate (entity => {
 			return isActive;
 		}).Create ();
@@ -39,6 +45,11 @@ public class TestSystemBehaviour : SystemBehaviour
 		}).AddTo (this.Disposer);
 
 		CommandLibrary.RegisterCommand (HelpCommand.name, HelpCommand.description, HelpCommand.usage, HelpCommand.Execute).AddTo (this.Disposer);
+	
+		PrefabFactory.Instantiate (prefab);
+//		Observable.Timer (TimeSpan.FromSeconds (3)).Subscribe (_ => {
+//			PrefabFactory.Instantiate (prefab);
+//		}).AddTo (this.Disposer);
 	}
 
 	void Start ()

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 namespace UniEasy.ECS
 {
@@ -42,7 +43,11 @@ namespace UniEasy.ECS
 						if (!Entity.HasComponents (type)) {
 							Entity.AddComponent (components [i]);
 						} else {
-							Debug.LogError ("Cannot add multiple identical components on " + this.gameObject.name + " this is not supported!");
+							#if UNITY_EDITOR
+							if (Entity.Components.Where (x => (Component)x == components [i]).Count () == 0) {
+								Debug.LogError ("Cannot add multiple identical components on " + this.gameObject.name + " this is not supported!");
+							}
+							#endif
 						}
 					}
 				}

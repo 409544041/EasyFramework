@@ -16,6 +16,9 @@ namespace UniEasy.ECS
 		[Inject]
 		protected GroupFactory GroupFactory { get; set; }
 
+		[Inject]
+		protected PrefabFactory PrefabFactory { get; set; }
+
 		private CompositeDisposable disposer = new CompositeDisposable ();
 
 		public CompositeDisposable Disposer {

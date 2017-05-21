@@ -63,6 +63,7 @@ namespace UniEasy.ECS
 			Container.Bind<IIdentityGenerator> ().To<SequentialIdentityGenerator> ().AsSingle ();
 			Container.Bind<IPoolManager> ().To<PoolManager> ().AsSingle ();
 			Container.Bind<GroupFactory> ().To<GroupFactory> ().AsSingle ();
+			Container.Bind<PrefabFactory> ().To<PrefabFactory> ().AsSingle ();
 			var DebugSystem = GameObject.FindObjectOfType<DebugSystem> () ??
 			                  new GameObject ("DebugSystem").AddComponent<DebugSystem> ();
 			GameObject.DontDestroyOnLoad (DebugSystem);

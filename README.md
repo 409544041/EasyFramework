@@ -391,11 +391,13 @@ Use the CommandInstaller.cs to register global commands, It will auto steup when
 
 Use the ``CommandLibrary.RegisterCommand()`` method to register your own commands. Here's an example.
 
-	public class TakeInstaller : MonoInstaller
+	public class TakeSystem : SystemBehaviour
 	{
-		public override void InstallBindings ()
+		public override void Setup ()
 		{
-			CommandLibrary.RegisterCommand (TakeCommand.name, TakeCommand.description, TakeCommand.usage, TakeCommand.Execute);
+			base.Setup ();
+
+			CommandLibrary.RegisterCommand (TakeCommand.name, TakeCommand.description, TakeCommand.usage, TakeCommand.Execute).AddTo(this.Disposer);
 		}
 	}
 	
@@ -410,7 +412,7 @@ Use the ``CommandLibrary.RegisterCommand()`` method to register your own command
 			return "It is dangerous to go alone! Take this.";
 		}
 	}
-Then add the TakeInstaller component to the root gameObject in the scene.
+Use ``AddTo()`` you can easy deregister command when the system disposed.
 
 ##### Logging
 Anywhere in your code, simply use ``Consoler.Log()`` to output to the console
@@ -427,4 +429,5 @@ The console comes with three commands by default.
 
 * ``HELP`` - Display the list of available commands or details about a specific command.
 * ``LOADSCENE`` - Load the specified scene by name. Before you can load a scene you have to add it to the list of levels used in the game. Use File->Build Settings... in Unity and add the levels you need to the level list there.
+* ``DEREGISTER`` - Deregister a specific command.
 * ``QUIT`` - Quit the application.

@@ -25,7 +25,7 @@ namespace UniEasy.Console
 			commandList.Append ("<b>Available Commands</b>\n");
 
 			foreach (ConsoleCommand command in CommandLibrary.commands) {
-				commandList.Append (string.Format ("    <b>{0}</b> - {1}\n", command.name, command.description));
+				commandList.Append (string.Format ("    <b>{0}</b> - {1}\n", command.Name, command.Description));
 			}
 
 			commandList.Append ("To display details about a specific command, type 'HELP' followed by the command name.");
@@ -38,7 +38,7 @@ namespace UniEasy.Console
 
 			try {
 				var command = CommandLibrary.GetCommand (commandName);
-				return string.Format (formatting, command.name, command.description, command.usage);
+				return string.Format (formatting, command.Name, command.Description, command.Usage);
 			} catch (NoSuchCommandException exception) {
 				return string.Format ("Cannot find help information about {0}. Are you sure it is a valid command?", exception.command);
 			}

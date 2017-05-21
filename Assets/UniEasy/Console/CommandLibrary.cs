@@ -10,30 +10,22 @@ namespace UniEasy.Console
 
 		public static IEnumerable<ConsoleCommand> commands { get { return database.OrderBy (kv => kv.Key).Select (kv => kv.Value); } }
 
-		public static void RegisterCommand (string command, ConsoleCommandCallback callback, string description = "", string usage = "")
+		public static IDisposable RegisterCommand (string command, ConsoleCommandCallback callback, string description = "", string usage = "")
 		{
-			RegisterCommand (command, description, usage, callback);
+			return RegisterCommand (command, description, usage, callback);
 		}
 
-		public static void RegisterCommand (string command, string description, string usage, ConsoleCommandCallback callback)
+		public static IDisposable RegisterCommand (string command, string description, string usage, ConsoleCommandCallback callback)
 		{
 			database [command] = new ConsoleCommand (command, description, usage, callback);
-		}
-
-		public static bool DeregisterCommand (string command)
-		{
-			if (HasCommand (command)) {
-				database.Remove (command);
-				return true;
-			}
-			return false;
+			return database [command].Disposer;
 		}
 
 		public static string ExecuteCommand (string command, params string[] args)
 		{
 			try {
 				ConsoleCommand retrievedCommand = GetCommand (command);
-				return retrievedCommand.callback (args);
+				return retrievedCommand.Callback (args);
 			} catch (NoSuchCommandException e) {
 				return e.Message;
 			}
@@ -63,6 +55,15 @@ namespace UniEasy.Console
 		public static bool HasCommand (string command)
 		{
 			return database.ContainsKey (command);
+		}
+
+		public static bool DeregisterCommand (string command)
+		{
+			if (HasCommand (command)) {
+				database.Remove (command);
+				return true;
+			}
+			return false;
 		}
 	}
 }

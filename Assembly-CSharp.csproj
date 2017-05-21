@@ -49,6 +49,7 @@
      <Compile Include="Assets\Example\Scripts\DIExample.cs" />
      <Compile Include="Assets\Example\Scripts\SimpleExample.cs" />
      <Compile Include="Assets\Example\Scripts\TestSystemBehaviour.cs" />
+     <Compile Include="Assets\UniEasy\Console\CommandDisposable.cs" />
      <Compile Include="Assets\UniEasy\Console\CommandLibrary.cs" />
      <Compile Include="Assets\UniEasy\Console\Commands\CommandInstaller.cs" />
      <Compile Include="Assets\UniEasy\Console\Commands\DeregisterCommand.cs" />

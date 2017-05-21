@@ -1,3 +1,4 @@
+using UniEasy.Console;
 using UnityEngine;
 using UniEasy.ECS;
 using UniEasy;
@@ -36,6 +37,8 @@ public class TestSystemBehaviour : SystemBehaviour
 		activeGroup.Entities.ObserveRemove ().Select (x => x.Value).Subscribe (entity => {
 			Debugger.Log ("remove : " + entity.GetComponent<EntityBehaviour> ().name, "UniEasy");
 		}).AddTo (this.Disposer);
+
+		CommandLibrary.RegisterCommand (HelpCommand.name, HelpCommand.description, HelpCommand.usage, HelpCommand.Execute).AddTo (this.Disposer);
 	}
 
 	void Start ()

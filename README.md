@@ -163,72 +163,55 @@ i hope everyone like it and easy to use,cheers!
 	2. You can use search or drop-down menu select a IScriptAssetInstaller (you can found all IScriptAssetInstaller in project).
 	3. Click Create Button create you selected template script as a .cs file.
 	
-2017-03-19 Entity-Component-System
+2017-03-19 Entity-Component-System (Modified 2017-05-21)
 
 	1. As a Entity you need add a EntityBehaviour Component on GameObject.
 	2. You can use Right click in Project Window Select >> Create >> UniEasy >> ComponentBehaviour Installer Create a 'Component'.
-	3. You can use Right clicj in Project Window Select >> Create >> UniEasy >> SystemBehaviour Installer Create a 'System'.
+	3. You can use Right click in Project Window Select >> Create >> UniEasy >> SystemBehaviour Installer Create a 'System'.
 	4. For Example : 
 
 [Entity]
 
 	Scene : 
-		Entity(GameObject) : 
-			.Transform
-			.EntityBehaviour
-			.Health(ComponentBehaviour)
-	DontDestoryOnLoadScene : 
-		System(GameObject) : 
-			.Transform
-			.HealthSystem
+		Level(GameObject) :
+		--Transform
+		--SceneInstaller(MonoInstaller)
+			Entity(GameObject) : 
+			--Transform
+			--EntityBehaviour
+			--Health(ComponentBehaviour)
+			System(GameObject) : 
+			--Transform
+			--HealthSystem
 
 [Component]
 
-	using UnityEngine;
 	using UniEasy.ECS;
-	using UniEasy;
-	using System;
-	using UniRx;
 
-	public class Health : ComponentBehaviour
+	public class HealthComponent : ComponentBehaviour
 	{
   	    public float CurrentHealth;
 	    public float StartingHealth;
-	    
-	    protected override void Awake ()
-	    {
-	        base.Awake ();
-	    }
-	    
-	    void Start ()
-	    {
-	    }
 	}
 	
 [System]
 
-	using UnityEngine;
 	using UniEasy.ECS;
-	using UniEasy;
 	using System;
 	using UniRx;
-	
+
 	public class HealthSystem : SystemBehaviour
 	{
-	    protected override void Awake ()
-	    {
-	        base.Awake ();
-	    }
-	    
-  	    void Start()
-	    {
-		var HealthComponents = GroupFactory.Create(typeof(Health));
-		HealthComponents.Entities.ObserveAdd ().Select(x => x.Value).StartWith(group.Entities).Subscribe (entity =>
-        	{
-          	    var healthComponent = entity.GetComponent<Health>()
-         	    healthComponent.CurrentHealth = healthComponent.StartingHealth;
-        	}).AddTo(this.Disposer);
-  	    }
+		public override void Setup ()
+		{
+			base.Setup ();
+
+			var group = GroupFactory.Create (typeof(HealthComponent));
+			group.Entities.ObserveAdd ().Select (x => x.Value).StartWith (group.Entities).Subscribe (entity => {
+				var healthComponent = entity.GetComponent<HealthComponent> ();
+				healthComponent.CurrentHealth = healthComponent.StartingHealth;
+			}).AddTo (this.Disposer);
+		}
 	}
 
 2017-03-19 Debug System

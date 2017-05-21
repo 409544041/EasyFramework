@@ -1,13 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Example\Scripts\TestSystemBehaviour.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs">
     <Files>
-      <File FileName="Assets\UniEasy\ECS\Unity\Install\UniEasyInstaller.cs" Line="10" Column="31" />
-      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" Line="8" Column="46" />
-      <File FileName="Assets\Example\Scripts\TestSystemBehaviour.cs" Line="35" Column="3" />
-      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\EntityBehaviour.cs" Line="35" Column="28" />
-      <File FileName="Assets\UniEasy\ECS\Core\Groups\GroupFactory.cs" Line="36" Column="36" />
-      <File FileName="Assets\UniEasy\ECS\Core\Groups\Group.cs" Line="62" Column="23" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" Line="42" Column="3" />
+      <File FileName="Assets\UniEasy\Console\ConsoleCommand.cs" Line="4" Column="2" />
+      <File FileName="Assets\UniEasy\Console\CommandLibrary.cs" Line="23" Column="38" />
+      <File FileName="Assets\UniEasy\Console\NoSuchCommandException.cs" Line="6" Column="16" />
+      <File FileName="Assets\UniEasy\Console\ConsoleInputHistory.cs" Line="19" Column="3" />
+      <File FileName="Assets\UniEasy\Console\Consoler.cs" Line="10" Column="2" />
+      <File FileName="Assets\UniEasy\Console\ConsoleView.cs" Line="4" Column="1" />
+      <File FileName="Assets\UniEasy\ECS\Unity\Install\UniEasyInstaller.cs" Line="73" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

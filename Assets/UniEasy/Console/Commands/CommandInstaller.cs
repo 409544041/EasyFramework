@@ -9,6 +9,7 @@ namespace UniEasy.Console
 			CommandLibrary.RegisterCommand (HelpCommand.name, HelpCommand.description, HelpCommand.usage, HelpCommand.Execute);
 			CommandLibrary.RegisterCommand (QuitCommand.name, QuitCommand.description, QuitCommand.usage, QuitCommand.Execute);
 			CommandLibrary.RegisterCommand (LoadSceneCommand.name, LoadSceneCommand.description, LoadSceneCommand.usage, LoadSceneCommand.Execute);
+			CommandLibrary.RegisterCommand (DeregisterCommand.name, DeregisterCommand.description, DeregisterCommand.usage, DeregisterCommand.Execute);
 		}
 	}
 }

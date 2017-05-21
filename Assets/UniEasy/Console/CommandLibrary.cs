@@ -20,6 +20,15 @@ namespace UniEasy.Console
 			database [command] = new ConsoleCommand (command, description, usage, callback);
 		}
 
+		public static bool DeregisterCommand (string command)
+		{
+			if (HasCommand (command)) {
+				database.Remove (command);
+				return true;
+			}
+			return false;
+		}
+
 		public static string ExecuteCommand (string command, params string[] args)
 		{
 			try {

@@ -51,6 +51,7 @@
      <Compile Include="Assets\Example\Scripts\TestSystemBehaviour.cs" />
      <Compile Include="Assets\UniEasy\Console\CommandLibrary.cs" />
      <Compile Include="Assets\UniEasy\Console\Commands\CommandInstaller.cs" />
+     <Compile Include="Assets\UniEasy\Console\Commands\DeregisterCommand.cs" />
      <Compile Include="Assets\UniEasy\Console\Commands\HelpCommand.cs" />
      <Compile Include="Assets\UniEasy\Console\Commands\LoadSceneCommand.cs" />
      <Compile Include="Assets\UniEasy\Console\Commands\QuitCommand.cs" />

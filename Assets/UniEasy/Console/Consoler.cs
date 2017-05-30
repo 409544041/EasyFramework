@@ -23,25 +23,25 @@ namespace UniEasy.Console
 				typeof(ConsoleView),
 			});
 
-			group.Entities.ObserveAdd ().Select (x => x.Value).StartWith (group.Entities).Subscribe (entity => {
+			group.OnAdd ().Subscribe (entity => {
 				consoleView = entity.GetComponent<ConsoleView> ();
 
-				consoleView.canvas = (Canvas)CreateUIComponent ("UniEasy Canvas", null, typeof(Canvas));
+				consoleView.canvas = CreateUI<Canvas> ("DebugCanvas", null);
 				DontDestroyOnLoad (consoleView.canvas.gameObject);
 				consoleView.canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 				consoleView.canvasScaler = consoleView.canvas.gameObject.AddComponent<CanvasScaler> ();
 				consoleView.graphicRaycaster = consoleView.canvas.gameObject.AddComponent<GraphicRaycaster> ();
 
-				consoleView.panel = (RectTransform)CreateUIComponent ("Console Panel", consoleView.canvas.transform, typeof(RectTransform));
+				consoleView.panel = CreateUI<RectTransform> ("ConsolePanel", consoleView.canvas.transform);
 				ConfigureRectTransform (consoleView.panel, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 
-				consoleView.outputArea = (ScrollRect)CreateUIComponent ("OutputArea", consoleView.panel.transform, typeof(ScrollRect));
+				consoleView.outputArea = CreateUI<ScrollRect> ("OutputArea", consoleView.panel.transform);
 				ConfigureRectTransform (consoleView.outputArea.transform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-				consoleView.outputArea.viewport = (RectTransform)CreateUIComponent ("Viewport", consoleView.outputArea.transform, typeof(RectTransform));
+				consoleView.outputArea.viewport = CreateUI<RectTransform> ("Viewport", consoleView.outputArea.transform);
 				ConfigureRectTransform (consoleView.outputArea.viewport.transform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 				consoleView.outputArea.viewport.gameObject.AddComponent<Image> ().raycastTarget = false;
 				consoleView.outputArea.viewport.gameObject.AddComponent<Mask> ().showMaskGraphic = false;
-				var scrollbar = (Image)CreateUIComponent ("Scrollbar Vertical", consoleView.outputArea.transform, typeof(Image));
+				var scrollbar = CreateUI<Image> ("ScrollbarVertical", consoleView.outputArea.transform);
 				scrollbar.color = new Color32 (0x20, 0x20, 0x20, 0xFF);
 				consoleView.outputArea.horizontal = false;
 				consoleView.outputArea.verticalScrollbar = scrollbar.gameObject.AddComponent<Scrollbar> ();
@@ -51,21 +51,21 @@ namespace UniEasy.Console
 				consoleView.outputArea.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
 				consoleView.outputArea.verticalScrollbarSpacing = -3;
 				ConfigureRectTransform (consoleView.scrollbar.transform, new Vector2 (1, 0), Vector2.one, new Vector2 (20, 0), new Vector2 (-10, 0));
-				var slidingArea = (RectTransform)CreateUIComponent ("Sliding Area", consoleView.scrollbar.transform, typeof(RectTransform));
+				var slidingArea = CreateUI<RectTransform> ("SlidingArea", consoleView.scrollbar.transform);
 				ConfigureRectTransform (slidingArea, Vector2.zero, Vector2.one, new Vector2 (-20, -20), Vector2.zero);
-				var handle = (Image)CreateUIComponent ("Handle", slidingArea, typeof(Image));
+				var handle = CreateUI<Image> ("Handle", slidingArea);
 				ConfigureRectTransform (handle.transform, Vector2.zero, Vector2.one, new Vector2 (20, 20), Vector2.zero);
 				consoleView.scrollbar.targetGraphic = handle;
 				consoleView.scrollbar.handleRect = handle.rectTransform;
-				consoleView.outputText = (Text)CreateUIComponent ("OutputText", consoleView.outputArea.viewport.transform, typeof(Text));
+				consoleView.outputText = CreateUI<Text> ("OutputText", consoleView.outputArea.viewport.transform);
 				consoleView.outputText.gameObject.AddComponent<ContentSizeFitter> ().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 				ConfigureText (consoleView.outputText, new Color32 (0x32, 0x32, 0x32, 0xFF), raycastTarget: false);
 				ConfigureRectTransform (consoleView.outputText.transform, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 				consoleView.outputArea.content = (RectTransform)consoleView.outputText.transform;
 
-				var bg = (Image)CreateUIComponent ("InputField", consoleView.panel.transform, typeof(Image));
-				var placeholder = (Text)CreateUIComponent ("Placeholder", bg.transform, typeof(Text));
-				var inputText = (Text)CreateUIComponent ("InputText", bg.transform, typeof(Text));
+				var bg = CreateUI<Image> ("InputField", consoleView.panel.transform);
+				var placeholder = CreateUI<Text> ("Placeholder", bg.transform);
+				var inputText = CreateUI<Text> ("InputText", bg.transform);
 				bg.color = new Color32 (0x00, 0x00, 0x00, 0x80);
 				consoleView.inputField = bg.gameObject.AddComponent<InputField> ();
 				consoleView.inputField.targetGraphic = bg;
@@ -117,12 +117,12 @@ namespace UniEasy.Console
 			}).AddTo (this.Disposer);
 		}
 
-		Component CreateUIComponent (string name, Transform parent, System.Type type)
+		T CreateUI<T> (string name, Transform parent) where T : Component
 		{
 			var go = new GameObject (name);
 			go.transform.SetParent (parent);
 			go.layer = LayerMask.NameToLayer ("UI");
-			return go.AddComponent (type);
+			return go.AddComponent<T> ();
 		}
 
 		Text ConfigureText (Text text, Color32 color, string fontName = "Arial", int fontSize = 14, FontStyle fontStyle = FontStyle.Normal, TextAnchor alignment = TextAnchor.UpperLeft, bool supportRichText = true, bool raycastTarget = true)

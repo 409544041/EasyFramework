@@ -33,12 +33,12 @@ i hope everyone like it and easy to use,cheers!
 	
 1.set user name and email
 
-	$ git config --global user.name "humingx"
-  	$ git config --global user.email "humingx@yeah.net"
+	$ git config --global user.name "chaolunw"
+  	$ git config --global user.email "chaolunw@yeah.net"
 	
 2.create ssh key
 
-	$ ssh-keygen -t rsa -C "humingx@yeah.net"
+	$ ssh-keygen -t rsa -C "chaolunw@yeah.net"
 	if don't need password continuous input enter 3 times
 	finally,get 2 files: id_rsa and id_rsa.pub
 	

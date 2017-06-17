@@ -3,7 +3,7 @@ using System;
 
 namespace UniEasy.Edit
 {
-	internal class EndNameEditUtil : EndNameEditAction
+	internal class EndNameEditUtility : EndNameEditAction
 	{
 		public override void Action (int instanceID, string pathName, string resourceFile)
 		{

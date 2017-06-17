@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{FC5ADB52-C437-FF1A-F9E5-D1D913BACA41}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
+    <CompilerResponseFile></CompilerResponseFile>
+    <UnityProjectType>Game:1</UnityProjectType>
+    <UnityBuildTarget>Android:13</UnityBuildTarget>
+    <UnityVersion>5.6.1f1</UnityVersion>
+    <RootNamespace></RootNamespace>
+    <LangVersion>4</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Debug\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Debug\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_1;UNITY_5_6;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;UNITY_HAS_GOOGLEVR</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Temp\UnityVS_bin\Release\</OutputPath>
+    <IntermediateOutputPath>Temp\UnityVS_obj\Release\</IntermediateOutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_5_6_1;UNITY_5_6;UNITY_5;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_GENERICS;ENABLE_PVR_GI;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_RUNTIME_NAVMESH_BUILDING;ENABLE_SPRITERENDERER_FLIPPING;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_RAKNET;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_NATIVE_ARRAY;INCLUDE_DYNAMIC_GI;INCLUDE_GI;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_PLAYMODE_TESTS_RUNNER;ENABLE_SCRIPTING_NEW_CSHARP_COMPILER;ENABLE_VIDEO;UNITY_ANDROID;ENABLE_SUBSTANCE;UNITY_ANDROID_API;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_2_0_SUBSET;ENABLE_PROFILER;DEBUG;TRACE;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_NATIVE_ARRAY_CHECKS;UNITY_TEAM_LICENSE;ENABLE_VSTU;UNITY_PRO_LICENSE;UNITY_HAS_GOOGLEVR</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Core" />
+    <Reference Include="Boo.Lang" />
+    <Reference Include="UnityScript.Lang" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEngine">
+      <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>Library\UnityAssemblies\UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>Library\UnityAssemblies\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>Library\UnityAssemblies\UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>Library\UnityAssemblies\UnityEngine.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor">
+      <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions.Common">
+      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="simple-frame.Plugins.csproj">
+      <Project>{17284F0D-EA3B-C427-E8D0-7C25D33AC167}</Project>
+      <Name>simple-frame.Plugins</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assets\Example\Scripts\DIExample.cs" />
+    <Compile Include="Assets\Example\Scripts\HealthComponent.cs" />
+    <Compile Include="Assets\Example\Scripts\HealthSystem.cs" />
+    <Compile Include="Assets\Example\Scripts\SimpleExample.cs" />
+    <Compile Include="Assets\Example\Scripts\TestSystemBehaviour.cs" />
+    <Compile Include="Assets\UniEasy\Console\CommandDisposable.cs" />
+    <Compile Include="Assets\UniEasy\Console\CommandLibrary.cs" />
+    <Compile Include="Assets\UniEasy\Console\Commands\CommandInstaller.cs" />
+    <Compile Include="Assets\UniEasy\Console\Commands\DeregisterCommand.cs" />
+    <Compile Include="Assets\UniEasy\Console\Commands\HelpCommand.cs" />
+    <Compile Include="Assets\UniEasy\Console\Commands\LoadSceneCommand.cs" />
+    <Compile Include="Assets\UniEasy\Console\Commands\QuitCommand.cs" />
+    <Compile Include="Assets\UniEasy\Console\ConsoleCommand.cs" />
+    <Compile Include="Assets\UniEasy\Console\ConsoleInputHistory.cs" />
+    <Compile Include="Assets\UniEasy\Console\ConsoleView.cs" />
+    <Compile Include="Assets\UniEasy\Console\Consoler.cs" />
+    <Compile Include="Assets\UniEasy\Console\NoSuchCommandException.cs" />
+    <Compile Include="Assets\UniEasy\Debug\DebugSystem.cs" />
+    <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />
+    <Compile Include="Assets\UniEasy\Debug\DebuggerMask.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Entities\Entity.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Entities\IEntity.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Events\ComponentAddedEvent.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Events\ComponentRemovedEvent.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Events\EntityAddedEvent.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Events\EntityRemovedEvent.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Events\EventSystem.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Events\IEventSystem.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Events\PoolAddedEvent.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Events\PoolRemovedEvent.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Extensions\IDisposableContainer.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Extensions\IGroupExtensions.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Groups\Group.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Groups\GroupFactory.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Groups\IGroup.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Pools\IPool.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Pools\IPoolManager.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Pools\Identifiers\IIdentityGenerator.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Pools\Identifiers\SequentialIdentityGenerator.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Pools\Pool.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Pools\PoolManager.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Systems\ISystem.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Systems\PrefabFactory.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Core\Systems\System.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\ComponentBehaviour.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\EntityBehaviour.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Unity\Behaviour\SystemBehaviour.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Unity\Install\SceneInstaller.cs" />
+    <Compile Include="Assets\UniEasy\ECS\Unity\Install\UniEasyInstaller.cs" />
+    <Compile Include="Assets\UniEasy\Factory\BlockFactory.cs" />
+    <Compile Include="Assets\UniEasy\Factory\GameObjectFactory.cs" />
+    <Compile Include="Assets\UniEasy\Factory\ScriptableObjectFactory.cs" />
+    <Compile Include="Assets\UniEasy\Graphic\Painter\EasyPaint.cs" />
+    <Compile Include="Assets\UniEasy\Graphic\Painter\EasyPainter.cs" />
+    <Compile Include="Assets\UniEasy\Graphic\TextureScale.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\BindInfo\BindInfo.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\ConcreteBinders\ConcreteBinderGeneric.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\ConcreteBinders\ConcreteBinderNonGeneric.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\ConcreteBinders\ConcreteIdBinderGeneric.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\ConcreteBinders\ConcreteIdBinderNonGeneric.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\ConditionBinder.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\FromBinders\FromBinder.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\FromBinders\FromBinderGeneric.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\FromBinders\FromBinderNonGeneric.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\NonLazyBinder.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Binders\ScopeBinder.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Finalizers\BindFinalizerWrapper.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Finalizers\IBindingFinalizer.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Finalizers\ProviderBindingFinalizer.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Binding\Finalizers\ScopableBindingFinalizer.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Injection\InjectContext.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Injection\InjectableInfo.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Install\IInstaller.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Install\Installer.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Install\InstallerBase.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Install\MonoInstaller.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Install\MonoInstallerBase.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Install\ScriptableObjectInstaller.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Install\ScriptableObjectInstallerBase.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Internal\LinqExtensions.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Internal\MiscExtensions.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Internal\ProviderUtil.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Internal\ReflectionUtil.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Internal\TypeExtensions.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Main\BindingId.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Main\DiContainer.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Providers\CachedProvider.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Providers\IProvider.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Providers\InstanceProvider.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Providers\ResolveProvider.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Providers\SingletonId.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Providers\SingletonProviderCreator.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Providers\TransientProvider.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Usage\InjectAttribute.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Util\EasyInjectInfo.cs" />
+    <Compile Include="Assets\UniEasy\Injector\Source\Util\TypeAnalyzer.cs" />
+    <Compile Include="Assets\UniEasy\Storage\Core\EasyAsset.cs" />
+    <Compile Include="Assets\UniEasy\Storage\Core\EasyStructer.cs" />
+    <Compile Include="Assets\UniEasy\Storage\Core\EasyWriter.cs" />
+    <Compile Include="Assets\UniEasy\Storage\Extensions\ConvertExtensions.cs" />
+    <Compile Include="Assets\UniEasy\Storage\Main\BlockObject.cs" />
+    <Compile Include="Assets\UniEasy\Storage\Main\EasyBlock.cs" />
+    <Compile Include="Assets\UniEasy\Storage\Main\EasyCsv.cs" />
+    <Compile Include="Assets\UniEasy\Storage\Main\EasyWriter.cs" />
+    <Compile Include="Assets\UniEasy\Util\UI\Effects\Distortion.cs" />
+    <Compile Include="Assets\UniEasy\Util\Usage\MinMaxRangeAttribute.cs" />
+    <Compile Include="Assets\UniEasy\Util\Usage\RangedFloat.cs" />
+    <Compile Include="Assets\UniEasy\Util\Usage\RangedInt.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Plugins\UniRx\ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="GenerateTargetFrameworkMonikerAttribute" />
+</Project>

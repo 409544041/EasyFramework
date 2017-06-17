@@ -4,15 +4,12 @@ using System;
 
 namespace UniEasy.Edit
 {
-	/// <summary>
-	/// A helper class for instantiating ScriptableObjects in the editor.
-	/// </summary>
-	public class ScriptableObjectInstallerUtil
+	public class ScriptableObjectInstallerUtility
 	{
 		public static void Create (string path, Type type)
 		{
 			var go = ScriptableObject.CreateInstance (type);
-			var endNameEdit = ScriptableObject.CreateInstance<EndNameEditUtil> ();
+			var endNameEdit = ScriptableObject.CreateInstance<EndNameEditUtility> ();
 			endNameEdit.EndAction += (instanceID, pathName, resourceFile) => {
 				AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceID), AssetDatabase.GenerateUniqueAssetPath (pathName));
 			};

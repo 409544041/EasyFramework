@@ -16,7 +16,7 @@ namespace UniEasy.Edit
 		{
 			var path = ProjectWindowUtilHelper.GetActiveFolderPath () + "/" + GetName ();
 						
-			var endNameEdit = ScriptableObject.CreateInstance<EndNameEditUtil> ();
+			var endNameEdit = ScriptableObject.CreateInstance<EndNameEditUtility> ();
 			endNameEdit.EndAction += (instanceID, pathName, resourceFile) => {
 				var contents = GetContents ().Replace (
 					               Path.GetFileNameWithoutExtension (GetName ()), 

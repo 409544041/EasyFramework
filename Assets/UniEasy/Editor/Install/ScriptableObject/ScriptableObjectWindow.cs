@@ -107,7 +107,7 @@ namespace UniEasy.Edit
 
 			GUILayout.FlexibleSpace ();
 			if (GUILayout.Button ("Create")) {
-				ScriptableObjectInstallerUtil.Create (names [selectedTypeIndex], type);
+				ScriptableObjectInstallerUtility.Create (names [selectedTypeIndex], type);
 			}
 		}
 	}

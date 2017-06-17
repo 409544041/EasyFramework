@@ -10,6 +10,7 @@ namespace UniEasy
 		private static bool showOnUGUI;
 
 		public static event Action<string> BeforeCheckLayerInEditorEvent;
+		public static event Action<LogType, object> OnLogEvent;
 
 		public static bool IsLogEnabled {
 			get {
@@ -73,8 +74,8 @@ namespace UniEasy
 			if (IsLogLayerAllowed (layerName)) {
 				Debug.logger.Log (logType, message, context);
 			}
-			if (ShowOnUGUI) {
-				
+			if (ShowOnUGUI && OnLogEvent != null) {
+				OnLogEvent.Invoke (logType, message);
 			}
 		}
 

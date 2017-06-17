@@ -66,6 +66,7 @@ namespace UniEasy.ECS
 			Container.Bind<PrefabFactory> ().To<PrefabFactory> ().AsSingle ();
 
 			InstallComponentBehaviour<DebugCanvas> ();
+			InstallComponentBehaviour<DebugView> ();
 			InstallSystemBehaviour<DebugSystem> ();
 			InstallComponentBehaviour<ConsoleView> ();
 			InstallSystemBehaviour<Consoler> ();
@@ -74,7 +75,7 @@ namespace UniEasy.ECS
 
 		public T InstallSystemBehaviour<T> () where T : Component
 		{
-			var system = new GameObject (typeof(T).Name).AddComponent (typeof(T));
+			var system = new GameObject (typeof(T).Name).AddComponent<T> ();
 			GameObject.DontDestroyOnLoad (system);
 			Container.Inject (system);
 			Container.Bind (typeof(T)).FromInstance (system).AsSingle ();
@@ -85,7 +86,7 @@ namespace UniEasy.ECS
 		{
 			var go = new GameObject (typeof(T).Name);
 			var entityBehaviour = go.AddComponent<EntityBehaviour> ();
-			var component = go.AddComponent (typeof(T));
+			var component = go.AddComponent<T> ();
 			Container.Inject (entityBehaviour);
 			GameObject.DontDestroyOnLoad (component);
 			return (T)component;

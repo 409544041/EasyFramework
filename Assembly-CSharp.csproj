@@ -153,6 +153,7 @@
      <Compile Include="Assets\UniEasy\Storage\Main\EasyCsv.cs" />
      <Compile Include="Assets\UniEasy\Storage\Main\EasyWriter.cs" />
      <Compile Include="Assets\UniEasy\Utilities\UI\Effects\Distortion.cs" />
+     <Compile Include="Assets\UniEasy\Utilities\UI\UIUtility.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Usage\MinMaxRangeAttribute.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Usage\RangedFloat.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Usage\RangedInt.cs" />

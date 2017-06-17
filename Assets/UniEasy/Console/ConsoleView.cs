@@ -9,7 +9,7 @@ namespace UniEasy.Console
 		public RectTransform panel;
 		public InputField inputField;
 		public Text outputText;
-		public ScrollRect outputArea;
 		public Scrollbar scrollbar;
+		public ScrollRect outputArea;
 	}
 }

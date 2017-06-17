@@ -1,11 +1,16 @@
 {
     "keys": [
-        "default"
+        "default",
+        "showOnUGUI"
     ],
     "values": [
         {
             "typeCode": 18,
-            "value": "{\n    \"value\": [\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"Default\"\n        },\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"UniEasy\"\n        }\n    ],\n    \"IsLogEnabled\": true\n}"
+            "value": "{\n    \"value\": [\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"Default\"\n        },\n        {\n            \"IsEnable\": true,\n            \"LayerName\": \"UniEasy\"\n        }\n    ],\n    \"isLogEnabled\": true\n}"
+        },
+        {
+            "typeCode": 3,
+            "value": "False"
         }
     ]
 }

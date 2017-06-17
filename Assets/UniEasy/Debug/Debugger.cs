@@ -7,6 +7,7 @@ namespace UniEasy
 	public class Debugger
 	{
 		private static DebuggerMask debuggerMask;
+		private static bool showOnUGUI;
 
 		public static event Action<string> BeforeCheckLayerInEditorEvent;
 
@@ -16,6 +17,15 @@ namespace UniEasy
 			}
 			set {
 				Debug.logger.logEnabled = value;
+			}
+		}
+
+		public static bool ShowOnUGUI {
+			get {
+				return showOnUGUI;
+			}
+			set {
+				showOnUGUI = value;
 			}
 		}
 
@@ -62,6 +72,9 @@ namespace UniEasy
 			#endif
 			if (IsLogLayerAllowed (layerName)) {
 				Debug.logger.Log (logType, message, context);
+			}
+			if (ShowOnUGUI) {
+				
 			}
 		}
 

@@ -6,13 +6,10 @@ namespace UniEasy.Console
 {
 	public class ConsoleView : ComponentBehaviour
 	{
-		public Canvas canvas;
-		public Text outputText;
-		public Scrollbar scrollbar;
 		public RectTransform panel;
-		public ScrollRect outputArea;
 		public InputField inputField;
-		public CanvasScaler canvasScaler;
-		public GraphicRaycaster graphicRaycaster;
+		public Text outputText;
+		public ScrollRect outputArea;
+		public Scrollbar scrollbar;
 	}
 }

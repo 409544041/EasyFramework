@@ -63,7 +63,9 @@
      <Compile Include="Assets\UniEasy\Console\ConsoleView.cs" />
      <Compile Include="Assets\UniEasy\Console\Consoler.cs" />
      <Compile Include="Assets\UniEasy\Console\NoSuchCommandException.cs" />
+     <Compile Include="Assets\UniEasy\Debug\DebugCanvas.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebugSystem.cs" />
+     <Compile Include="Assets\UniEasy\Debug\DebugView.cs" />
      <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebuggerMask.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Entities\Entity.cs" />

@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\UniEasy\Debug\Editor\DebugSystemEditor.cs" />
-     <Compile Include="Assets\UniEasy\Debug\Editor\LogUtil.cs" />
+     <Compile Include="Assets\UniEasy\Debug\Editor\LogUtility.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ECS\ComponentBehaviourInstaller.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ECS\SystemBehaviourInstaller.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\Injector\Installer.cs" />

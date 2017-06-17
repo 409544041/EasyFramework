@@ -18,21 +18,13 @@ namespace UniEasy.Console
 		{
 			base.Setup ();
 
-			var group = GroupFactory.Create (new Type[] {
-				typeof(EntityBehaviour),
-				typeof(ConsoleView),
-			});
+			var debugCanvasEntities = GroupFactory.Create (typeof(DebugCanvas));
+			var group = GroupFactory.Create (typeof(ConsoleView));
 
 			group.OnAdd ().Subscribe (entity => {
 				consoleView = entity.GetComponent<ConsoleView> ();
 
-				consoleView.canvas = CreateUI<Canvas> ("DebugCanvas", null);
-				DontDestroyOnLoad (consoleView.canvas.gameObject);
-				consoleView.canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-				consoleView.canvasScaler = consoleView.canvas.gameObject.AddComponent<CanvasScaler> ();
-				consoleView.graphicRaycaster = consoleView.canvas.gameObject.AddComponent<GraphicRaycaster> ();
-
-				consoleView.panel = CreateUI<RectTransform> ("ConsolePanel", consoleView.canvas.transform);
+				consoleView.panel = CreateUI<RectTransform> ("ConsolePanel", debugCanvasEntities.Entities.Select (x => x.GetComponent<DebugCanvas> ().transform).FirstOrDefault ());
 				ConfigureRectTransform (consoleView.panel, Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 
 				consoleView.outputArea = CreateUI<ScrollRect> ("OutputArea", consoleView.panel.transform);

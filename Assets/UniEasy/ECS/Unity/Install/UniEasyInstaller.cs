@@ -64,25 +64,31 @@ namespace UniEasy.ECS
 			Container.Bind<IPoolManager> ().To<PoolManager> ().AsSingle ();
 			Container.Bind<GroupFactory> ().To<GroupFactory> ().AsSingle ();
 			Container.Bind<PrefabFactory> ().To<PrefabFactory> ().AsSingle ();
-			var DebugSystem = GameObject.FindObjectOfType<DebugSystem> () ??
-			                  new GameObject ("DebugSystem").AddComponent<DebugSystem> ();
-			GameObject.DontDestroyOnLoad (DebugSystem);
-			Container.Inject (DebugSystem);
-			Container.Bind<DebugSystem> ().FromInstance (DebugSystem).AsSingle ();
 
-			var Console = new GameObject ("Console");
-			var ConsoleSystem = new GameObject ("ConsoleSystem");
-			var ConsoleComponent = new GameObject ("ConsoleComponent");
-			ConsoleSystem.transform.SetParent (Console.transform);
-			ConsoleComponent.transform.SetParent (Console.transform);
-			var ConsoleEntity = ConsoleComponent.AddComponent<EntityBehaviour> ();
-			ConsoleComponent.AddComponent<ConsoleView> ();
-			Container.Inject (ConsoleEntity);
-			var ConsoleController = ConsoleSystem.AddComponent<Consoler> ();
-			Container.Inject (ConsoleController);
-			GameObject.DontDestroyOnLoad (Console);
-			Container.Bind<Consoler> ().FromInstance (ConsoleController).AsSingle ();
+			InstallComponentBehaviour<DebugCanvas> ();
+			InstallSystemBehaviour<DebugSystem> ();
+			InstallComponentBehaviour<ConsoleView> ();
+			InstallSystemBehaviour<Consoler> ();
 			CommandInstaller.Install (Container);
+		}
+
+		public T InstallSystemBehaviour<T> () where T : Component
+		{
+			var system = new GameObject (typeof(T).Name).AddComponent (typeof(T));
+			GameObject.DontDestroyOnLoad (system);
+			Container.Inject (system);
+			Container.Bind (typeof(T)).FromInstance (system).AsSingle ();
+			return (T)system;
+		}
+
+		public T InstallComponentBehaviour<T> () where T : Component
+		{
+			var go = new GameObject (typeof(T).Name);
+			var entityBehaviour = go.AddComponent<EntityBehaviour> ();
+			var component = go.AddComponent (typeof(T));
+			Container.Inject (entityBehaviour);
+			GameObject.DontDestroyOnLoad (component);
+			return (T)component;
 		}
 	}
 }

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using System.Linq;
 using System;
+using UniRx;
 
 namespace UniEasy.ECS
 {
@@ -21,7 +23,16 @@ namespace UniEasy.ECS
 	[Serializable]
 	public class DebugMask : EasyList<DebugLayer>
 	{
-		public bool IsLogEnabled = true;
+		public bool isLogEnabled = true;
+
+		public bool IsLogEnabled {
+			get {
+				return isLogEnabled;
+			}
+			set {
+				isLogEnabled = value;
+			}
+		}
 
 		public DebugMask (List<DebugLayer> value)
 		{
@@ -38,8 +49,15 @@ namespace UniEasy.ECS
 	public class DebugSystem : SystemBehaviour
 	{
 		private const string DefaultDebugName = "default";
+		private bool showOnUGUI;
 		private DebugMask debugMask;
 		private EasyWriter debugWriter;
+
+		public string Path {
+			get {
+				return Application.streamingAssetsPath + "/DebugSystem/DefaultConfig.json";
+			}
+		}
 
 		public EasyWriter DebugWriter {
 			get {
@@ -64,16 +82,18 @@ namespace UniEasy.ECS
 			}
 		}
 
-		public string Path {
+		public bool ShowOnUGUI {
 			get {
-				return Application.streamingAssetsPath + "/DebugSystem/DefaultConfig.json";
+				return showOnUGUI;
+			}
+			set {
+				showOnUGUI = value;
 			}
 		}
 
 		public override void Setup ()
 		{
 			base.Setup ();
-			Debugger.IsLogEnabled = DebugMask.IsLogEnabled;
 			// For performance consideration : 
 			// We can't auto add a new layer when debug happened in every platform,
 			// But you can add a new layer by hand or run in editor wait log output.
@@ -86,7 +106,21 @@ namespace UniEasy.ECS
 					Save ();
 				}
 			};
+			if (DebugWriter.HasKey ("showOnUGUI")) {
+				showOnUGUI = DebugWriter.Get<bool> ("showOnUGUI");
+			}
 			Refresh ();
+
+			var group = GroupFactory.Create (typeof(DebugCanvas));
+
+			group.OnAdd ().Subscribe (entity => {
+				var debugCanvas = entity.GetComponent<DebugCanvas> ();
+
+				debugCanvas.canvas = debugCanvas.gameObject.AddComponent<Canvas> ();
+				debugCanvas.canvasScaler = debugCanvas.gameObject.AddComponent<CanvasScaler> ();
+				debugCanvas.graphicRaycaster = debugCanvas.gameObject.AddComponent<GraphicRaycaster> ();
+				debugCanvas.canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+			}).AddTo (this.Disposer);
 		}
 
 		void Start ()
@@ -104,11 +138,13 @@ namespace UniEasy.ECS
 			}
 			Debugger.SetLayerMask (layers.ToArray ());
 			Debugger.IsLogEnabled = DebugMask.IsLogEnabled;
+			Debugger.ShowOnUGUI = this.ShowOnUGUI;
 		}
 
 		public void Save ()
 		{
 			DebugWriter.Set (DefaultDebugName, DebugMask);
+			DebugWriter.Set ("showOnUGUI", ShowOnUGUI);
 		}
 	}
 }

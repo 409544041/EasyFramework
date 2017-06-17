@@ -1,12 +1,12 @@
-﻿using UnityEditor;
+﻿using System.Diagnostics;
 using System.Reflection;
-using System.Diagnostics;
+using UnityEditor;
 using System.Linq;
 using System;
 
 namespace UniEasy.Edit
 {
-	public class LogUtil
+	public class LogUtility
 	{
 		private static string projectPath;
 		private static MethodInfo logEntriesGetEntry;

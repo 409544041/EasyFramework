@@ -8,8 +8,18 @@ namespace UniEasy.Edit
 	[CustomEditor (typeof(DebugSystem))]
 	public class DebugSystemEditor : Editor
 	{
-		private DebugSystem DebugSystem;
 		private bool isDirty;
+
+		public bool IsDirty {
+			get {
+				return isDirty;
+			}
+			set {
+				isDirty = isDirty == true ? true : value;
+			}
+		}
+
+		private DebugSystem DebugSystem { get; set; }
 
 		void OnEnable ()
 		{
@@ -21,34 +31,37 @@ namespace UniEasy.Edit
 			EditorGUILayout.BeginVertical ();
 			isDirty = false;
  
-			EditorGUILayout.BeginHorizontal ();
-			var isLogEnable = EditorGUILayout.Toggle (this.DebugSystem.DebugMask.IsLogEnabled, GUILayout.MinWidth (20), GUILayout.MaxWidth (20));
-			EditorGUILayout.LabelField ("IsLogEnabled");
-			isDirty = isDirty == false ? !(isLogEnable == this.DebugSystem.DebugMask.IsLogEnabled) : true;
-			EditorGUILayout.EndHorizontal ();
+			var isLogEnable = EditorGUILayout.ToggleLeft ("IsLogEnabled", this.DebugSystem.DebugMask.IsLogEnabled);
+			IsDirty = !(isLogEnable == this.DebugSystem.DebugMask.IsLogEnabled);
 
+			var showOnUGUI = false;
 			var masks = this.DebugSystem.DebugMask.ToList ();
-			for (int i = 0; i < masks.Count; i++) {
-				EditorGUILayout.BeginHorizontal ();
-				var IsEnable = EditorGUILayout.Toggle (masks [i].IsEnable, GUILayout.MinWidth (12), GUILayout.MaxWidth (24));
-				var LayerName = EditorGUILayout.TextField (masks [i].LayerName);
-				isDirty = isDirty == false ? !(IsEnable == masks [i].IsEnable) : true;
-				isDirty = isDirty == false ? !(LayerName == masks [i].LayerName) : true;
-				masks [i] = new DebugLayer (IsEnable, LayerName);
-				if (GUILayout.Button ("-", GUILayout.MinWidth (20), GUILayout.MaxWidth (20))) {
-					masks.RemoveAt (i);
-					isDirty = true;
-					break;
+			if (isLogEnable) {
+				showOnUGUI = EditorGUILayout.ToggleLeft ("Show On UGUI", DebugSystem.ShowOnUGUI);
+				IsDirty = !(showOnUGUI == DebugSystem.ShowOnUGUI);
+				for (int i = 0; i < masks.Count; i++) {
+					EditorGUILayout.BeginHorizontal ();
+					var IsEnable = EditorGUILayout.Toggle (masks [i].IsEnable, GUILayout.MinWidth (12), GUILayout.MaxWidth (24));
+					var LayerName = EditorGUILayout.TextField (masks [i].LayerName);
+					IsDirty = !(IsEnable == masks [i].IsEnable);
+					IsDirty = !(LayerName == masks [i].LayerName);
+					masks [i] = new DebugLayer (IsEnable, LayerName);
+					if (GUILayout.Button ("-", GUILayout.MinWidth (20), GUILayout.MaxWidth (20))) {
+						masks.RemoveAt (i);
+						IsDirty = true;
+						break;
+					}
+					EditorGUILayout.EndHorizontal ();
 				}
-				EditorGUILayout.EndHorizontal ();
+				if (GUILayout.Button ("Add Layer...")) {
+					masks.Add (new DebugLayer (true, "Layer " + masks.Count));
+					IsDirty = true;
+				}
 			}
-			if (GUILayout.Button ("Add Layer...")) {
-				masks.Add (new DebugLayer (true, "Layer " + masks.Count));
-				isDirty = true;
-			}
-			if (isDirty) {
+			if (IsDirty) {
 				this.DebugSystem.DebugMask = new DebugMask (masks);
 				this.DebugSystem.DebugMask.IsLogEnabled = isLogEnable;
+				this.DebugSystem.ShowOnUGUI = showOnUGUI;
 				this.DebugSystem.Save ();
 				if (Application.isPlaying) {
 					this.DebugSystem.Refresh ();

@@ -20,6 +20,7 @@ namespace UniEasy
 			text.raycastTarget = raycastTarget;
 			text.fontStyle = fontStyle;
 			text.alignment = alignment;
+			text.fontSize = fontSize;
 			text.color = color;
 			return text;
 		}

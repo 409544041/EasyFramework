@@ -40,7 +40,7 @@ namespace UniEasy.Console
 				consoleView.scrollbar = consoleView.outputArea.verticalScrollbar;
 				consoleView.scrollbar.direction = Scrollbar.Direction.BottomToTop;
 				consoleView.scrollbar.targetGraphic = scrollbar;
-				consoleView.outputArea.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHideAndExpandViewport;
+				consoleView.outputArea.verticalScrollbarVisibility = ScrollRect.ScrollbarVisibility.AutoHide;
 				consoleView.outputArea.verticalScrollbarSpacing = -3;
 				consoleView.scrollbar.transform.ToRectTransform (new Vector2 (1, 0), Vector2.one, new Vector2 (20, 0), new Vector2 (-10, 0));
 				var slidingArea = UIUtility.Create<RectTransform> ("SlidingArea", consoleView.scrollbar.transform);

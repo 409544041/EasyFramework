@@ -50,6 +50,12 @@ public class TestSystemBehaviour : SystemBehaviour
 //		Observable.Timer (TimeSpan.FromSeconds (3)).Subscribe (_ => {
 //			PrefabFactory.Instantiate (prefab);
 //		}).AddTo (this.Disposer);
+
+		var clickStream = Observable.EveryUpdate ().Where (_ => Input.GetMouseButtonDown (0));
+
+		clickStream.Subscribe (_ => {
+			Debugger.Log ("debug system test");
+		}).AddTo (this.Disposer);
 	}
 
 	void Start ()

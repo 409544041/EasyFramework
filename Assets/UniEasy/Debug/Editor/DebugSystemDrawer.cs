@@ -6,7 +6,7 @@ namespace UniEasy.Edit
 {
 	[CanEditMultipleObjects]
 	[CustomEditor (typeof(DebugSystem))]
-	public class DebugSystemInspector : Editor
+	public class DebugSystemDrawer : Editor
 	{
 		private bool isDirty;
 

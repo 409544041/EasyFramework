@@ -46,7 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\UniEasy\Debug\Editor\DebugSystemInspector.cs" />
+     <Compile Include="Assets\UniEasy\Debug\Editor\DebugSystemDrawer.cs" />
      <Compile Include="Assets\UniEasy\Debug\Editor\LogUtility.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ECS\ComponentBehaviourInstaller.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ECS\SystemBehaviourInstaller.cs" />

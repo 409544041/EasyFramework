@@ -145,11 +145,12 @@ namespace UniEasy.Console
 						debugView.panel.gameObject.SetActive (b);
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer);
 
-					CommandLibrary.RegisterCommand ("Debug", "Show debug console message on UGui.", "Debug [on/off]", (args) => {
+					CommandLibrary.RegisterCommand ("Debug", "Show debug console message on UGui.", "Debug [On/Off]", (args) => {
 						if (args.Length == 0) {
 							return "Sorry, it is a invalid command!";
 						} else {
-							bool result = args [0].ToLower ().Equals ("on") ? true : false;
+							var command = args [0].ToLower ();
+							var result = command.Equals ("on") ? true : command.Equals ("true") ? true : false;
 							debugView.panel.gameObject.SetActive (result);
 							return string.Format ("Debug message show on UGui is {0}", result == true ? "On" : "Off");
 						}
@@ -265,6 +266,8 @@ namespace UniEasy.Console
 					debugView.logToggle.isOn = DebugWriter.HasKey ("log") ? DebugWriter.Get<bool> ("log") : true;
 					debugView.warningToggle.isOn = DebugWriter.HasKey ("warning") ? DebugWriter.Get<bool> ("warning") : true;
 					debugView.errorToggle.isOn = DebugWriter.HasKey ("error") ? DebugWriter.Get<bool> ("error") : true;
+
+					debugView.panel.gameObject.SetActive (false);
 				}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer);
 			}).AddTo (this.Disposer);
 		}

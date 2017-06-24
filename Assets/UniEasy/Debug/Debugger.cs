@@ -2,11 +2,11 @@
 using System.Linq;
 using System;
 
-namespace UniEasy
+namespace UniEasy.Console
 {
 	public class Debugger
 	{
-		private static DebuggerMask debuggerMask;
+		private static DebugMask debugMask;
 		private static bool showOnUGUI;
 
 		public static event Action<string> BeforeCheckLayerInEditorEvent;
@@ -39,21 +39,21 @@ namespace UniEasy
 
 		public static string[] GetLayerMask ()
 		{
-			if (debuggerMask == null) {
-				debuggerMask = new DebuggerMask ("Default");
+			if (debugMask == null) {
+				debugMask = new DebugMask ("Default");
 			}
-			return debuggerMask.GetLayerNames ();
+			return debugMask.ToList ().Select (x => x.layerName).ToArray ();
 		}
 
 		public static void SetLayerMask (params string[] layerNames)
 		{
-			debuggerMask = new DebuggerMask (layerNames);
+			debugMask = new DebugMask (layerNames);
 		}
 
 		public static void AddLayerMask (params string[] layerNames)
 		{
 			var second = GetLayerMask ();
-			debuggerMask.SetLayerNames (layerNames.Union (second).ToArray ());
+			debugMask = new DebugMask (layerNames.Union (second).ToArray ());
 		}
 
 		public static void RemoveLayerMask (params string[] layerNames)
@@ -61,7 +61,7 @@ namespace UniEasy
 			var origin = GetLayerMask ();
 			var second = origin.Intersect (layerNames);
 			var values = origin.Except (second).ToArray ();
-			debuggerMask.SetLayerNames (values);
+			debugMask = new DebugMask (values);
 		}
 
 		private static void Log (LogType logType, object message, string layerName, UnityEngine.Object context)

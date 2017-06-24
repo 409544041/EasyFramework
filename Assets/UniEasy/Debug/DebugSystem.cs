@@ -1,53 +1,14 @@
-using System.Collections.Generic;
 using UniEasy.Console;
 using UnityEngine.UI;
 using UniRx.Triggers;
+using UniEasy.ECS;
 using UnityEngine;
 using System.Linq;
 using System;
 using UniRx;
 
-namespace UniEasy.ECS
+namespace UniEasy.Console
 {
-	[Serializable]
-	public struct DebugLayer
-	{
-		public bool IsEnable;
-		public string LayerName;
-
-		public DebugLayer (bool IsEnable, string LayerName)
-		{
-			this.IsEnable = IsEnable;
-			this.LayerName = LayerName;
-		}
-	}
-
-	[Serializable]
-	public class DebugMask : EasyList<DebugLayer>
-	{
-		public bool isLogEnabled = true;
-
-		public bool IsLogEnabled {
-			get {
-				return isLogEnabled;
-			}
-			set {
-				isLogEnabled = value;
-			}
-		}
-
-		public DebugMask (List<DebugLayer> value)
-		{
-			this.value = value;
-		}
-
-		public DebugMask (DebugLayer[] value)
-		{
-			this.value = new List<DebugLayer> ();
-			this.value.AddRange (value);
-		}
-	}
-
 	public class DebugSystem : SystemBehaviour
 	{
 		private const string DefaultDebugName = "default";
@@ -75,7 +36,7 @@ namespace UniEasy.ECS
 					if (DebugWriter.HasKey (DefaultDebugName))
 						debugMask = DebugWriter.Get<DebugMask> (DefaultDebugName);
 					else
-						debugMask = new DebugMask (new List<DebugLayer> ());
+						debugMask = new DebugMask ();
 				}
 				return debugMask;
 			}
@@ -100,7 +61,7 @@ namespace UniEasy.ECS
 			// We can't auto add a new layer when debug happened in every platform,
 			// But you can add a new layer by hand or run in editor wait log output.
 			Debugger.BeforeCheckLayerInEditorEvent += (layerName) => {
-				if (!DebugMask.ToList ().Select (mask => mask.LayerName).Contains (layerName)) {
+				if (!DebugMask.ToList ().Select (mask => mask.layerName).Contains (layerName)) {
 					var tempMask = DebugMask.ToList ();
 					tempMask.Add (new DebugLayer (true, layerName));
 					DebugMask = new DebugMask (tempMask);
@@ -153,16 +114,27 @@ namespace UniEasy.ECS
 					handle.transform.ToRectTransform (Vector2.zero, Vector2.one, new Vector2 (20, 20), Vector2.zero);
 					debugView.scrollbar.targetGraphic = handle;
 					debugView.scrollbar.handleRect = handle.rectTransform;
-					debugView.outputText = UIUtility.Create<Text> ("OutputText", debugView.outputArea.viewport.transform);
-					debugView.outputText.gameObject.AddComponent<ContentSizeFitter> ().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-					debugView.outputText.ToConfigure (Color.white, raycastTarget: false);
-					debugView.outputText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-					debugView.outputArea.content = (RectTransform)debugView.outputText.transform;
 
-					debugView.collapseCountText = UIUtility.Create<Text> ("CollapseCountText", debugView.outputText.transform);
-					debugView.collapseCountText.ToConfigure (Color.white, raycastTarget: false);
-					debugView.collapseCountText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-					debugView.collapseCountText.alignment = TextAnchor.UpperRight;
+					debugView.outputPanel = UIUtility.Create<RectTransform> ("OutputPanel", debugView.outputArea.viewport.transform);
+					debugView.outputPanel.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+					debugView.outputLayout = debugView.outputPanel.gameObject.AddComponent<VerticalLayoutGroup> ();
+					debugView.outputLayout.childAlignment = TextAnchor.UpperLeft;
+					debugView.outputLayout.childControlHeight = true;
+					debugView.outputLayout.childControlWidth = true;
+					debugView.outputLayout.childForceExpandHeight = false;
+					debugView.outputLayout.childForceExpandWidth = false;
+					debugView.outputPanel.gameObject.AddComponent<ContentSizeFitter> ().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+//					debugView.outputText = UIUtility.Create<Text> ("OutputText", debugView.outputArea.viewport.transform);
+//					debugView.outputText.gameObject.AddComponent<ContentSizeFitter> ().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+//					debugView.outputText.ToConfigure (Color.white, raycastTarget: false);
+//					debugView.outputText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+//					debugView.outputArea.content = (RectTransform)debugView.outputText.transform;
+//
+//					debugView.collapseCountText = UIUtility.Create<Text> ("CollapseCountText", debugView.outputText.transform);
+//					debugView.collapseCountText.ToConfigure (Color.white, raycastTarget: false);
+//					debugView.collapseCountText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+//					debugView.collapseCountText.alignment = TextAnchor.UpperRight;
 
 					debugView.menuPanel = UIUtility.Create<RectTransform> ("MenuPanel", debugView.panel.transform);
 					debugView.menuPanel.ToRectTransform (new Vector2 (0, 1), Vector2.one, new Vector2 (0, 20), new Vector2 (0, -10));
@@ -223,7 +195,7 @@ namespace UniEasy.ECS
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
 
 					Debugger.OnLogEvent += (type, message) => {
-						if (debugView != null && debugView.outputText != null) {
+						if (debugView != null && debugView.outputPanel != null) {
 							if (type == LogType.Warning) {
 								message = string.Format ("<b><size={0}><color=#ffff00ff>{1}</color></size></b>", debugView.size, message);
 							} else if (type == LogType.Error) {
@@ -231,6 +203,7 @@ namespace UniEasy.ECS
 							} else {
 								message = string.Format ("<b><size={0}><color=#ffffffff>{1}</color></size></b>", debugView.size, message);
 							}
+							debugView.lines.Add (new DebugLine (type, debugView.outputPanel));
 							debugView.logs.Add (message.ToString ());
 						}
 					};
@@ -245,7 +218,7 @@ namespace UniEasy.ECS
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
 
 					debugView.logs.ObserveReset ().Subscribe (_ => {
-						debugView.outputText.text = "";
+//						debugView.outputText.text = "";
 						debugView.collapseLogs.Clear ();
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
 
@@ -268,29 +241,29 @@ namespace UniEasy.ECS
 //								bg.gameObject.SetActive (false);
 //							}
 //						}
-						if (debugView.collapse) {
-							var logs = debugView.collapseLogs.Keys.ToArray ();
-							var counts = debugView.collapseLogs.Values.ToArray ();
-							for (int i = 0; i < logs.Length; i++) {
-								if (i == 0) {
-									debugView.outputText.text = logs [i];
-									debugView.collapseCountText.text = string.Format ("({0})", counts [i]);
-								} else {
-									debugView.outputText.text += Environment.NewLine + logs [i];
-									debugView.collapseCountText.text += Environment.NewLine + string.Format ("({0})", counts [i]);
-								}
-							}
-							debugView.collapseCountText.rectTransform.SetAsLastSibling ();
-						} else {
-							debugView.collapseCountText.text = "";
-							for (int i = 0; i < debugView.logs.Count; i++) {
-								if (i == 0) {
-									debugView.outputText.text = debugView.logs [i];
-								} else {
-									debugView.outputText.text += Environment.NewLine + debugView.logs [i];
-								}
-							}
-						}
+//						if (debugView.collapse) {
+//							var logs = debugView.collapseLogs.Keys.ToArray ();
+//							var counts = debugView.collapseLogs.Values.ToArray ();
+//							for (int i = 0; i < logs.Length; i++) {
+//								if (i == 0) {
+//									debugView.outputText.text = logs [i];
+//									debugView.collapseCountText.text = string.Format ("({0})", counts [i]);
+//								} else {
+//									debugView.outputText.text += Environment.NewLine + logs [i];
+//									debugView.collapseCountText.text += Environment.NewLine + string.Format ("({0})", counts [i]);
+//								}
+//							}
+//							debugView.collapseCountText.rectTransform.SetAsLastSibling ();
+//						} else {
+//							debugView.collapseCountText.text = "";
+//							for (int i = 0; i < debugView.logs.Count; i++) {
+//								if (i == 0) {
+//									debugView.outputText.text = debugView.logs [i];
+//								} else {
+//									debugView.outputText.text += Environment.NewLine + debugView.logs [i];
+//								}
+//							}
+//						}
 						debugView.Refresh = false;
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
 				}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer);
@@ -304,10 +277,10 @@ namespace UniEasy.ECS
 		public void Refresh ()
 		{
 			var masks = DebugMask.ToList ();
-			var layers = new List<string> ();
+			var layers = new ReactiveCollection<string> ();
 			for (int i = 0; i < masks.Count; i++) {
-				if (masks [i].IsEnable) {
-					layers.Add (masks [i].LayerName);
+				if (masks [i].isEnable) {
+					layers.Add (masks [i].layerName);
 				}
 			}
 			Debugger.SetLayerMask (layers.ToArray ());

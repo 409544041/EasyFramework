@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UniEasy.DI;
+using UniEasy.Console;
 using UniEasy;
 
 public class DIExample : MonoInstaller<DIExample>

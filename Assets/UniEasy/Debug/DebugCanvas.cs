@@ -1,7 +1,8 @@
 ﻿using UnityEngine.UI;
+using UniEasy.ECS;
 using UnityEngine;
 
-namespace UniEasy.ECS
+namespace UniEasy.Console
 {
 	public class DebugCanvas : ComponentBehaviour
 	{

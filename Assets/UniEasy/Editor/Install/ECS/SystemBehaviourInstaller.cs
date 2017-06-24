@@ -25,9 +25,9 @@ namespace UniEasy.Edit
 			"\n" +
 			"\npublic class NewSystemBehaviour : SystemBehaviour" +
 			"\n{" +
-			"\n\tprotected override void Awake ()" +
+			"\n\tpublic override void Setup ()" +
 			"\n\t{" +
-			"\n\t\tbase.Awake ();" +
+			"\n\t\tbase.Setup ();" +
 			"\n\t}" +
 			"\n" +
 			"\n\tvoid Start ()" +

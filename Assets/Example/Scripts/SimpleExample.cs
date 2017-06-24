@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UniEasy;
+using UniEasy.Console;
 
 [System.Serializable]
 public class SimpleExample : MonoBehaviour

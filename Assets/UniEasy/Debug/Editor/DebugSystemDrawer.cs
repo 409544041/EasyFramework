@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using UniEasy.Console;
+using UnityEngine;
 using UnityEditor;
-using UniEasy.ECS;
 
 namespace UniEasy.Edit
 {
@@ -41,10 +41,10 @@ namespace UniEasy.Edit
 				IsDirty = !(showOnUGUI == DebugSystem.ShowOnUGUI);
 				for (int i = 0; i < masks.Count; i++) {
 					EditorGUILayout.BeginHorizontal ();
-					var IsEnable = EditorGUILayout.Toggle (masks [i].IsEnable, GUILayout.MinWidth (12), GUILayout.MaxWidth (24));
-					var LayerName = EditorGUILayout.TextField (masks [i].LayerName);
-					IsDirty = !(IsEnable == masks [i].IsEnable);
-					IsDirty = !(LayerName == masks [i].LayerName);
+					var IsEnable = EditorGUILayout.Toggle (masks [i].isEnable, GUILayout.MinWidth (12), GUILayout.MaxWidth (24));
+					var LayerName = EditorGUILayout.TextField (masks [i].layerName);
+					IsDirty = !(IsEnable == masks [i].isEnable);
+					IsDirty = !(LayerName == masks [i].layerName);
 					masks [i] = new DebugLayer (IsEnable, LayerName);
 					if (GUILayout.Button ("-", GUILayout.MinWidth (20), GUILayout.MaxWidth (20))) {
 						masks.RemoveAt (i);

@@ -25,15 +25,6 @@ namespace UniEasy.Edit
 			"\n" +
 			"\npublic class NewComponentBehaviour : ComponentBehaviour" +
 			"\n{" +
-			"\n\tprotected override void Awake ()" +
-			"\n\t{" +
-			"\n\t\tbase.Awake ();" +
-			"\n\t}" +
-			"\n" +
-			"\n\tvoid Start ()" +
-			"\n\t{" +
-			"\n\t\t" +
-			"\n\t}" +
 			"\n}";
 		}
 	}

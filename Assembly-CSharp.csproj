@@ -64,10 +64,12 @@
      <Compile Include="Assets\UniEasy\Console\Consoler.cs" />
      <Compile Include="Assets\UniEasy\Console\NoSuchCommandException.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebugCanvas.cs" />
+     <Compile Include="Assets\UniEasy\Debug\DebugLayer.cs" />
+     <Compile Include="Assets\UniEasy\Debug\DebugLine.cs" />
+     <Compile Include="Assets\UniEasy\Debug\DebugMask.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebugSystem.cs" />
      <Compile Include="Assets\UniEasy\Debug\DebugView.cs" />
      <Compile Include="Assets\UniEasy\Debug\Debugger.cs" />
-     <Compile Include="Assets\UniEasy\Debug\DebuggerMask.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Entities\Entity.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Entities\IEntity.cs" />
      <Compile Include="Assets\UniEasy\ECS\Core\Events\ComponentAddedEvent.cs" />
@@ -152,6 +154,7 @@
      <Compile Include="Assets\UniEasy\Storage\EasyCsv.cs" />
      <Compile Include="Assets\UniEasy\Storage\EasyWriter.cs" />
      <Compile Include="Assets\UniEasy\Storage\Extensions\ConvertExtensions.cs" />
+     <Compile Include="Assets\UniEasy\Utilities\UI\Effects\Circular.cs" />
      <Compile Include="Assets\UniEasy\Utilities\UI\Effects\Distortion.cs" />
      <Compile Include="Assets\UniEasy\Utilities\UI\Extensions\TextExtensions.cs" />
      <Compile Include="Assets\UniEasy\Utilities\UI\Extensions\TransformExtensions.cs" />

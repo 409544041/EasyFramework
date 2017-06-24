@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UniEasy.Console
 {
-	public struct DebugLine
+	public struct DebugLog
 	{
 		public LogType type;
 		public Text output;
@@ -11,7 +11,31 @@ namespace UniEasy.Console
 		public Image outputBackground;
 		public Image outputTimesBackground;
 
-		public DebugLine (LogType type, Transform parent)
+		public string Message {
+			get {
+				return output.text;
+			}
+			set {
+				output.text = value;
+			}
+		}
+
+		public int Times {
+			get {
+				return int.Parse (outputTimes.text);
+			}
+			set {
+				outputTimes.text = value.ToString ();
+			}
+		}
+
+		public GameObject GameObject {
+			get {
+				return outputBackground.gameObject;
+			}
+		}
+
+		public DebugLog (LogType type, Transform parent)
 		{
 			this.type = type;
 
@@ -29,11 +53,9 @@ namespace UniEasy.Console
 			var tg = UIUtility.Create<RectTransform> ("OutputTimesBackground", op);
 			tg.ToRectTransform (new Vector2 (1, 0.5f), new Vector2 (1, 0.5f), new Vector2 (25, 20), new Vector2 (-40, 0));
 			outputTimesBackground = tg.gameObject.AddComponent<Image> ();
-			DefaultControls.CreateSlider (new DefaultControls.Resources ());
-
-//			outputTimesBackground.sprite = UnityEditor.AssetDatabase.GetBuiltinExtraResource<Sprite> ("UI/Skin/Knob.psd");
 			outputTimesBackground.color = new Color32 (0x42, 0x42, 0x42, 0x80);
 			outputTimesBackground.raycastTarget = false;
+			outputTimesBackground.gameObject.AddComponent<Circular> ();
 			var ot = UIUtility.Create<RectTransform> ("OutputTimes", tg);
 			ot.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 			outputTimes = ot.gameObject.AddComponent<Text> ();

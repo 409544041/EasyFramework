@@ -54,7 +54,7 @@ public class TestSystemBehaviour : SystemBehaviour
 		var clickStream = Observable.EveryUpdate ().Where (_ => Input.GetMouseButtonDown (0));
 
 		clickStream.Subscribe (_ => {
-			Debugger.Log ("debug system test");
+//			Debugger.Log ("debug system test");
 		}).AddTo (this.Disposer);
 	}
 

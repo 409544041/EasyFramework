@@ -124,17 +124,7 @@ namespace UniEasy.Console
 					debugView.outputLayout.childForceExpandHeight = false;
 					debugView.outputLayout.childForceExpandWidth = false;
 					debugView.outputPanel.gameObject.AddComponent<ContentSizeFitter> ().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-
-//					debugView.outputText = UIUtility.Create<Text> ("OutputText", debugView.outputArea.viewport.transform);
-//					debugView.outputText.gameObject.AddComponent<ContentSizeFitter> ().verticalFit = ContentSizeFitter.FitMode.PreferredSize;
-//					debugView.outputText.ToConfigure (Color.white, raycastTarget: false);
-//					debugView.outputText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-//					debugView.outputArea.content = (RectTransform)debugView.outputText.transform;
-//
-//					debugView.collapseCountText = UIUtility.Create<Text> ("CollapseCountText", debugView.outputText.transform);
-//					debugView.collapseCountText.ToConfigure (Color.white, raycastTarget: false);
-//					debugView.collapseCountText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-//					debugView.collapseCountText.alignment = TextAnchor.UpperRight;
+					debugView.outputArea.content = debugView.outputPanel;
 
 					debugView.menuPanel = UIUtility.Create<RectTransform> ("MenuPanel", debugView.panel.transform);
 					debugView.menuPanel.ToRectTransform (new Vector2 (0, 1), Vector2.one, new Vector2 (0, 20), new Vector2 (0, -10));
@@ -174,7 +164,10 @@ namespace UniEasy.Console
 					clearText.text = "Clear";
 
 					debugView.clearButton.OnPointerClickAsObservable ().Subscribe (_ => {
-						debugView.logs.Clear ();
+						while (debugView.logs.Count > 0) {
+							Destroy (debugView.logs [0].GameObject);
+							debugView.logs.RemoveAt (0);
+						}
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
 
 					var collapseImage = UIUtility.Create<Image> ("CollapseToggle", debugView.menuPanel.transform);
@@ -190,8 +183,7 @@ namespace UniEasy.Console
 					collapseText.text = "Collapse";
 
 					debugView.collapseToggle.OnPointerClickAsObservable ().Subscribe (_ => {
-						debugView.collapse = debugView.collapseToggle.isOn;
-						debugView.Refresh = true;
+						debugView.Collapse = debugView.collapseToggle.isOn;
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
 
 					Debugger.OnLogEvent += (type, message) => {
@@ -203,69 +195,43 @@ namespace UniEasy.Console
 							} else {
 								message = string.Format ("<b><size={0}><color=#ffffffff>{1}</color></size></b>", debugView.size, message);
 							}
-							debugView.lines.Add (new DebugLine (type, debugView.outputPanel));
-							debugView.logs.Add (message.ToString ());
+							var log = new DebugLog (type, debugView.outputPanel);
+							log.Message = message.ToString ();
+							log.Times = 1;
+							debugView.logs.Add (log);
 						}
 					};
 
-					debugView.logs.ObserveAdd ().Subscribe (x => {
-						if (debugView.collapseLogs.ContainsKey (x.Value)) {
-							debugView.collapseLogs [x.Value]++;
-						} else {
-							debugView.collapseLogs.Add (x.Value, 1);
+					var onCollapse = debugView.collapse.DistinctUntilChanged ().AsObservable ();
+					var onAdd = debugView.logs.ObserveAdd ().Select (x => x.Value).AsObservable ();
+					var onRemove = debugView.logs.ObserveRemove ().Select (x => x.Value).AsObservable ();
+					onCollapse.CombineLatest (onAdd.Merge (onRemove), (x, y) => true).Subscribe (_ => {
+						var list = new ReactiveDictionary<string, DebugLog> ();
+						for (int i = 0; i < debugView.logs.Count; i++) {
+							var log = debugView.logs [i];
+							if (i % 2 == 0) {
+								log.outputBackground.color = new Color32 (0x00, 0x00, 0x00, 0x24);
+								log.outputTimesBackground.color = new Color32 (0x42, 0x42, 0x42, 0x80);
+							} else {
+								log.outputBackground.color = new Color32 (0x00, 0x00, 0x00, 0x48);
+								log.outputTimesBackground.color = new Color32 (0xA9, 0xA9, 0xA9, 0x80);
+							}
+							if (debugView.Collapse) {
+								if (list.ContainsKey (log.Message)) {
+									log.GameObject.SetActive (false);
+									var t = list [log.Message];
+									t.Times++;
+									list [log.Message] = t;
+								} else {
+									log.GameObject.SetActive (true);
+									list.Add (log.Message, log);
+								}
+							} else {
+								log.GameObject.SetActive (true);
+								log.Times = 1;
+							}
 						}
-						debugView.Refresh = true;
-					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
-
-					debugView.logs.ObserveReset ().Subscribe (_ => {
-//						debugView.outputText.text = "";
-						debugView.collapseLogs.Clear ();
-					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
-
-					debugView.refresh.DistinctUntilChanged ().Where (b => b == true).Subscribe (_ => {
-//						var lineCount = debugView.collapse == true ? debugView.collapseLogs.Count : debugView.logs.Count;
-//						var anchor = 1f / lineCount;
-//						for (int i = 0; i < lineCount; i++) {
-//							Image bg;
-//							if (i < debugView.backgrouds.Count) {
-//								bg = debugView.backgrouds [i];
-//							} else {
-//								bg = UIUtility.Create<Image> ("OutputBackgroud", debugView.outputText.transform);
-//								debugView.backgrouds.Add (bg);
-//							}
-//							bg.transform.ToRectTransform (new Vector2 (0, 1 - anchor * (i + 1)), new Vector2 (1, 1 - anchor * i), Vector2.zero, Vector2.zero);
-//							if (i % 2 == 0) {
-//								bg.color = new Color32 (0x00, 0x00, 0x00, 0x48);
-//								bg.gameObject.SetActive (true);
-//							} else {
-//								bg.gameObject.SetActive (false);
-//							}
-//						}
-//						if (debugView.collapse) {
-//							var logs = debugView.collapseLogs.Keys.ToArray ();
-//							var counts = debugView.collapseLogs.Values.ToArray ();
-//							for (int i = 0; i < logs.Length; i++) {
-//								if (i == 0) {
-//									debugView.outputText.text = logs [i];
-//									debugView.collapseCountText.text = string.Format ("({0})", counts [i]);
-//								} else {
-//									debugView.outputText.text += Environment.NewLine + logs [i];
-//									debugView.collapseCountText.text += Environment.NewLine + string.Format ("({0})", counts [i]);
-//								}
-//							}
-//							debugView.collapseCountText.rectTransform.SetAsLastSibling ();
-//						} else {
-//							debugView.collapseCountText.text = "";
-//							for (int i = 0; i < debugView.logs.Count; i++) {
-//								if (i == 0) {
-//									debugView.outputText.text = debugView.logs [i];
-//								} else {
-//									debugView.outputText.text += Environment.NewLine + debugView.logs [i];
-//								}
-//							}
-//						}
-						debugView.Refresh = false;
-					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
+					}).AddTo (this.Disposer);
 				}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer);
 			}).AddTo (this.Disposer);
 		}

@@ -170,20 +170,32 @@ namespace UniEasy.Console
 						}
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
 
-					var collapseImage = UIUtility.Create<Image> ("CollapseToggle", debugView.menuPanel.transform);
-					collapseImage.transform.ToRectTransform (Vector2.zero, new Vector2 (0, 1), new Vector2 (60, 0), new Vector2 (120, 0));
-					debugView.collapseToggle = collapseImage.gameObject.AddComponent<Toggle> ();
-					var collapseCheckmark = UIUtility.Create<Image> ("CollapseCheckmark", debugView.collapseToggle.transform);
-					collapseCheckmark.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-					collapseCheckmark.color = new Color32 (0xCC, 0xCC, 0xCC, 0xFF);
-					debugView.collapseToggle.graphic = collapseCheckmark;
-					var collapseText = UIUtility.Create<Text> ("CollapseText", debugView.collapseToggle.transform);
-					collapseText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
-					collapseText.ToConfigure (new Color32 (0x20, 0x20, 0x20, 0xFF), alignment : TextAnchor.MiddleCenter, fontSize : 12);
-					collapseText.text = "Collapse";
-
+					debugView.collapseToggle = CreateToggle ("Collapse", debugView.menuPanel.transform, out debugView.collapseText);
+					debugView.collapseToggle.transform.ToRectTransform (Vector2.zero, new Vector2 (0, 1), new Vector2 (60, 0), new Vector2 (120, 0));
 					debugView.collapseToggle.OnPointerClickAsObservable ().Subscribe (_ => {
 						debugView.Collapse = debugView.collapseToggle.isOn;
+						DebugWriter.Set ("collapse", debugView.Collapse);
+					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
+
+					debugView.logToggle = CreateToggle ("Log", debugView.menuPanel.transform, out debugView.logText);
+					debugView.logToggle.transform.ToRectTransform (new Vector2 (1, 0), Vector2.one, new Vector2 (80, 0), new Vector2 (-190, 0));
+					debugView.logToggle.OnPointerClickAsObservable ().Subscribe (_ => {
+						debugView.Log = debugView.logToggle.isOn;
+						DebugWriter.Set ("log", debugView.Log);
+					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
+
+					debugView.warningToggle = CreateToggle ("Warning", debugView.menuPanel.transform, out debugView.warningText);
+					debugView.warningToggle.transform.ToRectTransform (new Vector2 (1, 0), Vector2.one, new Vector2 (80, 0), new Vector2 (-105, 0));
+					debugView.warningToggle.OnPointerClickAsObservable ().Subscribe (_ => {
+						debugView.Warning = debugView.warningToggle.isOn;
+						DebugWriter.Set ("warning", debugView.Warning);
+					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
+
+					debugView.errorToggle = CreateToggle ("Error", debugView.menuPanel.transform, out debugView.errorText);
+					debugView.errorToggle.transform.ToRectTransform (new Vector2 (1, 0), Vector2.one, new Vector2 (60, 0), new Vector2 (-30, 0));
+					debugView.errorToggle.OnPointerClickAsObservable ().Subscribe (_ => {
+						debugView.Error = debugView.errorToggle.isOn;
+						DebugWriter.Set ("error", debugView.Error);
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
 
 					Debugger.OnLogEvent += (type, message) => {
@@ -201,11 +213,14 @@ namespace UniEasy.Console
 							debugView.logs.Add (log);
 						}
 					};
-
+						
 					var onCollapse = debugView.collapse.DistinctUntilChanged ().AsObservable ();
+					var onLog = debugView.log.DistinctUntilChanged ().AsObservable ();
+					var onWarning = debugView.warning.DistinctUntilChanged ().AsObservable ();
+					var onError = debugView.error.DistinctUntilChanged ().AsObservable ();
 					var onAdd = debugView.logs.ObserveAdd ().Select (x => x.Value).AsObservable ();
 					var onRemove = debugView.logs.ObserveRemove ().Select (x => x.Value).AsObservable ();
-					onCollapse.CombineLatest (onAdd.Merge (onRemove), (x, y) => true).Subscribe (_ => {
+					onCollapse.Merge (onLog).Merge (onWarning).Merge (onError).CombineLatest (onAdd.Merge (onRemove), (x, y) => true).Subscribe (_ => {
 						var list = new ReactiveDictionary<string, DebugLog> ();
 						for (int i = 0; i < debugView.logs.Count; i++) {
 							var log = debugView.logs [i];
@@ -224,20 +239,49 @@ namespace UniEasy.Console
 									list [log.Message] = t;
 								} else {
 									log.GameObject.SetActive (true);
+									log.Times = 1;
 									list.Add (log.Message, log);
 								}
 							} else {
 								log.GameObject.SetActive (true);
 								log.Times = 1;
 							}
+							if (log.type == LogType.Log && !debugView.Log) {
+								log.GameObject.SetActive (false);
+							} else if (log.type == LogType.Warning && !debugView.Warning) {
+								log.GameObject.SetActive (false);
+							} else if (log.type == LogType.Error && !debugView.Error) {
+								log.GameObject.SetActive (false);
+							}
 						}
-					}).AddTo (this.Disposer);
+
+						var activeLogs = debugView.logs.Where (x => x.GameObject.activeSelf).Select (x => x.type);
+						debugView.logText.text = string.Format ("Log ({0})", activeLogs.Where (x => x == LogType.Log).Count ());
+						debugView.warningText.text = string.Format ("Warning ({0})", activeLogs.Where (x => x == LogType.Warning).Count ());
+						debugView.errorText.text = string.Format ("Error ({0})", activeLogs.Where (x => x == LogType.Error).Count ());
+					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (debugView.Disposer);
+
+					debugView.collapseToggle.isOn = DebugWriter.HasKey ("collapse") ? DebugWriter.Get<bool> ("collapse") : true;
+					debugView.logToggle.isOn = DebugWriter.HasKey ("log") ? DebugWriter.Get<bool> ("log") : true;
+					debugView.warningToggle.isOn = DebugWriter.HasKey ("warning") ? DebugWriter.Get<bool> ("warning") : true;
+					debugView.errorToggle.isOn = DebugWriter.HasKey ("error") ? DebugWriter.Get<bool> ("error") : true;
 				}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer);
 			}).AddTo (this.Disposer);
 		}
 
 		void Start ()
 		{
+		}
+
+		public Toggle CreateToggle (string name, Transform parent, out Text text)
+		{
+			var toggle = UIUtility.CreateToggle (name, parent);
+			toggle.graphic.color = new Color32 (0xCC, 0xCC, 0xCC, 0xFF);
+			text = UIUtility.Create<Text> (string.Format ("{0}Text", name), toggle.transform);
+			text.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+			text.ToConfigure (new Color32 (0x20, 0x20, 0x20, 0xFF), alignment : TextAnchor.MiddleCenter, fontSize : 12);
+			text.text = name;
+			return toggle;
 		}
 
 		public void Refresh ()

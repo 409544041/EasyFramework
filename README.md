@@ -11,16 +11,10 @@ i hope everyone like it and easy to use,cheers!
 - <a href="#history">History</a>
 
 ## <a id="todo"></a>TODO
-1. ~~Console System (https://github.com/Wenzil/UnityConsole).~~
 
-1.1 Add more default commands and support on mobile, also need to add unregister command function.
+1. Add more general commands and support on mobile.
 
-2. ~~Debug System Modify (save data on mobile platforms and support for output to OnGUI).~~
-
-2.1 Debug System Update --save data on mobile should have problem I guess, so need fix :P and Add output to UGUI logic (no long support OnGUI because OnGUI is hard to used). I want the Console System and Debug System to share the canvas.
-
-3. ~~PrefabFactory about ECS (support to dynamic creation entity).~~
-...
+2. Debug System support on mobile.
 
 ## <a id="introduction"></a>Introduction
 ...
@@ -214,7 +208,7 @@ i hope everyone like it and easy to use,cheers!
 		}
 	}
 
-2017-03-19 Debug System
+2017-03-19 Debug System (2017/06/25 modified)
 
 	using UniEasy;
 	
@@ -230,8 +224,10 @@ i hope everyone like it and easy to use,cheers!
 	
 1. Run in editor found DebugSystem Component at DontDestoryOnLoad Scene >> DebugSystem GameObject >> DebugSystem Component.
 2. you can see a IsLogEnable toggle on DebugSystem Component at Inspector Window, if IsLogEnable == false nothing on Console Window.
-3. you can see all layers toggle on DebugSystem Component at Inspector Window, if layer0 == false "white context" will not output to Console Window.
+3. you can see all layers toggle on DebugSystem Component at Inspector Window, if layer0 == false "white context" will not be output to Console Window.
 4. the new layer will auto add to debugsystem when you debugger.log ("", "a new layer name") when run in editor;
+5. you can see a showOnUGui toggle on DebugSystem Component at Inspector Window, if showOnUGui == true you can also see the message in the game scene at DebugCanvas/DebugPanel.
+6. if you want to open the DebugPanel in the game scene, you just need to press the '~' key and input 'debug on' or 'debug true' then press the 'enter' key.
 
 2017-03-26 Context Menu
 	
@@ -266,7 +262,7 @@ Fortunately, UniEasy achieved this feature. you can right click in hierarchy win
 
 2017-04-08 Upgrade Project to Unity5.6.0f3
 
-2017-04-08 Add Distortion Effect
+2017-04-08 UI/Effect/Distortion
 
 	You can add this component to the Text(UGUI), then you can adjust the animation curve in the Inspector window to change the shape of the Text's text.
 	You also can add it use Inspector >> Add Component >> UI >> Effects >> Distortion.
@@ -365,7 +361,7 @@ Fortunately, UniEasy achieved this feature. you can right click in hierarchy win
 	}
 >##### Then add the GroupsInstaller component to the root gameobject in the scene.
 
-2017-05-20 Console
+2017-05-20 Console (https://github.com/Wenzil/UnityConsole)
 
 ##### Quick Start
 Use the '~' key switch console system, Use the 'esc' key turn off console system.
@@ -433,3 +429,9 @@ If you want to dynamic create an entity have EntityBheaviour Component, you can 
 			}
 		}
 	}
+	
+2017-06-25 UI/Effect/Circular
+
+	You can add this component to the Image(UGUI), then you can adjust the params in the Inspector window to change the shape of the image.
+	You also can add it use Inspector >> Add Component >> UI >> Effects >> Circular.
+	The shape of an image can be easily transformed into a circle, a sector, a ring.

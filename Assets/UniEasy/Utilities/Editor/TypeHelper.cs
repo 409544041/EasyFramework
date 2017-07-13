@@ -36,32 +36,44 @@ namespace UniEasy.Edit
 
 		public static Type InternalEditorUtilityType {
 			get {
-				if (internalEditorUtilityType == null)
+				if (internalEditorUtilityType == null) {
 					internalEditorUtilityType = AssemblyHelper.SceneView.GetType ("UnityEditorInternal.InternalEditorUtility");
+				}
 				return internalEditorUtilityType;
 			}
 		}
 
 		public static Type ConsoleWindowType {
 			get {
-				if (consoleWindowType == null)
+				if (consoleWindowType == null) {
 					consoleWindowType = AssemblyHelper.EditorWindow.GetType ("UnityEditor.ConsoleWindow");
+				}
 				return consoleWindowType;
 			}
 		}
 
 		public static Type LogEntriesType {
 			get {
-				if (logEntriesType == null)
+				if (logEntriesType == null) {
+					#if UNITY_2017_1_OR_NEWER
+					logEntriesType = AssemblyHelper.EditorWindow.GetType ("UnityEditor.LogEntries");
+					#else
 					logEntriesType = AssemblyHelper.EditorWindow.GetType ("UnityEditorInternal.LogEntries");
+					#endif
+				}
 				return logEntriesType;
 			}
 		}
 
 		public static Type LogEntryType {
 			get {
-				if (logEntryType == null)
+				if (logEntryType == null) {
+					#if UNITY_2017_1_OR_NEWER
+					logEntryType = AssemblyHelper.EditorWindow.GetType ("UnityEditor.LogEntry");
+					#else
 					logEntryType = AssemblyHelper.EditorWindow.GetType ("UnityEditorInternal.LogEntry");
+					#endif
+				}
 				return logEntryType;
 			}
 		}

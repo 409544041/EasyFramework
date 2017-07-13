@@ -48,7 +48,7 @@ namespace UniEasy.Edit
 				consoleWindow = fieldInfo.GetValue (null);
 				var listViewFieldInfo = TypeHelper.ConsoleWindowType.GetField ("m_ListView", BindingFlags.Instance | BindingFlags.NonPublic);
 				logListView = listViewFieldInfo.GetValue (consoleWindow);
-				logListViewCurrentRow = listViewFieldInfo.FieldType.GetField ("row", BindingFlags.Instance | BindingFlags.Public); 
+				logListViewCurrentRow = listViewFieldInfo.FieldType.GetField ("row", BindingFlags.Instance | BindingFlags.Public);
 				logEntriesGetEntry = TypeHelper.LogEntriesType.GetMethod ("GetEntryInternal", BindingFlags.Static | BindingFlags.Public);
 				logEntry = Activator.CreateInstance (TypeHelper.LogEntryType);
 				logEntryCondition = TypeHelper.LogEntryType.GetField ("condition", BindingFlags.Instance | BindingFlags.Public); 
@@ -74,10 +74,11 @@ namespace UniEasy.Edit
 				var lines = condition.Split (new char[] {
 					'\n',
 				});
-				var helpful = lines.Where (l => !l.Contains ("UnityEngine.Debug") &&
-				              !l.Contains ("UnityEngine.Logger") &&
-				              !l.Contains ("UniEasy.Debugger") &&
-				              !string.IsNullOrEmpty (l)).ToArray ();
+				var helpful = lines.Where (x => 
+							  !x.StartsWith ("UnityEngine.Debug") &&
+				              !x.StartsWith ("UnityEngine.Logger") &&
+				              !x.StartsWith ("UniEasy.Console.Debugger") &&
+				              !string.IsNullOrEmpty (x)).ToArray ();
 				if (helpful.Length < 2)
 					return false;
 				var content = helpful.GetValue (1).ToString ();

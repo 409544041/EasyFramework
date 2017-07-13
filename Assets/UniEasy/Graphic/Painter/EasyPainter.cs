@@ -2,7 +2,6 @@
 
 namespace UniEasy
 {
-	[AddComponentMenu ("Easy Series/Painter")]
 	public class EasyPainter : MonoBehaviour
 	{
 		[SerializeField] Texture2D canvas;

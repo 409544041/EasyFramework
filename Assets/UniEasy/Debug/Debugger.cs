@@ -14,10 +14,10 @@ namespace UniEasy.Console
 
 		public static bool IsLogEnabled {
 			get {
-				return Debug.logger.logEnabled;
+				return Debug.unityLogger.logEnabled;
 			}
 			set {
-				Debug.logger.logEnabled = value;
+				Debug.unityLogger.logEnabled = value;
 			}
 		}
 
@@ -72,7 +72,7 @@ namespace UniEasy.Console
 			}
 			#endif
 			if (IsLogLayerAllowed (layerName)) {
-				Debug.logger.Log (logType, message, context);
+				Debug.unityLogger.Log (logType, message, context);
 			}
 			if (ShowOnUGUI && OnLogEvent != null) {
 				OnLogEvent.Invoke (logType, message);

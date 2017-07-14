@@ -2,9 +2,7 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UniEasy\Debug\DebugSystem.cs">
     <Files>
-      <File FileName="Assets\UniEasy\Debug\DebugSystem.cs" Line="266" Column="46" />
-      <File FileName="Assets\UniEasy\Debug\DebugView.cs" Line="31" Column="3" />
-      <File FileName="Assets\UniEasy\Utilities\UI\UIUtility.cs" Line="5" Column="2" />
+      <File FileName="Assets\UniEasy\Debug\DebugSystem.cs" Line="116" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

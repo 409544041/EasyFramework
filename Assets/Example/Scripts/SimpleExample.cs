@@ -5,6 +5,7 @@ using System.IO;
 using System.Text;
 using UniEasy;
 using UniEasy.Console;
+using UniRx;
 
 [System.Serializable]
 public class SimpleExample : MonoBehaviour
@@ -32,57 +33,59 @@ public class SimpleExample : MonoBehaviour
 	{
 		EasyWriter writer = new EasyWriter (Application.persistentDataPath + "/example.json");
 
-		writer.Set<byte> ("byte", byte.MaxValue);
-		writer.Set<bool> ("bool", true);
-		writer.Set<int> ("int", -123456789);
-		writer.Set<float> ("float", -0.123456789f);
-		writer.Set<string> ("string", "酷，现在我们可以在一个文件中储存各种类型的数据了！");
-		writer.SetArray<byte> ("byte[]", new byte[] { byte.MinValue, byte.MaxValue });
-		writer.SetArray<bool> ("bool[]", new bool[] { true, false, true, false, false });
-		writer.SetArray<int> ("int[]", new int[] { -1, -2, -3, 4, 5, 6, 7, -8, -9 });
-		writer.SetArray<float> ("float[]", new float[] { -0.12f, -34.56f, 7.89f, 1.114f });
-		writer.SetArray<string> ("string[]", new string[] { "a0", "b1", "c2", "d3", "e4", "f5" });
-		writer.Set<StructSample> ("struct", new StructSample () { position = new Vector3 (100, 120, -200) });
-		writer.SetArray<StructSample> ("struct array", new StructSample [] {
-			new StructSample { position = new Vector3 (-520, 950, -730) },
-			new StructSample { position = new Vector3 (725, -942, 146) }
-		});
-		writer.Set<ClassSample> ("class", new ClassSample () { rect = new Rect (10, 20, 30, 40) });
-		writer.SetArray<ClassSample> ("class array", new ClassSample [] {
-			new ClassSample () { rect = new Rect (120, -145, 274, -368) },
-			new ClassSample () { rect = new Rect (-150, 160, -170, 180) }
-		});
-		writer.Set<SimpleExample> ("this", this);
-		writer.SetArray<SimpleExample> ("this array", new SimpleExample [] {
-			this,
-			this
-		});
-		writer.Set<EasyBlock> ("block", blocks [0]);
-		writer.SetArray<EasyBlock> ("block array", blocks);
+		writer.OnAdd ().Subscribe (x => {
+			x.Set<byte> ("byte", byte.MaxValue);
+			x.Set<bool> ("bool", true);
+			x.Set<int> ("int", -123456789);
+			x.Set<float> ("float", -0.123456789f);
+			x.Set<string> ("string", "Test 'EasyWriter' function :P");
+			x.SetArray<byte> ("byte[]", new byte[] { byte.MinValue, byte.MaxValue });
+			x.SetArray<bool> ("bool[]", new bool[] { true, false, true, false, false });
+			x.SetArray<int> ("int[]", new int[] { -1, -2, -3, 4, 5, 6, 7, -8, -9 });
+			x.SetArray<float> ("float[]", new float[] { -0.12f, -34.56f, 7.89f, 1.114f });
+			x.SetArray<string> ("string[]", new string[] { "a0", "b1", "c2", "d3", "e4", "f5" });
+			x.Set<StructSample> ("struct", new StructSample () { position = new Vector3 (100, 120, -200) });
+			x.SetArray<StructSample> ("struct array", new StructSample [] {
+				new StructSample { position = new Vector3 (-520, 950, -730) },
+				new StructSample { position = new Vector3 (725, -942, 146) }
+			});
+			x.Set<ClassSample> ("class", new ClassSample () { rect = new Rect (10, 20, 30, 40) });
+			x.SetArray<ClassSample> ("class array", new ClassSample [] {
+				new ClassSample () { rect = new Rect (120, -145, 274, -368) },
+				new ClassSample () { rect = new Rect (-150, 160, -170, 180) }
+			});
+			x.Set<SimpleExample> ("this", this);
+			x.SetArray<SimpleExample> ("this array", new SimpleExample [] {
+				this,
+				this
+			});
+			x.Set<EasyBlock> ("block", blocks [0]);
+			x.SetArray<EasyBlock> ("block array", blocks);
 
-		Debugger.Log (writer.Get<byte> ("byte"));
-		Debugger.Log (writer.Get<bool> ("bool"));
-		Debugger.Log (writer.Get<int> ("int"));   
-		Debugger.Log (writer.Get<float> ("float"));
-		Debugger.Log (writer.Get<string> ("string"));
-		Debugger.Log (writer.GetArray<byte> ("byte[]") [0]);
-		Debugger.Log (writer.GetArray<bool> ("bool[]") [3]);
-		Debugger.Log (writer.GetArray<int> ("int[]") [4]);
-		Debugger.Log (writer.GetArray<float> ("float[]") [3]);
-		Debugger.Log (writer.GetArray<string> ("string[]") [5]);
-		Debugger.Log (writer.Get<StructSample> ("struct").position);
-		Debugger.Log (writer.GetArray<StructSample> ("struct array") [0].position);
-		Debugger.Log (writer.Get<ClassSample> ("class").rect);
-		Debugger.Log (writer.GetArray<ClassSample> ("class array") [1].rect);
-		writer.Get<SimpleExample> ("this", this);
-		writer.GetArray<SimpleExample> ("this array", new SimpleExample[] { this, this });
-		writer.Get<EasyBlock> ("block", blocks [0]);
-		writer.GetArray<EasyBlock> ("block array", blocks);
+			Debugger.Log (x.Get<byte> ("byte"));
+			Debugger.Log (x.Get<bool> ("bool"));
+			Debugger.Log (x.Get<int> ("int"));   
+			Debugger.Log (x.Get<float> ("float"));
+			Debugger.Log (x.Get<string> ("string"));
+			Debugger.Log (x.GetArray<byte> ("byte[]") [0]);
+			Debugger.Log (x.GetArray<bool> ("bool[]") [3]);
+			Debugger.Log (x.GetArray<int> ("int[]") [4]);
+			Debugger.Log (x.GetArray<float> ("float[]") [3]);
+			Debugger.Log (x.GetArray<string> ("string[]") [5]);
+			Debugger.Log (x.Get<StructSample> ("struct").position);
+			Debugger.Log (x.GetArray<StructSample> ("struct array") [0].position);
+			Debugger.Log (x.Get<ClassSample> ("class").rect);
+			Debugger.Log (x.GetArray<ClassSample> ("class array") [1].rect);
+			x.Get<SimpleExample> ("this", this);
+			x.GetArray<SimpleExample> ("this array", new SimpleExample[] { this, this });
+			x.Get<EasyBlock> ("block", blocks [0]);
+			x.GetArray<EasyBlock> ("block array", blocks);
 
-		writer.Remove ("string");
-		Debugger.Log ("already remove 'string' key : " + writer.Get<string> ("string"));
-		writer.Clear ();
-		Debugger.Log ("already clear : " + writer.Get<string> ("string[]"));
+			x.Remove ("string");
+			Debugger.Log ("already remove 'string' key : " + x.Get<string> ("string"));
+			x.Clear ();
+			Debugger.Log ("already clear : " + x.Get<string> ("string[]"));
+		});
 
 		if (isOpenFile) {
 			string path = Path.GetFullPath (Application.persistentDataPath);

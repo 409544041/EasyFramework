@@ -74,6 +74,7 @@
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyRectTransform.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyTransform.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\ExtendInspectorDisplayDrawer.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\MenuItem\MonoMenu.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Editor\AssemblyHelper.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Editor\DecoratorEditor.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Editor\EndNameEditUtility.cs" />

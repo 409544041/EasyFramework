@@ -77,5 +77,11 @@ namespace UniEasy.Edit
 				return logEntryType;
 			}
 		}
+
+		public static Type MonoRuntimeType {
+			get {
+				return Type.GetType ("Mono.Runtime");
+			}
+		}
 	}
 }

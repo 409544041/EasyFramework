@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using System;
 
 namespace UniEasy
@@ -69,6 +69,11 @@ namespace UniEasy
 		[SerializeField]
 		private List<TValue> values;
 		private Dictionary<TKey, TValue> target;
+
+		public EasyDictionary ()
+		{
+			this.target = new Dictionary<TKey, TValue> ();
+		}
 
 		public EasyDictionary (Dictionary<TKey, TValue> target)
 		{

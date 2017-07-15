@@ -159,6 +159,7 @@
      <Compile Include="Assets\UniEasy\Storage\EasyCsv.cs" />
      <Compile Include="Assets\UniEasy\Storage\EasyWriter.cs" />
      <Compile Include="Assets\UniEasy\Storage\Extensions\ConvertExtensions.cs" />
+     <Compile Include="Assets\UniEasy\Storage\ReactiveWriter.cs" />
      <Compile Include="Assets\UniEasy\Utilities\UI\Effects\Circular.cs" />
      <Compile Include="Assets\UniEasy\Utilities\UI\Effects\Distortion.cs" />
      <Compile Include="Assets\UniEasy\Utilities\UI\Extensions\TextExtensions.cs" />

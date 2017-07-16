@@ -8,8 +8,13 @@ namespace UniEasy.Console
 	{
 		public RectTransform panel;
 		public InputField inputField;
+		[HideInInspector]
 		public Text outputText;
+		[HideInInspector]
 		public Scrollbar scrollbar;
+		[HideInInspector]
 		public ScrollRect outputArea;
+		public Button cancelButton;
+		public Button okButton;
 	}
 }

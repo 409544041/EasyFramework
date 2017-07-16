@@ -72,7 +72,25 @@ namespace UniEasy.Console
 					placeholder.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 					inputText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
 
-					consoleView.inputField.OnSubmitAsObservable ().Subscribe (e => {
+					var cancelImage = UIUtility.Create<Image> ("CancelButton", consoleView.panel.transform);
+					cancelImage.transform.ToRectTransform (new Vector2 (0, 1), new Vector2 (0, 1), new Vector2 (40, 20), new Vector2 (20, -10));
+					consoleView.cancelButton = cancelImage.gameObject.AddComponent<Button> ();
+					var cancelText = UIUtility.Create<Text> ("CancelText", consoleView.cancelButton.transform);
+					cancelText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+					cancelText.ToConfigure (new Color32 (0x20, 0x20, 0x20, 0xFF), alignment : TextAnchor.MiddleCenter, fontSize : 12);
+					cancelText.text = "Cancel";
+
+					var okImage = UIUtility.Create<Image> ("OkButton", consoleView.panel.transform);
+					okImage.transform.ToRectTransform (Vector2.one, Vector2.one, new Vector2 (40, 20), new Vector2 (-20, -10));
+					consoleView.okButton = okImage.gameObject.AddComponent<Button> ();
+					var okText = UIUtility.Create<Text> ("OkText", consoleView.okButton.transform);
+					okText.transform.ToRectTransform (Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero);
+					okText.ToConfigure (new Color32 (0x20, 0x20, 0x20, 0xFF), alignment : TextAnchor.MiddleCenter, fontSize : 12);
+					okText.text = "Ok";
+
+					consoleView.okButton.OnClickAsObservable ()
+						.Merge (consoleView.inputField.OnSubmitAsObservable ().AsUnitObservable ())
+						.Subscribe (_ => {
 						if (UnityEngine.EventSystems.EventSystem.current.alreadySelecting)
 							return;
 						if (consoleView.inputField.text.Length > 0) {
@@ -84,16 +102,27 @@ namespace UniEasy.Console
 						}
 						consoleView.inputField.ActivateInputField ();
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (consoleView.Disposer);
+						
+					consoleView.cancelButton.OnClickAsObservable ().Subscribe (_ => {
+						consoleView.inputField.text = "";
+						consoleView.inputField.ActivateInputField ();
+					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (consoleView.Disposer);
 
 					var clickStream = Observable.EveryUpdate ().Where (_ => Input.anyKeyDown);
 
+					clickStream.Buffer (clickStream.Throttle (TimeSpan.FromMilliseconds (250)))
+						.Where (x => x.Count >= 20).AsUnitObservable ()
+						.Merge (clickStream.Where (_ => Input.GetKeyDown (KeyCode.BackQuote)).AsUnitObservable ())
+						.Subscribe (_ => {
+						consoleView.panel.gameObject.SetActive (!consoleView.panel.gameObject.activeSelf);
+						if (consoleView.panel.gameObject.activeSelf) {
+							consoleView.inputField.ActivateInputField ();
+							consoleView.inputField.text = "";
+						}
+					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (consoleView.Disposer);
+
 					clickStream.Subscribe (_ => {
-						if (Input.GetKeyDown (KeyCode.BackQuote)) {
-							consoleView.panel.gameObject.SetActive (!consoleView.panel.gameObject.activeSelf);
-							if (consoleView.panel.gameObject.activeSelf) {
-								consoleView.inputField.ActivateInputField ();
-							}
-						} else if (Input.GetKeyDown (KeyCode.Escape)) {
+						if (Input.GetKeyDown (KeyCode.Escape)) {
 							consoleView.panel.gameObject.SetActive (false);
 						} else if (Input.GetKeyDown (KeyCode.UpArrow)) {
 							var navigatedToInput = inputHistory.Navigate (true);
@@ -105,15 +134,6 @@ namespace UniEasy.Console
 							consoleView.inputField.MoveTextStart (false);
 							consoleView.inputField.text = navigatedToInput;
 							consoleView.inputField.MoveTextEnd (false);
-						}
-					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (consoleView.Disposer);
-
-					clickStream.Buffer (clickStream.Throttle (TimeSpan.FromMilliseconds (250)))
-					.Where (x => x.Count >= 20)
-					.Subscribe (_ => {
-						consoleView.panel.gameObject.SetActive (!consoleView.panel.gameObject.activeSelf);
-						if (consoleView.panel.gameObject.activeSelf) {
-							consoleView.inputField.ActivateInputField ();
 						}
 					}).AddTo (this.Disposer).AddTo (debugCanvas.Disposer).AddTo (consoleView.Disposer);
 

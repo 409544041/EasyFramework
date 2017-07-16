@@ -11,10 +11,7 @@ i hope everyone like it and easy to use,cheers!
 - <a href="#history">History</a>
 
 ## <a id="todo"></a>TODO
-
-1. Add more general commands and support on mobile.
-
-2. Debug System support on mobile.
+...
 
 ## <a id="introduction"></a>Introduction
 ...
@@ -66,7 +63,8 @@ i hope everyone like it and easy to use,cheers!
 	3.git submodule add  git@github.com:chaolunner/EasyPlugins.git Assets/Plugins
 	4.add uniRx plugin to Plugins folder
 
-2016-12-12 EasyWriter
+~~2016-12-12 EasyWriter~~
+> We don't use it any more (2017/07/16) <a href="#20170716">Use this replace</a>
 
 	1.Now you can save Primitive,Struct,Class,MonoBehavior,ScriptableObject or their Array
 	2.First used EasyWriter writer = new EasyWriter (filePath) Create and Save the json file in filePath
@@ -435,3 +433,36 @@ If you want to dynamic create an entity have EntityBheaviour Component, you can 
 	You can add this component to the Image(UGUI), then you can adjust the params in the Inspector window to change the shape of the image.
 	You also can add it use Inspector >> Add Component >> UI >> Effects >> Circular.
 	The shape of an image can be easily transformed into a circle, a sector, a ring.
+	
+2017-07-16 What's now?!
+>###### Upgrade Project to Unity2017.1.0f3 and Upload Project to Unity's Collaborate
+>###### Now you can click 20 times on the phone to start the console lol!
+>###### You can then start debug using the console input 'Debug On' :P
+
+<a id="20170716"></a>2017-07-16 ReactiveWriter
+>###### The reason why we give up reading data in the original way is that it may take longer to read data (eg. Android needs to use WWW to read resources under the streamingassets folder). Therefore, we need a lazy way, and we can not care when it is loaded.
+
+	public class ExampleSystem : SystemBehaviour
+	{
+		public override void Setup ()
+		{
+			base.Setup ();
+			
+			var writer = new EasyWriter("Application.streamingAssetsPath + "/example.json");
+			writer.OnAdd ().Subscribe (x => {
+				// Use x.Set<T> (string key, T value) and x.SetArray<T> (string key, object value) to save the data
+				// Use x.Get<T> (string key) and x.GetArray<T> (string key) to load the data
+				// Use x.Get<T> (string key, T target) and x.GetArray<T> (string key, T[] target) to overwrite the MonoBehavior or ScriptableObject
+				// Use x.HasKey (string key) to check the data is exist or not
+				if (x.HasKey ("xxx")) {
+					var b = writer.Get<bool> ("xxx");
+				}
+				// If you want to automatically Dispose when a ReactiveWriter is disposed, use AddTo(ReactiveWriter.Disposer):
+				Observable.EveryUpdate().Subscribe(_ => {
+					if (x.HasKey ("xxxx")) {
+						Debug.Log (writer.Get<string> ("xxxx"));
+					}
+				}).AddTo(this.Disposer).AddTo(x.Disposer);
+			}).AddTo(this.Disposer)
+		}
+	}

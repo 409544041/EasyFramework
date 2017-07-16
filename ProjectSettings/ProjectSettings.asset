@@ -10,8 +10,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: simple-frame
+  companyName: Heat Wave
+  productName: UniEasy
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -141,7 +141,7 @@ PlayerSettings:
   targetPixelDensity: 0
   resolutionScalingMode: 0
   applicationIdentifier:
-    Android: com.Company.ProductName
+    Android: com.heatwave.unieasy
     Standalone: unity.DefaultCompany.simple-frame
     Tizen: com.Company.ProductName
     iOS: com.Company.ProductName
@@ -565,13 +565,14 @@ PlayerSettings:
   scriptingDefineSymbols: {}
   platformArchitecture: {}
   scriptingBackend:
-    Android: 0
+    Android: 1
     Standalone: 0
     WebPlayer: 0
   incrementalIl2cppBuild: {}
   additionalIl2CppArgs: 
-  scriptingRuntimeVersion: 1
-  apiCompatibilityLevelPerPlatform: {}
+  scriptingRuntimeVersion: 0
+  apiCompatibilityLevelPerPlatform:
+    Android: 2
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: simple-frame
@@ -655,7 +656,7 @@ PlayerSettings:
   cloudServicesEnabled:
     Analytics: 0
     Build: 0
-    Collab: 1
+    Collab: 0
     ErrorHub: 0
     Game_Performance: 0
     Hub: 0
@@ -663,7 +664,7 @@ PlayerSettings:
     UNet: 1
     Unity_Ads: 0
   facebookSdkVersion: 7.9.1
-  apiCompatibilityLevel: 3
+  apiCompatibilityLevel: 2
   cloudProjectId: bbc4ac63-b3c3-4574-ba30-eecd14755764
   projectName: simple-frame
   organizationId: unieasy

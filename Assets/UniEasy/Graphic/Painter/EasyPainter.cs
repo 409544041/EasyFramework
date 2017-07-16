@@ -4,9 +4,9 @@ namespace UniEasy
 {
 	public class EasyPainter : MonoBehaviour
 	{
-		[SerializeField] Texture2D canvas;
-		[SerializeField] Texture2D brush;
-		[SerializeField] Color color;
+		[SerializeField] Texture2D canvas = null;
+		[SerializeField] Texture2D brush = null;
+		[SerializeField] Color color = new Color (1, 1, 1, 1);
 		[SerializeField, Range (0f, 1f)] float scale = 1f;
 		private EasyPaint paint;
 		private RaycastHit hit;

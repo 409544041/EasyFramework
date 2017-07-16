@@ -51,6 +51,11 @@ namespace UniEasy
 
 		public static UniRx.IObservable<T> DeserializeAsync<T> (string path)
 		{
+			#if UNITY_EDITOR
+			if (!File.Exists (path)) {
+				return Observable.ToObservable<T> (new T[] { default (T) });
+			}
+			#endif
 			#if UNITY_ANDROID
 			if (path.StartsWith (Application.streamingAssetsPath)) {
 				#if UNITY_EDITOR

@@ -40,15 +40,17 @@ namespace UniEasy
 
 		public void AddBlock (EasyBlock asset, string name = "")
 		{
-			if (string.IsNullOrEmpty (name))
+			if (string.IsNullOrEmpty (name)) {
 				name = asset.name;
+			}
 			if (!string.IsNullOrEmpty (name) && asset != null) {
-				if (target.ContainsKey (name))
-				#if UNITY_EDITOR
-				Debug.LogError ("Sorry, add block failed!\nbecause block name [" + name + "] conflict.");
-				#endif
-				else
+				if (target.ContainsKey (name)) {
+					#if UNITY_EDITOR
+					Debug.LogError ("Sorry, add block failed!\nbecause block name [" + name + "] conflict.");
+					#endif
+				} else {
 					target.Add (name, asset);
+				}
 			}
 		}
 
@@ -81,14 +83,16 @@ namespace UniEasy
 
 		public void CreateSnapShot (string name, List<string> target)
 		{
-			if (target == null)
+			if (target == null) {
 				return;
-			if (snapshots.ContainsKey (name))
-			#if UNITY_EDITOR
-			Debug.LogError ("Can not create snapshot because already have same name [" + name + "]");
-			#endif
-			else
+			}
+			if (snapshots.ContainsKey (name)) {
+				#if UNITY_EDITOR
+				Debug.LogError ("Can not create snapshot because already have same name [" + name + "]");
+				#endif
+			} else {
 				snapshots.Add (name, target);
+			}
 		}
 
 		public GameObject CreateBlockBySnapShots (string name)

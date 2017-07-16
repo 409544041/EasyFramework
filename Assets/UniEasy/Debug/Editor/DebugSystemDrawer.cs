@@ -23,19 +23,23 @@ namespace UniEasy.Edit
 
 		void OnEnable ()
 		{
-			this.DebugSystem = target as DebugSystem;
+			DebugSystem = target as DebugSystem;
 		}
 
 		public override void OnInspectorGUI ()
 		{
+			if (DebugSystem.DebugMask == null) {
+				return;
+			}
+
 			EditorGUILayout.BeginVertical ();
 			isDirty = false;
- 
-			var isLogEnable = EditorGUILayout.ToggleLeft ("IsLogEnabled", this.DebugSystem.DebugMask.IsLogEnabled);
-			IsDirty = !(isLogEnable == this.DebugSystem.DebugMask.IsLogEnabled);
+
+			var isLogEnable = EditorGUILayout.ToggleLeft ("IsLogEnabled", DebugSystem.IsLogEnabled);
+			IsDirty = !(isLogEnable == DebugSystem.IsLogEnabled);
 
 			var showOnUGUI = false;
-			var masks = this.DebugSystem.DebugMask.ToList ();
+			var masks = DebugSystem.DebugMask.ToList ();
 			if (isLogEnable) {
 				showOnUGUI = EditorGUILayout.ToggleLeft ("Show On UGUI", DebugSystem.ShowOnUGUI);
 				IsDirty = !(showOnUGUI == DebugSystem.ShowOnUGUI);
@@ -59,12 +63,12 @@ namespace UniEasy.Edit
 				}
 			}
 			if (IsDirty) {
-				this.DebugSystem.DebugMask = new DebugMask (masks);
-				this.DebugSystem.DebugMask.IsLogEnabled = isLogEnable;
-				this.DebugSystem.ShowOnUGUI = showOnUGUI;
-				this.DebugSystem.Save ();
+				DebugSystem.IsLogEnabled = isLogEnable;
+				DebugSystem.ShowOnUGUI = showOnUGUI;
+				DebugSystem.DebugMask = new DebugMask (masks);
+				DebugSystem.Record ();
 				if (Application.isPlaying) {
-					this.DebugSystem.Refresh ();
+					DebugSystem.Refresh ();
 				}
 			}
 			EditorGUILayout.EndVertical ();

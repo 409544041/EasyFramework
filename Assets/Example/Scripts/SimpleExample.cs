@@ -11,11 +11,9 @@ using UniRx;
 public class SimpleExample : MonoBehaviour
 {
 	[SerializeField]
-	private bool isOpenFile;
+	private bool isOpenFile = false;
 	[SerializeField]
-	private GameObject go;
-	[SerializeField]
-	private EasyBlock[] blocks;
+	private EasyBlock[] blocks = new EasyBlock[0];
 
 	[System.Serializable]
 	public struct StructSample
@@ -33,7 +31,7 @@ public class SimpleExample : MonoBehaviour
 	{
 		EasyWriter writer = new EasyWriter (Application.persistentDataPath + "/example.json");
 
-		writer.OnAdd ().Subscribe (x => {
+		writer.OnAdd ().DelayFrame (1).Subscribe (x => {
 			x.Set<byte> ("byte", byte.MaxValue);
 			x.Set<bool> ("bool", true);
 			x.Set<int> ("int", -123456789);
@@ -66,7 +64,7 @@ public class SimpleExample : MonoBehaviour
 			Debugger.Log (x.Get<bool> ("bool"));
 			Debugger.Log (x.Get<int> ("int"));   
 			Debugger.Log (x.Get<float> ("float"));
-			Debugger.Log (x.Get<string> ("string"));
+			Debugger.Log (x.Get<string> ("string"), "UniEasy");
 			Debugger.Log (x.GetArray<byte> ("byte[]") [0]);
 			Debugger.Log (x.GetArray<bool> ("bool[]") [3]);
 			Debugger.Log (x.GetArray<int> ("int[]") [4]);

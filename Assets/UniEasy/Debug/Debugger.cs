@@ -7,6 +7,7 @@ namespace UniEasy.Console
 	public class Debugger
 	{
 		private static DebugMask debugMask;
+		private static bool logEnabled;
 		private static bool showOnUGUI;
 
 		public static event Action<string> BeforeCheckLayerInEditorEvent;
@@ -14,10 +15,10 @@ namespace UniEasy.Console
 
 		public static bool IsLogEnabled {
 			get {
-				return Debug.unityLogger.logEnabled;
+				return logEnabled;
 			}
 			set {
-				Debug.unityLogger.logEnabled = value;
+				logEnabled = value;
 			}
 		}
 
@@ -32,8 +33,9 @@ namespace UniEasy.Console
 
 		public static bool IsLogLayerAllowed (string layerName)
 		{
-			if (IsLogEnabled && GetLayerMask ().Contains (layerName))
+			if (IsLogEnabled && GetLayerMask ().Contains (layerName)) {
 				return true;
+			}
 			return false;
 		}
 

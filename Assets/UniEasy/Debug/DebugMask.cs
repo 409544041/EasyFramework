@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using System;
 
 namespace UniEasy.Console
@@ -6,17 +7,6 @@ namespace UniEasy.Console
 	[Serializable]
 	public class DebugMask : EasyList<DebugLayer>
 	{
-		public bool isLogEnabled = true;
-
-		public bool IsLogEnabled {
-			get {
-				return isLogEnabled;
-			}
-			set {
-				isLogEnabled = value;
-			}
-		}
-
 		public DebugMask ()
 		{
 			this.value = new List<DebugLayer> ();
@@ -35,10 +25,10 @@ namespace UniEasy.Console
 			this.value = value;
 		}
 
-		public DebugMask (DebugLayer[] value)
+		public DebugMask AddMask (bool isEnable, string layerName)
 		{
-			this.value = new List<DebugLayer> ();
-			this.value.AddRange (value);
+			this.value.Add (new DebugLayer (isEnable, layerName));
+			return this;
 		}
 	}
 }

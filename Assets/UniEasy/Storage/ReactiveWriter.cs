@@ -21,7 +21,7 @@ namespace UniEasy
 		public ReactiveWriter (string path, EasyDictionary<string, EasyObject> setter)
 		{
 			filePath = path;
-			writer = setter;
+			writer = setter ?? new EasyDictionary<string, EasyObject> ();
 
 			if (Application.isPlaying) {
 				Observable.OnceApplicationQuit ().Subscribe (_ => {

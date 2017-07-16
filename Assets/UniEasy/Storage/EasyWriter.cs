@@ -22,7 +22,7 @@ namespace UniEasy
 				Records = new ReactiveDictionary<string, ReactiveWriter> ();
 			}
 			if (!Records.ContainsKey (path)) {
-				DeserializeAsync<EasyDictionary<string, EasyObject>> (path).Where (x => x != null).Subscribe (x => {
+				DeserializeAsync<EasyDictionary<string, EasyObject>> (path).Subscribe (x => {
 					Records.Add (path, new ReactiveWriter (path, x));
 				});
 			}

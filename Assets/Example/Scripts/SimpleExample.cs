@@ -5,10 +5,11 @@ using System.IO;
 using System.Text;
 using UniEasy;
 using UniEasy.Console;
+using UniEasy.ECS;
 using UniRx;
 
 [System.Serializable]
-public class SimpleExample : MonoBehaviour
+public class SimpleExample : SystemBehaviour
 {
 	[SerializeField]
 	private bool isOpenFile = false;
@@ -27,8 +28,10 @@ public class SimpleExample : MonoBehaviour
 		public Rect rect;
 	}
 
-	void Start ()
+	public override void Setup ()
 	{
+		base.Setup ();
+
 		EasyWriter writer = new EasyWriter (Application.persistentDataPath + "/example.json");
 
 		writer.OnAdd ().DelayFrame (1).Subscribe (x => {

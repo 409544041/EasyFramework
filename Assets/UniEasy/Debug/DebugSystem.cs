@@ -26,8 +26,9 @@ namespace UniEasy.Console
 
 		public EasyWriter DebugWriter {
 			get {
-				if (debugWriter == null)
+				if (debugWriter == null) {
 					debugWriter = new EasyWriter (Path);
+				}
 				return debugWriter;
 			}
 		}
@@ -75,9 +76,9 @@ namespace UniEasy.Console
 				DebugMask = writer.HasKey (DefaultDebugName) ? writer.Get<DebugMask> (DefaultDebugName) : new DebugMask ();
 
 				recordCommand.Subscribe (_ => {
-					writer.Set (DefaultDebugName, DebugMask);
-					writer.Set ("showOnUGUI", ShowOnUGUI);
 					writer.Set ("isLogEnabled", IsLogEnabled);
+					writer.Set ("showOnUGUI", ShowOnUGUI);
+					writer.Set (DefaultDebugName, DebugMask);
 				}).AddTo (this.Disposer).AddTo (writer.Disposer);
 
 				// For the performance consideration : 
@@ -93,10 +94,10 @@ namespace UniEasy.Console
 
 				Refresh ();
 
-				var group = GroupFactory.Create (typeof(DebugCanvas));
+				var debugCanvasEntities = GroupFactory.Create (typeof(DebugCanvas));
 				var viewEntities = GroupFactory.Create (typeof(DebugView));
 
-				group.OnAdd ().Subscribe (entity => {
+				debugCanvasEntities.OnAdd ().Subscribe (entity => {
 					var debugCanvas = entity.GetComponent<DebugCanvas> ();
 
 					debugCanvas.canvas = debugCanvas.gameObject.AddComponent<Canvas> ();
@@ -104,6 +105,8 @@ namespace UniEasy.Console
 					debugCanvas.graphicRaycaster = debugCanvas.gameObject.AddComponent<GraphicRaycaster> ();
 					debugCanvas.canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 					debugCanvas.canvas.sortingOrder = 100;
+					debugCanvas.canvasScaler.matchWidthOrHeight = 1;
+					debugCanvas.canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 
 					viewEntities.OnAdd ().Subscribe (viewEntity => {
 						var debugView = viewEntity.GetComponent<DebugView> ();

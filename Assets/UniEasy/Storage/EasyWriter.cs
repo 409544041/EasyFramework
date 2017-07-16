@@ -14,13 +14,16 @@ namespace UniEasy
 		public EasyWriter (string path)
 		{
 			filePath = path;
+			#if UNITY_EDITOR
 			var directoryName = Path.GetDirectoryName (path);
 			if (!Directory.Exists (directoryName)) {
 				Directory.CreateDirectory (directoryName);
 			}
+			#endif
 			if (Records == null) {
 				Records = new ReactiveDictionary<string, ReactiveWriter> ();
 			}
+
 			if (!Records.ContainsKey (path)) {
 				DeserializeAsync<EasyDictionary<string, EasyObject>> (path).Subscribe (x => {
 					Records.Add (path, new ReactiveWriter (path, x));

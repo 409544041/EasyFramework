@@ -75,9 +75,9 @@ namespace UniEasy.Console
 			#endif
 			if (IsLogLayerAllowed (layerName)) {
 				Debug.unityLogger.Log (logType, message, context);
-			}
-			if (ShowOnUGUI && OnLogEvent != null) {
-				OnLogEvent.Invoke (logType, message);
+				if (ShowOnUGUI && OnLogEvent != null) {
+					OnLogEvent.Invoke (logType, message);
+				}
 			}
 		}
 

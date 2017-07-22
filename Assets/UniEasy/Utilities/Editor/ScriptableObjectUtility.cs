@@ -8,12 +8,7 @@ namespace UniEasy
 	{
 		static public T LoadAtPath<T> (string assetPath) where T : ScriptableObject
 		{
-			var obj = AssetDatabase.LoadAssetAtPath<ScriptableObject> (assetPath);
-//			var callback = obj as ISerializationCallbackReceiver;
-//			if (callback != null) {
-//				callback.OnAfterDeserialize ();
-//			}
-			return (T)obj;
+			return (T)AssetDatabase.LoadAssetAtPath<ScriptableObject> (assetPath);
 		}
 
 		static public T CreateAsset<T> (T asset, string savePath) where T : ScriptableObject

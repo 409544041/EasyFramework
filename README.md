@@ -7,7 +7,7 @@ i hope everyone like it and easy to use,cheers!
 
 - <a href="#todo">ToDo</a>
 - <a href="#introduction">Introduction</a>
-- <a href="#quick_start">Quick Start</a>
+- <a href="#quickstart">Quick Start</a>
 - <a href="#history">History</a>
 
 ## <a id="todo"></a>TODO
@@ -16,7 +16,7 @@ i hope everyone like it and easy to use,cheers!
 ## <a id="introduction"></a>Introduction
 ...
 
-## <a id="quick_start"></a>Quick Start
+## <a id="quickstart"></a>Quick Start
 ...
 
 ## <a id="history"></a>History
@@ -143,7 +143,7 @@ i hope everyone like it and easy to use,cheers!
 		}
 	then you just need drag the slider to select the range in Inspector
 
-2017-03-19 ScriptableObject Window
+<a id="scriptableobjectwindow"></a>2017-03-19 ScriptableObject Window
 
 	1. Right click in Project Window Select >> Create >> UniEasy >> ScriptableObject Window.
 	2. You can use search or drop-down menu select a ScriptableObject class (you can found all ScriptableObject class in project).
@@ -466,3 +466,19 @@ If you want to dynamic create an entity have EntityBheaviour Component, you can 
 			}).AddTo(this.Disposer)
 		}
 	}
+
+2017-07-22 Restructure EasyAsset(ScriptableObject)
+>###### Now you can code a ScriptableObject like this -> EasyBlock : EasyAsset<string, BlockObject>
+>###### Then you can use <a href="#scriptableobjectwindow">ScriptableObject Window</a> to create it
+>###### I also Add EasyBlock you can right click Hierarchy GameObject Select >> UniEasy >> Export Block/Export Block Group to create it
+>###### The structure of the exported blocks needs to meet the following conditions
+	- Root(GameObject) [Right Click Export Block Group]
+		- Block0(GameObject) [Right Click Export Block]
+			- Cube0(Prefab)
+			- Cube1(Prefab)
+			- ...  (Prefab)
+		- Block1(GameObject) [Right Click Export Block]
+			- Cube0(Prefab)
+			- Cube1(Prefab)
+			- ...  (Prefab)
+	

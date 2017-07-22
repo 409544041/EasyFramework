@@ -8,26 +8,26 @@ namespace UniEasy.Edit
 		private static Type internalEditorUtilityType;
 		private static Type sceneHierarchyWindow;
 		private static Type consoleWindowType;
+		private static Type monoRuntimeType;
 		private static Type logEntriesType;
 		private static Type logEntryType;
 
 		public static Type GetType (string filePath, string typeName)
 		{
-			Assembly assembly = Assembly.LoadFile (filePath);
+			var assembly = Assembly.LoadFile (filePath);
 			return assembly.GetType (typeName);
 		}
 
 		public static Type GetType (AssemblyName assemblyName, string typeName)
 		{
-			Assembly assembly = Assembly.Load (assemblyName);
+			var assembly = Assembly.Load (assemblyName);
 			return assembly.GetType (typeName);
 		}
 
 		static public Type SceneHierarchyWindow {
 			get {
 				if (sceneHierarchyWindow == null) {
-//		    		return GetType ("c:/program files/unity/editor/data/managed/UnityEditor.dll", "UnityEditor.SceneHierarchyWindow");
-					AssemblyName assemblyName = new AssemblyName ("UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
+					var assemblyName = new AssemblyName ("UnityEditor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null");
 					sceneHierarchyWindow = GetType (assemblyName, "UnityEditor.SceneHierarchyWindow");
 				}
 				return sceneHierarchyWindow;
@@ -80,7 +80,10 @@ namespace UniEasy.Edit
 
 		public static Type MonoRuntimeType {
 			get {
-				return Type.GetType ("Mono.Runtime");
+				if (monoRuntimeType == null) {
+					monoRuntimeType = Type.GetType ("Mono.Runtime");
+				}
+				return monoRuntimeType;
 			}
 		}
 	}

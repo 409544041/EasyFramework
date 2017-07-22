@@ -10,7 +10,7 @@ namespace UniEasy.Edit
 		{
 			var go = ScriptableObject.CreateInstance (type);
 			var endNameEdit = ScriptableObject.CreateInstance<EndNameEditUtility> ();
-			endNameEdit.EndAction += (instanceID, pathName, resourceFile) => {
+			endNameEdit.EndNameEditEvent += (instanceID, pathName, resourceFile) => {
 				AssetDatabase.CreateAsset (EditorUtility.InstanceIDToObject (instanceID), AssetDatabase.GenerateUniqueAssetPath (pathName));
 			};
 			ProjectWindowUtil.StartNameEditingIfProjectWindowExists (

@@ -5,13 +5,13 @@ namespace UniEasy.Edit
 {
 	internal class EndNameEditUtility : EndNameEditAction
 	{
+		public event Action<int, string, string> EndNameEditEvent;
+
 		public override void Action (int instanceID, string pathName, string resourceFile)
 		{
-			if (EndAction != null) {
-				EndAction (instanceID, pathName, resourceFile);
+			if (EndNameEditEvent != null) {
+				EndNameEditEvent (instanceID, pathName, resourceFile);
 			}
 		}
-
-		public event Action<int, string, string> EndAction;
 	}
 }

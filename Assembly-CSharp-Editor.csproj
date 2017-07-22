@@ -68,7 +68,6 @@
      <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\BaseContextMenu.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\ComponentContextMenuExtend.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\EasyMenuItem.cs" />
-     <Compile Include="Assets\UniEasy\Editor\Unity\Hierarchy\BlockContextMenu.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Hierarchy\HierarchyContextMenu.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Hierarchy\SearchSceneMissingContextMenu.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Inspector\EasyRectTransform.cs" />
@@ -79,6 +78,7 @@
      <Compile Include="Assets\UniEasy\Utilities\Editor\DecoratorEditor.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Editor\EndNameEditUtility.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Editor\ProjectWindowUtilHelper.cs" />
+     <Compile Include="Assets\UniEasy\Utilities\Editor\ScriptableObjectUtility.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Editor\TypeHelper.cs" />
      <Compile Include="Assets\UniEasy\Utilities\Usage\Editor\MinMaxRangeDrawer.cs" />
      <None Include="Assets\Plugins\UniRx\ReadMe.txt" />

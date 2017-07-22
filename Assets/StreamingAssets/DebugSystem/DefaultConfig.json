@@ -1,21 +1,26 @@
 {
     "keys": [
-        "default",
+        "isLogEnabled",
         "showOnUGUI",
-        "isLogEnabled"
+        "default",
+        "collapse"
     ],
     "values": [
         {
+            "typeCode": 3,
+            "target": "True"
+        },
+        {
+            "typeCode": 3,
+            "target": "True"
+        },
+        {
             "typeCode": 18,
-            "value": "{\n    \"value\": [\n        {\n            \"isEnable\": true,\n            \"layerName\": \"Default\"\n        },\n        {\n            \"isEnable\": false,\n            \"layerName\": \"UniEasy\"\n        }\n    ]\n}"
+            "target": "{\n    \"collection\": [\n        {\n            \"isEnable\": true,\n            \"layerName\": \"Default\"\n        },\n        {\n            \"isEnable\": true,\n            \"layerName\": \"UniEasy\"\n        }\n    ]\n}"
         },
         {
             "typeCode": 3,
-            "value": "True"
-        },
-        {
-            "typeCode": 3,
-            "value": "True"
+            "target": "True"
         }
     ]
 }

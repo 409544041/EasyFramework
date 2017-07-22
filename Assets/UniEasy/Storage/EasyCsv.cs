@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace UniEasy
 {
@@ -38,23 +38,23 @@ namespace UniEasy
 
 		public EasyCsv (TextAsset textAsset)
 		{
-			string[] rows = textAsset.text.Split (RowSymbol, System.StringSplitOptions.None);
+			var rows = textAsset.text.Split (RowSymbol, System.StringSplitOptions.None);
 			values = new string[rows.Length][];
 			for (int i = 0; i < rows.Length; i++) {
 				values [i] = rows [i].Split (ColumnSymbol, System.StringSplitOptions.None);
-				int count = values [i].Length;
+				var count = values [i].Length;
 				values [i] [count - 1] = values [i] [count - 1].Replace ("\r", "");
 			}
 
 			target = new Dictionary<string, Coordinate> ();
 			for (int i = 0; i < RowCount; i++) {
 				for (int j = 0; j < ColumnCount; j++) {
-					string content = GetValue (i, j);
+					var content = GetValue (i, j);
 					if (!target.ContainsKey (content)) {
 						target.Add (content, new Coordinate () { row = i, column = j });
 					} else {
 						#if UNITY_EDITOR
-						Debug.LogWarning ("Data's name [" + content + "] conflict! please make sure you will not use this data's name join in search.");
+						Debug.LogWarning (string.Format ("This data name '{0}' conflicts! Please make sure you will not use this data name to search.", content));
 						#endif
 					}
 				}
@@ -66,21 +66,24 @@ namespace UniEasy
 
 		public string GetValue (int row, int column)
 		{
-			if (row < 0 || column < 0 || values == null)
+			if (row < 0 || column < 0 || values == null) {
 				return default (string);
-			if (values.Length <= 0 || row >= values.Length)
+			}
+			if (values.Length <= 0 || row >= values.Length) {
 				return default (string);
-			if (values [0] == null || column >= values [0].Length)
+			}
+			if (values [0] == null || column >= values [0].Length) {
 				return default (string);
-
+			}
 			return values [row] [column];
 		}
 
 		public List<string> ToRowList (string name)
 		{
-			if (RowDictionary.ContainsKey (name))
+			if (RowDictionary.ContainsKey (name)) {
 				return RowDictionary [name];
-			List<string> list = new List<string> ();
+			}
+			var list = new List<string> ();
 			if (target.ContainsKey (name)) {
 				list.AddRange (values [target [name].row]);
 				RowDictionary.Add (name, list);
@@ -90,9 +93,10 @@ namespace UniEasy
 
 		public List<string> ToColumnList (string name)
 		{
-			if (ColumnDictionary.ContainsKey (name))
+			if (ColumnDictionary.ContainsKey (name)) {
 				return ColumnDictionary [name];
-			List<string> list = new List<string> ();
+			}
+			var list = new List<string> ();
 			if (target.ContainsKey (name)) {
 				for (int i = 0; i < RowCount; i++) {
 					list.Add (GetValue (i, target [name].column));
@@ -104,11 +108,11 @@ namespace UniEasy
 
 		public string GetValue (string name, string rowName, string columnName)
 		{
-			List<string> rowList = this.ToRowList (name);
-			List<string> columnList = this.ToColumnList (name);
+			var rowList = this.ToRowList (name);
+			var columnList = this.ToColumnList (name);
 			if (columnList.Contains (rowName) && rowList.Contains (columnName)) {
-				int row = columnList.FindIndex (value => value == rowName);
-				int column = rowList.FindIndex (value => value == columnName);
+				var row = columnList.FindIndex (value => value == rowName);
+				var column = rowList.FindIndex (value => value == columnName);
 				return GetValue (row, column);
 			}
 			return default (string);

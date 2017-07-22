@@ -1,30 +1,15 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
-
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
+﻿using System.Collections.Generic;
+using UnityEngine;
+using System;
 
 namespace UniEasy
 {
-	/// <summary>
-	/// Use only in the Unity Editor.
-	/// </summary>
 	public interface IScriptableObjectLoadCallback
 	{
 		void OnAfterAssetLoaded ();
 	}
 
-	[System.Serializable]
-	public class EasyAsset : EasyAsset<Object>
-	{
-		protected override string GetKey (Object item)
-		{
-			return (item as Object).name;
-		}
-	}
-
-	[System.Serializable]
+	[Serializable]
 	public class EasyAsset<T> : ScriptableObject,IScriptableObjectLoadCallback
 	{
 		[SerializeField]
@@ -64,7 +49,7 @@ namespace UniEasy
 		void OnDestroy ()
 		{
 			#if UNITY_EDITOR
-			AssetDatabase.SaveAssets ();
+			UnityEditor.AssetDatabase.SaveAssets ();
 			#endif
 		}
 
@@ -96,7 +81,7 @@ namespace UniEasy
 			if (target.ContainsKey (GetKey (item)))
 				target.Remove (GetKey (item));
 			#if UNITY_EDITOR
-			AssetDatabase.SaveAssets ();
+			UnityEditor.AssetDatabase.SaveAssets ();
 			#endif
 		}
 
@@ -112,7 +97,7 @@ namespace UniEasy
 				target.Remove (name);
 			}
 			#if UNITY_EDITOR
-			AssetDatabase.SaveAssets ();
+			UnityEditor.AssetDatabase.SaveAssets ();
 			#endif
 		}
 
@@ -135,7 +120,7 @@ namespace UniEasy
 			target = new Dictionary<string, T> ();
 			values = new List<T> ();
 			#if UNITY_EDITOR
-			AssetDatabase.SaveAssets ();
+			UnityEditor.AssetDatabase.SaveAssets ();
 			#endif
 		}
 	}

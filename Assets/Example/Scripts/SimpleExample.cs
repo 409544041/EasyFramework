@@ -13,8 +13,6 @@ public class SimpleExample : SystemBehaviour
 {
 	[SerializeField]
 	private bool isOpenFile = false;
-	[SerializeField]
-	private EasyBlock[] blocks = new EasyBlock[0];
 
 	[System.Serializable]
 	public struct StructSample
@@ -60,8 +58,6 @@ public class SimpleExample : SystemBehaviour
 				this,
 				this
 			});
-			x.Set<EasyBlock> ("block", blocks [0]);
-			x.SetArray<EasyBlock> ("block array", blocks);
 
 			Debugger.Log (x.Get<byte> ("byte"));
 			Debugger.Log (x.Get<bool> ("bool"));
@@ -79,8 +75,6 @@ public class SimpleExample : SystemBehaviour
 			Debugger.Log (x.GetArray<ClassSample> ("class array") [1].rect);
 			x.Get<SimpleExample> ("this", this);
 			x.GetArray<SimpleExample> ("this array", new SimpleExample[] { this, this });
-			x.Get<EasyBlock> ("block", blocks [0]);
-			x.GetArray<EasyBlock> ("block array", blocks);
 
 			x.Remove ("string");
 			Debugger.Log ("already remove 'string' key : " + x.Get<string> ("string"));
@@ -92,13 +86,5 @@ public class SimpleExample : SystemBehaviour
 			string path = Path.GetFullPath (Application.persistentDataPath);
 			System.Diagnostics.Process.Start ("explorer.exe", path);
 		}
-
-		List<string> list = new List<string> ();
-		for (int i = 0; i < blocks.Length; i++) {
-			BlockFactory.Instance.AddBlock (blocks [i]);
-			list.Add (blocks [i].name);
-		}
-		BlockFactory.Instance.CreateSnapShot ("cubes", list);
-		BlockFactory.Instance.CreateBlockBySnapShots ("cubes");
 	}
 }

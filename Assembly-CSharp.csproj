@@ -148,6 +148,7 @@
      <Compile Include="Assets\UniEasy\Injector\Source\Usage\InjectAttribute.cs" />
      <Compile Include="Assets\UniEasy\Injector\Source\Util\EasyInjectInfo.cs" />
      <Compile Include="Assets\UniEasy\Injector\Source\Util\TypeAnalyzer.cs" />
+     <Compile Include="Assets\UniEasy\Storage\BlockObject.cs" />
      <Compile Include="Assets\UniEasy\Storage\Core\EasyAsset.cs" />
      <Compile Include="Assets\UniEasy\Storage\Core\EasyDictionary.cs" />
      <Compile Include="Assets\UniEasy\Storage\Core\EasyList.cs" />
@@ -156,6 +157,7 @@
      <Compile Include="Assets\UniEasy\Storage\Core\EasyStringCollection.cs" />
      <Compile Include="Assets\UniEasy\Storage\Core\EasyWriter.cs" />
      <Compile Include="Assets\UniEasy\Storage\Core\ReactiveWriter.cs" />
+     <Compile Include="Assets\UniEasy\Storage\EasyBlock.cs" />
      <Compile Include="Assets\UniEasy\Storage\EasyCsv.cs" />
      <Compile Include="Assets\UniEasy\Storage\EasyWriter.cs" />
      <Compile Include="Assets\UniEasy\Storage\Extensions\ConvertExtensions.cs" />

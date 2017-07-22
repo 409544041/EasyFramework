@@ -66,6 +66,7 @@
      <Compile Include="Assets\UniEasy\Editor\Install\ScriptableObject\ScriptableObjectInstallerUtility.cs" />
      <Compile Include="Assets\UniEasy\Editor\Install\ScriptableObject\ScriptableObjectWindow.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\BaseContextMenu.cs" />
+     <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\BlockContextMenu.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\ComponentContextMenuExtend.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\ContextMenu\EasyMenuItem.cs" />
      <Compile Include="Assets\UniEasy\Editor\Unity\Hierarchy\HierarchyContextMenu.cs" />

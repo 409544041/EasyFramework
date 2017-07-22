@@ -4,124 +4,43 @@ using System;
 
 namespace UniEasy
 {
-	public interface IScriptableObjectLoadCallback
-	{
-		void OnAfterAssetLoaded ();
-	}
-
 	[Serializable]
-	public class EasyAsset<T> : ScriptableObject,IScriptableObjectLoadCallback
+	public class EasyAsset<TKey, TValue> : ScriptableObject,ISerializationCallbackReceiver
 	{
 		[SerializeField]
-		private List<T> values;
-		private Dictionary<string, T> target;
+		private List<TKey> keys;
+		[SerializeField]
+		private List<TValue> values;
+		private Dictionary<TKey, TValue> target;
 
-		public int Count {
-			get {
-				return values.Count;
+		public EasyAsset ()
+		{
+			target = new Dictionary<TKey, TValue> ();
+		}
+
+		public EasyAsset (Dictionary<TKey, TValue> dictionary)
+		{
+			target = dictionary;
+		}
+
+		public void OnBeforeSerialize ()
+		{
+			keys = new List<TKey> (target.Keys);
+			values = new List<TValue> (target.Values);
+		}
+
+		public void OnAfterDeserialize ()
+		{
+			var count = Math.Min (keys.Count, values.Count);
+			target = new Dictionary<TKey, TValue> (count);
+			for (var i = 0; i < count; ++i) {
+				target.Add (keys [i], values [i]);
 			}
 		}
 
-		public Dictionary<string, T> ToDictionary ()
+		public Dictionary<TKey, TValue> ToDictionary ()
 		{
 			return target;
-		}
-
-		protected virtual string GetKey (T item)
-		{
-			return null;
-		}
-
-		public void OnAfterAssetLoaded ()
-		{
-			this.OnEnable ();
-		}
-
-		public void OnEnable ()
-		{
-			if (values == null)
-				values = new List<T> ();
-			target = new Dictionary<string, T> ();
-			if (values != null && values.Count > 0)
-				AddRange (values.ToArray ());
-		}
-
-		void OnDestroy ()
-		{
-			#if UNITY_EDITOR
-			UnityEditor.AssetDatabase.SaveAssets ();
-			#endif
-		}
-
-		public void Add (T item)
-		{
-			if (item == null)
-				return;
-			if (!values.Contains (item)) {
-				values.Add (item);
-			}
-			if (!target.ContainsKey (GetKey (item))) {
-				target.Add (GetKey (item), item);
-			}
-		}
-
-		public void AddRange (T[] items)
-		{
-			for (int i = 0; i < items.Length; i++) {
-				Add (items [i]);
-			}
-		}
-
-		public void Remove (T item)
-		{
-			if (item == null)
-				return;
-			if (values.Contains (item))
-				values.Remove (item);
-			if (target.ContainsKey (GetKey (item)))
-				target.Remove (GetKey (item));
-			#if UNITY_EDITOR
-			UnityEditor.AssetDatabase.SaveAssets ();
-			#endif
-		}
-
-		public void Remove (string name)
-		{
-			if (string.IsNullOrEmpty (name))
-				return;
-			if (target.ContainsKey (name)) {
-				T o = target [name];
-				if (values.Contains (o)) {
-					values.Remove (o);
-				}
-				target.Remove (name);
-			}
-			#if UNITY_EDITOR
-			UnityEditor.AssetDatabase.SaveAssets ();
-			#endif
-		}
-
-		public void RemoveRange (T[] items)
-		{
-			for (int i = 0; i < items.Length; i++) {
-				Remove (items [i]);
-			}
-		}
-
-		public void RemoveRange (string[] names)
-		{
-			for (int i = 0; i < names.Length; i++) {
-				Remove (names [i]);
-			}
-		}
-
-		public void Clear ()
-		{
-			target = new Dictionary<string, T> ();
-			values = new List<T> ();
-			#if UNITY_EDITOR
-			UnityEditor.AssetDatabase.SaveAssets ();
-			#endif
 		}
 	}
 }
